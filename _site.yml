@@ -6,6 +6,6 @@ navbar:
     - text: "Home"
       href: index.html
     - text: "Network"
-      href: network.html
+      href: networks.html
     - text: "About"
       href: about.html
