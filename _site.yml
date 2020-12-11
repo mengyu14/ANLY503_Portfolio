@@ -7,5 +7,7 @@ navbar:
       href: index.html
     - text: "Network"
       href: networks.html
+    - text: "Final Project"
+      href: final_project.html
     - text: "About"
       href: about.html
