@@ -1,0 +1,48 @@
+---
+title: "Q3"
+author: "Mary Yu"
+output: html_document
+---
+
+## Is there a relationship between a good or bad loan and the time between an account is opened an the loan is created? Is there a specific set of accounts that seem to be at higher or lower risk of defaulting?
+
+```{r, warning=FALSE}
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+# Set working directory 
+setwd("~/Desktop/ANLY 503/ANLY503_Portfolio/")
+accounts <- read.csv("data/accounts_analytical.csv", header = TRUE)
+```
+
+```{r}
+# Filter out the account that have loans
+loans <- accounts %>%
+  filter(!is.na(loan_amount))%>%
+  mutate(acct_creation_date = as.Date(acct_creation_date), loan_date = as.Date(loan_date), difference = loan_date-acct_creation_date)%>%
+  select(account_id, acct_creation_date, loan_date, difference, loan_amount, loan_payment, loan_term, loan_status, loan_default)
+```
+
+Since we want to look at the relationship between good/bad loan and the time difference between the date the account was opened and the date the loan was created, I tried a scatterplot that separates defaulted loans and good loans using different colors. I also added a layer of boxplot to show the distribution of the good and bad loans.
+
+```{r}
+g <- ggplot(loans, aes(x = difference, y = factor(1), color = loan_default))+
+  geom_boxplot()+
+  geom_jitter(alpha = 0.5)+
+  theme(axis.text.x = element_text(angle=45, hjust = 1))+
+  theme_classic()+  
+  theme(axis.title.y = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank())+
+  scale_color_manual(values = c("#6a6aab", "#c2595e"))+
+  xlab("Time Difference (Days)")+
+  ggtitle("Account and Loan Opening Difference and Loan Default")+
+  labs(color = "Loan Default")
+
+g
+```
+
+Looking at the above plot, without the boxplots, there isn't really a pattern between the time difference and default loans. The boxplot shows that the defaulted loans on average have a smaller difference between the loan creation date and the account opening date, but we will need further testing to prove that this difference is significant.

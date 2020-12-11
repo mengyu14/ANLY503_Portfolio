@@ -1,0 +1,53 @@
+---
+title: "Q5"
+author: "Mary Yu"
+output: html_document
+---
+
+## Explore the validity of the data for the case whether or not an account has a credit card and whether or not they have associated credit card transactions. Is there anything worth noting?
+
+```{r, warning=FALSE}
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+# Set working directory 
+setwd("~/Desktop/ANLY 503/ANLY503_Portfolio/")
+accounts <- read.csv("data/accounts_analytical.csv", header = TRUE)
+trans <- read.csv("data/transactions.csv", header = TRUE)
+```
+
+```{r}
+# select variables to plot
+account_cc <- accounts %>%
+  select(account_id, credit_cards)
+
+trans_cc <- trans %>%
+  select(account_id, amount, method, category)%>%
+  filter(method == "credit card")
+
+cc <- merge(account_cc, trans_cc, by = "account_id", all.y = TRUE)
+cc$credit_cards[is.na(cc$credit_cards)] <- 0
+cc$category[is.na(cc$category)] <- "None"
+
+
+```
+
+```{r}
+g <- ggplot(cc, aes(x = amount, y = as.factor(credit_cards), color = as.factor(credit_cards)))+
+  geom_boxplot(color = "black")+
+  geom_jitter(alpha = 0.2)+
+  theme_classic()+
+  theme(legend.position = "none")+
+  xlab("Transaction Amount")+
+  ylab("Number of Credit Cards on Account")+
+  ggtitle("Number of Credit Card and Credit Card Transactions")+
+  scale_color_manual(values = c("#bab4f0", "#7770b3", "#4c42a1"))
+
+g
+```
+
+It's actually interesting to see that most account does not have a credit card, but they have a lot of credit card transactions. Account owners who does not have credit cards have some higher transaction amounts, while accounts with 1 credit card have less high-amount transactions. there is only about 2 transactions that are made with amounts higher than $4000 from accounts that have 2 credit cards. 
+

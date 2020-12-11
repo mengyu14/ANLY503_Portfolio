@@ -1,0 +1,48 @@
+---
+title: "Q2"
+author: "Mary Yu"
+output: html_document
+---
+
+## What is the distribution of all loans and what are their characteristics?
+
+```{r, warning=FALSE}
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+# Set working directory 
+setwd("~/Desktop/ANLY 503/ANLY503_Portfolio/")
+accounts <- read.csv("data/accounts_analytical.csv", header = TRUE)
+```
+
+```{r}
+# Filter out the account that have loans
+loans <- accounts %>%
+  filter(!is.na(loan_amount))%>%
+  select(account_id, loan_date, loan_amount, loan_payment, loan_term, loan_status, loan_default)
+```
+
+Since we want to look at the distribution of all of the loans, I used a histogram and layered it with a density curve. The mean and median were calculated and marked onto the graph. 
+```{r}
+g <- ggplot(loans, aes(x = loan_amount))+
+  geom_histogram(aes(y=..density..), color = "black", fill = "white")+
+  geom_density(alpha = 0.3, fill = "#dbb2c6")+
+  geom_vline(aes(xintercept=mean(loan_amount), color = paste("Mean: $", round(mean(loan_amount), digits = 2))), linetype = "dashed", size = 1)+
+  geom_vline(aes(xintercept=median(loan_amount), color = paste("Median: $", round(median(loan_amount), digits = 2))), linetype = "dashed", size = 1)+
+  theme_classic()+  
+  theme(axis.title.y = element_blank(),
+        axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank())+
+  scale_color_manual(name = "Statistics", values = c("#6a6aab", "#ab5c7a"))+
+  scale_x_continuous(name="Loan Amount", labels = scales::comma)+
+  ggtitle("Distribution of All Loans")
+
+
+g
+```
+
+The distribution of loan amounts is right-skewed, most ot the loans have a relatively lower amount. The mean and median of all of the loans are \$151, 410.18 and \$116,928.00, respectively. 
+

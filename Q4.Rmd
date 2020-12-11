@@ -1,0 +1,77 @@
+---
+title: "Q4"
+author: "Mary Yu"
+output: html_document 
+---
+
+## For the account with the highest number of transactions, make a time series line plot for the behavior of the account over time, including all debits and credits, the different methods, and the with the different categories.
+
+```{r, setup}
+library(reticulate)
+use_virtualenv("/Users/Mary/Library/r-miniconda/envs/r-reticulate/bin/python")
+py_install("matplotlib")
+```
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+```
+
+```{python}
+trans = pd.read_csv("data/transactions.csv")
+```
+```{python}
+# select the account that have the highest number of transactions
+num_trans = int(trans.groupby('account_id').count()[['id']].max())
+# 675
+
+# filter out the transactions by the account id
+trans_675 = trans[trans['account_id']==num_trans]
+
+# change date to datetime 
+trans_675['date'] = pd.to_datetime(trans_675['date'])
+trans_675 = trans_675.sort_values(by = 'date')
+```
+
+```{python}
+plt.plot(trans_675['date'], trans_675['balance'])
+plt.title('Behavior of Account Over Time')
+plt.ylabel('Balance ($)')
+plt.xlabel('Date')
+
+```
+
+Overall the transactions and spending amounts seem to be pretty consistent, there are two large dips in early 1996 and earlt 1998, other than that the balance is gradually increasing.
+
+```{python}
+fig, ax = plt.subplots()
+for label, group in trans_675.groupby('type'):
+    group.plot(x = 'date', y = 'balance', ax = ax, label = label)
+plt.title('Behavior of Account by Transaction Type')
+plt.ylabel('Balance ($)')
+plt.xlabel('Date')
+```
+
+The spending amounts for debit transactions is usually higher than the credit transactions. 
+
+```{python}
+fig, ax = plt.subplots()
+for label, group in trans_675.groupby('method'):
+    group.plot(x = 'date', y = 'balance', ax = ax, label = label)
+plt.title('Behavior of Account by Transaction Method')
+plt.ylabel('Balance ($)')
+plt.xlabel('Date')
+```
+
+Most transactions were made by cash, others were made by bank transfer. Credit card transactions started in later 1998, and wasn't used much.
+
+```{python}
+fig, ax = plt.subplots()
+for label, group in trans_675.groupby('category'):
+    group.plot(x = 'date', y = 'balance', ax = ax, label = label)
+plt.title('Behavior of Account by Transaction Category')
+plt.ylabel('Balance ($)')
+plt.xlabel('Date')
+```
+
+Looking at the patterns from this plot and match it to the previous one, it can be observed that most bank transfers were used for household payments. Interest credit and statement charges are joined, and the account started loan payments in mid-1997.

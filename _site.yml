@@ -5,9 +5,22 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "Static Visuals"
+      menu: 
+      - text: "Visual 1"
+        href: Q1.html
+      - text: "Visual 2"
+        href: Q2.html
+      - text: "Visual 3"
+        href: Q3.html
+      - text: "Visual 4"
+        href: Q4.html
+      - text: "Visual 5"
+        href: Q5.html
     - text: "Network"
       href: networks.html
-    - text: "Final Project"
-      href: final_project.html
     - text: "About"
       href: about.html
+output:
+  html_document:
+    theme: cosmo
