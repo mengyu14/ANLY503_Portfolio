@@ -1,10 +1,11 @@
 ---
-title: "A7"
-author: "Mary Yu"
-output: html_document
+title: "Network Graph"
 ---
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+### The following code produces a network graph that shows state migrations between California, Texas, New York, Ohio, and their respective 10 states that have the highest migration traffic.
+
+
+```{r, warning=FALSE, message=FALSE}
 setwd("~/Desktop/ANLY 503/ANLY503_Portfolio/")
 library(dplyr)
 library(tidyr)
@@ -12,9 +13,9 @@ library(readxl)
 library(tidygraph)
 library(ggraph)
 ```
-## Extract the data from the Excel file and modify into desired form.
+### Extract the data from the Excel file and modify into desired form.
 
-```{r ,echo=FALSE, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 # read in the excel file 
 data <- read_excel("data/State_to_State_Migrations_Table_2018.xls", 
     range = "L7:DQ78")
@@ -62,9 +63,9 @@ data <- rbind(ny, tx, ca, oh)
 data <- data[, c(2, 1, 3)]
 ```
 
-## Plot the network graph using `tidygraph`.
+### Plot the network graph using `tidygraph`.
 
-```{r ,echo=FALSE, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 # change into data table format to prepare for graphing
 graph <- as_tbl_graph(data) %>%
   activate(nodes)%>%

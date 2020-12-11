@@ -9,10 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Mary Yu" />
 
 
-<title>A7</title>
+<title>Network Graph</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -304,17 +303,86 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">A7</h1>
-<h4 class="author">Mary Yu</h4>
+<h1 class="title toc-ignore">Network Graph</h1>
 
 </div>
 
 
-<div id="extract-the-data-from-the-excel-file-and-modify-into-desired-form." class="section level2">
-<h2>Extract the data from the Excel file and modify into desired form.</h2>
+<div id="the-following-code-produces-a-network-graph-that-shows-state-migrations-between-california-texas-new-york-ohio-and-their-respective-10-states-that-have-the-highest-migration-traffic." class="section level3">
+<h3>The following code produces a network graph that shows state migrations between California, Texas, New York, Ohio, and their respective 10 states that have the highest migration traffic.</h3>
+<pre class="r"><code>setwd(&quot;~/Desktop/ANLY 503/ANLY503_Portfolio/&quot;)
+library(dplyr)
+library(tidyr)
+library(readxl)
+library(tidygraph)
+library(ggraph)</code></pre>
 </div>
-<div id="plot-the-network-graph-using-tidygraph." class="section level2">
-<h2>Plot the network graph using <code>tidygraph</code>.</h2>
+<div id="extract-the-data-from-the-excel-file-and-modify-into-desired-form." class="section level3">
+<h3>Extract the data from the Excel file and modify into desired form.</h3>
+<pre class="r"><code># read in the excel file 
+data &lt;- read_excel(&quot;data/State_to_State_Migrations_Table_2018.xls&quot;, 
+    range = &quot;L7:DQ78&quot;)
+
+# select New York, Texas, California and Ohio
+network &lt;- data %&gt;%
+  select(...1, `New York`, Texas, California, Ohio)%&gt;%
+  rename(current = ...1) 
+# take out rows with NA
+network &lt;- na.omit(network)
+# remove total row and puerto rico
+network &lt;- network[-c(1, 53), ]
+
+# change NY into network format and select top 10
+ny &lt;- network[, 1:2]
+ny &lt;- ny %&gt;%
+  pivot_longer(`New York`, names_to = &quot;source&quot;) %&gt;%
+  rename(target = current, count = value)
+
+ny &lt;- ny[order(ny$count),][1:10,]
+
+# repeat for other states
+tx &lt;- network[, c(1,3)]
+tx &lt;- tx %&gt;%
+  pivot_longer(Texas, names_to = &quot;source&quot;) %&gt;%
+  rename(target = current, count = value)
+
+tx &lt;- tx[order(tx$count),][1:10,]
+
+ca &lt;- network[, c(1,4)]
+ca &lt;- ca %&gt;%
+  pivot_longer(California, names_to = &quot;source&quot;) %&gt;%
+  rename(target = current, count = value)
+
+ca &lt;- ca[order(ca$count),][1:10,]
+
+oh &lt;- network[, c(1,5)]
+oh &lt;- oh %&gt;%
+  pivot_longer(Ohio, names_to = &quot;source&quot;) %&gt;%
+  rename(target = current, count = value)
+
+oh &lt;- oh[order(oh$count),][1:10,]
+
+data &lt;- rbind(ny, tx, ca, oh)
+data &lt;- data[, c(2, 1, 3)]</code></pre>
+</div>
+<div id="plot-the-network-graph-using-tidygraph." class="section level3">
+<h3>Plot the network graph using <code>tidygraph</code>.</h3>
+<pre class="r"><code># change into data table format to prepare for graphing
+graph &lt;- as_tbl_graph(data) %&gt;%
+  activate(nodes)%&gt;%
+  mutate(state = name,
+         label = name)
+
+ggraph(graph, layout = &quot;circle&quot;)+ # layout the states into a circle
+  geom_edge_bend(aes(edge_width = count, color = as.factor(from)), alpha = 0.4)+ # different color for each source state, and the width as the count of people
+  geom_node_text(aes(label = label), size = 3)+
+  theme_classic()+ 
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.position = &quot;none&quot;) +
+  ggtitle(&quot;State Migrations for New York, Texas, California and Ohio&quot;)</code></pre>
 <p><img src="networks_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 
