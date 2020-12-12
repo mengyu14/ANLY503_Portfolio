@@ -565,8 +565,6 @@ geo2020 <- geo_merge_2020 %>%
 
 # API key not included for security purposes
 key <- '<google api key>'
-key <- "AIzaSyDJcsUjO4p4LcllsQUjtjg6-PqcLTz6B4Y"
-
 ggmap_hide_api_key()
 register_google(key, write = FALSE)
 austin <- geocode("Austin")
