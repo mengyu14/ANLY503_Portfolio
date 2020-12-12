@@ -1,0 +1,2973 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Austin Animal Center</title>
+
+<meta property="og:title" content="Austin Animal Center" />
+
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+<link rel="icon" href="data:image/x-icon;" type="image/x-icon">
+
+
+<script type="text/javascript">
+window.FlexDashboardComponents = [];
+</script>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/stickytableheaders-0.1.19/jquery.stickytableheaders.min.js"></script>
+<script src="site_libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="site_libs/sly-1.6.1/sly.min.js"></script>
+<style type="text/css">
+
+/*
+ Dashboard CSS from Keen IO Dashboards
+ (https://github.com/keen/dashboards)
+*/
+
+body {
+  background: #f2f2f2;
+  padding: 60px 0 0 8px; /* padding-top overridden by theme */
+}
+
+body hr {
+  border-color: #d7d7d7;
+  margin: 10px 0;
+}
+
+.navbar-inverse .navbar-nav > li > a,
+.navbar .navbar-brand {
+  text-decoration: none;
+}
+
+.navbar-logo {
+  margin-top: 1px;
+}
+
+.navbar-logo img {
+  margin-right: 12px;
+}
+
+.navbar-author {
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.navbar .dropdown-menu .fa {
+  min-width: 20px;
+}
+
+.navbar .dropdown-menu {
+  min-width: 150px;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.chart-wrapper,
+.nav-tabs-custom,
+.sbframe-commentary
+{
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+.chart-title {
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 7px 10px 4px;
+}
+
+.chart-wrapper .chart-title:empty {
+  display: none;
+}
+
+.chart-wrapper .chart-stage {
+  overflow: hidden;
+  padding: 5px 10px;
+  position: relative;
+}
+
+.chart-wrapper .chart-notes {
+  background: #fbfbfb;
+  border-top: 1px solid #e2e2e2;
+  color: #808080;
+  font-size: 12px;
+  padding: 8px 10px 5px;
+}
+
+/*
+ CSS for handling flexbox layout
+*/
+
+#dashboard-container {
+  visibility: hidden;
+}
+
+.tab-content>.dashboard-page-wrapper.active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.dashboard-page-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-row-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.dashboard-column-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-column {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-wrapper-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-stage-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  position: relative;
+}
+
+.chart-shim {
+  position: absolute;
+  left: 8px; top: 8px; right: 8px; bottom: 8px;
+}
+
+.no-padding .chart-shim {
+  left: 0; top: 0; right: 0; bottom: 0;
+}
+
+.flowing-content-shim {
+  overflow: auto;
+  left: 0; top: 0; right: 0; bottom: 0;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.flowing-content-container {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.chart-stage .table-bordered {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > th,
+.chart-stage .table-bordered > tfoot > tr > th,
+.chart-stage .table-bordered > tbody > tr > td,
+.chart-stage .table-bordered > tfoot > tr > td {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > td {
+  border-top: 1px solid #dddddd;
+}
+
+.chart-stage .table-bordered > thead > tr > th {
+  border: none;
+  border-bottom: 2px solid #dddddd;
+}
+
+.bootstrap-table table>thead {
+  background-color: #fff;
+}
+
+.bootstrap-table table.data,
+.bootstrap-table table.shiny-table {
+  width: inherit !important;
+}
+
+.bootstrap-table table.data>tbody>tr>th,
+.bootstrap-table table.shiny-table>tbody>tr>th {
+  border-top: none;
+  border-bottom: 2px solid #dddddd;
+  padding: 5px;
+}
+
+.bootstrap-table .data td[align=right] {
+  font-family: inherit;
+}
+
+.chart-wrapper form {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.shiny-input-container label {
+  font-weight: normal;
+}
+
+.chart-stage .html-widget {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .html-widget-static-bound {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .shiny-bound-output {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Omit display of empty paragraphs */
+
+.chart-shim>p:empty {
+  display: none;
+}
+
+.chart-stage>p:empty {
+  display: none;
+}
+
+/* Omit display of special knitr options div*/
+
+.chart-stage .knitr-options {
+  display: none;
+}
+
+/* Automatically resizing images */
+
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+}
+
+.image-container img {
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* Value box */
+
+.value-box {
+  border-radius: 2px;
+  position: relative;
+  display: block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.value-box > .inner {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.value-box .value {
+  font-size: 38px;
+  font-weight: bold;
+  margin: 0 0 3px 0;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.value-box .caption {
+  font-size: 15px;
+}
+.value-box .caption > small {
+  display: block;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.value-box .icon i {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 80px;
+  color: rgba(0, 0, 0, 0.15);
+}
+
+.linked-value:hover {
+  cursor: pointer;
+}
+
+.value-box.linked-value:hover {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* STORYBOARD */
+
+.storyboard-nav button {
+  background: transparent;
+  border: 0;
+  opacity: .3;
+  outline: none;
+  padding: 0;
+}
+
+.storyboard-nav button:hover,
+.storyboard-nav button:hover {
+  opacity: .5;
+}
+
+.storyboard-nav button:disabled,
+.storyboard-nav button:disabled {
+  opacity: .1;
+}
+
+.storyboard-nav .sbnext,
+.storyboard-nav .sbprev {
+  float: left;
+  width: 2%;
+  height: 120px;
+  font-size: 50px;
+}
+
+.storyboard-nav .sbprev {
+  text-align: left;
+  width: 2%;
+}
+
+.storyboard-nav .sbnext {
+  float: right;
+  text-align: right;
+  margin-right: 8px;
+}
+
+.storyboard-nav .sbframelist {
+  margin: 0 auto;
+  width: 94%;
+  height: 120px;
+  overflow: hidden;
+  text-shadow: none;
+  margin-bottom: 8px;
+}
+
+.storyboard-nav .sbframelist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.storyboard-nav .sbframelist ul li {
+  float: left;
+  width: 270px;
+  height: 100%;
+  padding: 10px 10px 10px 10px;
+  margin-right: 8px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  color: #3a3c47;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.storyboard-nav .sbframelist ul li:last-child {
+  margin-right: 0px;
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  color: #fff;
+  background: #B8B8B8;
+}
+
+.sbframe-commentary {
+  width: 300px;
+  background: #fbfbfb;
+  font-size: 14px;
+}
+
+.sbframe-commentary ul {
+  padding-left: 22px;
+}
+
+.sbframe.active {
+  display: flex;
+}
+
+.sbframe:not(.active) {
+  display: none;
+}
+
+/* NAV TABS */
+
+.nav-tabs-custom > .nav-tabs {
+  margin: 0;
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.nav-tabs-custom > .nav-tabs > li {
+  border-top: 3px solid transparent;
+  margin-bottom: -1px;
+  margin-right: 5px;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+  color: #666;
+  font-weight: 300;
+  font-size: 14px;
+  border-radius: 0;
+  padding: 3px 10px 5px;
+  text-transform: none;
+}
+
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a {
+  border-bottom-color: transparent;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a.text-muted {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  background: transparent;
+  margin: 0;
+}
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:hover,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:focus,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:active {
+  border-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #3c8dbc;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a,
+.nav-tabs-custom > .nav-tabs > li.active:hover > a {
+  background-color: #fff;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a {
+  border-top-color: transparent;
+  border-left-color: #d7d7d7;
+  border-right-color: #d7d7d7;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type {
+  margin-left: 0;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type.active > a {
+  border-left-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs.pull-right {
+  float: none !important;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li {
+  float: right;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type {
+  margin-right: 0;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type > a {
+  border-left-width: 1px;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type.active > a {
+  border-left-color: #d7d7d7;
+  border-right-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.header {
+  line-height: 35px;
+  padding: 0 10px;
+  font-size: 20px;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.header > .fa,
+.nav-tabs-custom > .nav-tabs > li.header > .glyphicon,
+.nav-tabs-custom > .nav-tabs > li.header > .ion {
+  margin-right: 5px;
+}
+.nav-tabs-custom > .tab-content {
+  background: #fff;
+  padding: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom > .tab-content > .chart-wrapper {
+  background: #fff;
+  border: none;
+  margin: 0;
+}
+
+
+.nav-tabs-custom > .tab-content > .active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom .dropdown.open > a:active,
+.nav-tabs-custom .dropdown.open > a:focus {
+  background: transparent;
+  color: #999;
+}
+
+
+@media (max-width: 767px) {
+  .value-box {
+    text-align: center;
+    margin-right: 8px;
+  }
+  .value-box .icon {
+    display: none;
+  }
+}
+
+/* Fixed position sidebar */
+
+.section.sidebar {
+  position: fixed;
+  top: 51px; /* overridden by theme */
+  left: 0;
+  bottom: 0;
+  border-right: 1px solid #e2e2e2;
+  background-color: white; /* overridden by theme */
+  padding-left: 10px;
+  padding-right: 10px;
+  visibility: hidden;
+  overflow: auto;
+}
+
+.section.sidebar form p:first-child {
+  margin-top: 10px;
+}
+
+/* Embedded source code */
+
+#flexdashboard-source-code {
+  display: none;
+}
+
+.featherlight-content #flexdashboard-source-code {
+  display: inline-block;
+}
+
+.featherlight-content {
+  width: 80%;
+  max-width: 800px;
+  padding: 0 !important;
+  border-bottom: none !important;
+}
+
+.featherlight:last-of-type {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.featherlight-inner {
+  width: 100%;
+}
+
+.featherlight-content pre {
+  margin: 0;
+  border: 0;
+  background: #fff;
+  font-size: 12px;
+}
+
+.unselectable {
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+#flexdashboard-source-code code {
+  -ms-user-select: text;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+}
+
+/* DataTables Tweaks */
+
+.dataTables_filter input[type="search"] {
+  -webkit-appearance: searchfield;
+  outline: none;
+}
+
+.dataTables_wrapper.no-footer
+.dataTables_info {
+  padding-top: 0;
+}
+
+
+table.dataTable thead th {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+/* Mobile phone only CSS */
+
+.desktop-layout div.section.mobile {
+  display: none;
+}
+
+.mobile-layout div.section.no-mobile {
+  display: none;
+}
+
+.mobile-figure {
+  display: none;
+}
+
+
+
+body {
+  padding-top: 60px;
+}
+
+.section.sidebar {
+  top: 51px;
+  background-color: rgba(39, 128, 227, 0.1);
+}
+
+.value-box {
+  color: #f9f9f9;
+}
+
+.bg-primary {
+  background-color: rgba(39, 128, 227, 0.7);
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  background-color: rgba(39, 128, 227, 0.7);
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: rgba(39, 128, 227, 0.7);
+}
+
+.bg-info {
+  background-color: rgba(153, 84, 187, 0.7);
+}
+
+.bg-warning {
+  background-color: rgba(255, 117, 24, 0.7);
+}
+
+.bg-danger {
+  background-color: rgba(255, 0, 57, 0.7);
+}
+
+.bg-success {
+  background-color: rgba(63, 182, 24, 0.7);
+}
+
+.chart-title {
+  font-weight: 500;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+  font-weight: 500;
+}
+
+@media only screen and (min-width: 768px) {
+html, body {
+  height: 100%;
+}
+
+#dashboard-container {
+  height: 100%;
+}
+}
+</style>
+
+
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+
+<button id="navbar-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+
+<span class="navbar-logo pull-left">
+  
+</span>
+<span class="navbar-brand">
+  Austin Animal Center
+  <span class="navbar-author">
+        </span>
+</span>
+
+</div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav navbar-left">
+</ul>
+<ul class="nav navbar-nav navbar-right">
+</ul>
+</div><!--/.nav-collapse-->
+</div><!--/.container-->
+</div><!--/.navbar-->
+
+<img class="mobile-figure" data-mobile-figure-id=fig1 src="final_project_files/figure-html/waffle%20chart-1.mb.png" />
+<img class="mobile-figure" data-mobile-figure-id=fig2 src="final_project_files/figure-html/bar%20chart-1.mb.png" />
+<img class="mobile-figure" data-mobile-figure-id=fig3 src="final_project_files/figure-html/vbar%20chart-1.mb.png" />
+<img class="mobile-figure" data-mobile-figure-id=fig4 src="final_project_files/figure-html/network-1.mb.png" />
+<script type="text/javascript">
+
+
+var FlexDashboard = (function () {
+
+  // initialize options
+  var _options = {};
+
+  var FlexDashboard = function() {
+
+    // default options
+    _options = $.extend(_options, {
+      theme: "cosmo",
+      fillPage: false,
+      orientation: 'columns',
+      storyboard: false,
+      defaultFigWidth: 576,
+      defaultFigHeight: 461,
+      defaultFigWidthMobile: 360,
+      defaultFigHeightMobile: 461,
+      isMobile: false,
+      isPortrait: false,
+      resize_reload: true
+    });
+  };
+
+  function init(options) {
+
+    // extend default options
+    $.extend(true, _options, options);
+
+    // add ids to sections that don't have them (pandoc won't assign ids
+    // to e.g. sections with titles consisting of only chinese characters)
+    var nextId = 1;
+    $('.level1:not([id]),.level2:not([id]),.level3:not([id])').each(function() {
+      $(this).attr('id', 'dashboard-' + nextId++);
+    });
+
+    // find navbar items
+    var navbarItems = $('#flexdashboard-navbar');
+    if (navbarItems.length)
+      navbarItems = JSON.parse(navbarItems.html());
+    addNavbarItems(navbarItems);
+
+    // find the main dashboard container
+    var dashboardContainer = $('#dashboard-container');
+
+    // resolve mobile classes
+    resolveMobileClasses(dashboardContainer);
+
+    // one time global initialization for components
+    componentsInit(dashboardContainer);
+
+    // look for a global sidebar
+    var globalSidebar = dashboardContainer.find(".section.level1.sidebar");
+    if (globalSidebar.length > 0) {
+
+      // global layout for fullscreen displays
+      if (!isMobilePhone()) {
+
+         // hoist it up to the top level
+         globalSidebar.insertBefore(dashboardContainer);
+
+         // lay it out (set width/positions)
+         layoutSidebar(globalSidebar, dashboardContainer);
+
+      // tuck sidebar into first page for mobile phones
+      } else {
+
+        // convert it into a level3 section
+        globalSidebar.removeClass('sidebar');
+        globalSidebar.removeClass('level1');
+        globalSidebar.addClass('level3');
+        var h1 = globalSidebar.children('h1');
+        var h3 = $('<h3></h3>');
+        h3.append(h1.contents());
+        h3.insertBefore(h1);
+        h1.detach();
+
+        // move it into the first page
+        var page = dashboardContainer.find('.section.level1').first();
+        if (page.length > 0)
+          page.prepend(globalSidebar);
+      }
+    }
+
+    // look for pages to layout
+    var pages = $('div.section.level1');
+    if (pages.length > 0) {
+
+        // find the navbar and collapse on clicked
+        var navbar = $('#navbar');
+        navbar.on("click", "a[data-toggle!=dropdown]", null, function () {
+           navbar.collapse('hide');
+        });
+
+        // envelop the dashboard container in a tab content div
+        dashboardContainer.wrapInner('<div class="tab-content"></div>');
+
+        pages.each(function(index) {
+
+          // lay it out
+          layoutDashboardPage($(this));
+
+          // add it to the navbar
+          addToNavbar($(this), index === 0);
+
+        });
+
+    } else {
+
+      // remove the navbar and navbar button if we don't
+      // have any navbuttons
+      if (navbarItems.length === 0) {
+        $('#navbar').remove();
+        $('#navbar-button').remove();
+      }
+
+      // add the storyboard class if requested
+      if (_options.storyboard)
+        dashboardContainer.addClass('storyboard');
+
+      // layout the entire page
+      layoutDashboardPage(dashboardContainer);
+    }
+
+    // if we are in shiny we need to trigger a window resize event to
+    // force correct layout of shiny-bound-output elements
+    if (isShinyDoc())
+      $(window).trigger('resize');
+
+    // make main components visible
+    $('.section.sidebar').css('visibility', 'visible');
+    dashboardContainer.css('visibility', 'visible');
+
+    // handle location hash
+    handleLocationHash();
+
+    // intialize prism highlighting
+    initPrismHighlighting();
+
+    // record mobile and orientation state then register a handler
+    // to refresh if resize_reload is set to true and it changes
+    _options.isMobile = isMobilePhone();
+    _options.isPortrait = isPortrait();
+    if (_options.resize_reload) {
+      $(window).on('resize', function() {
+        if (_options.isMobile !== isMobilePhone() ||
+            _options.isPortrait !== isPortrait()) {
+          window.location.reload();
+        }
+      });
+    } else {
+      // if in desktop mode and resizing to mobile, make sure the heights are 100%
+      // This enforces what `fillpage.css` does for "wider" pages.
+      // Since we are not reloading once the page becomes small, we need to force the height to 100%
+      // This is a new situation introduced when `_options.resize_reload` is `false`
+      if (! _options.isMobile) {
+        // only add if `fillpage.css` was added in the first place
+        if (_options.fillPage) {
+          // fillpage.css
+          $("html,body,#dashboard").css("height", "100%");
+        }
+      }
+    }
+    // trigger layoutcomplete event
+    dashboardContainer.trigger('flexdashboard:layoutcomplete');
+  }
+
+  function resolveMobileClasses(dashboardContainer) {
+     // add top level layout class
+    dashboardContainer.addClass(isMobilePhone() ? 'mobile-layout' :
+                                                  'desktop-layout');
+
+    // look for .mobile sections and add .no-mobile to their peers
+    var mobileSections = $('.section.mobile');
+    mobileSections.each(function() {
+       var id = $(this).attr('id');
+       var nomobileId = id.replace(/-\d+$/, '');
+       $('#' + nomobileId).addClass('no-mobile');
+    });
+  }
+
+  function addNavbarItems(navbarItems) {
+
+    var navbarLeft = $('ul.navbar-left');
+    var navbarRight = $('ul.navbar-right');
+
+    for (var i = 0; i<navbarItems.length; i++) {
+
+      // get the item
+      var item = navbarItems[i];
+
+      // determine the container
+      var container = null;
+      if (item.align === "left")
+        container = navbarLeft;
+      else
+        container = navbarRight;
+
+      // navbar menu if we have multiple items
+      if (item.items) {
+        var menu = navbarMenu(null, item.icon, item.title, container);
+        for (var j = 0; j<item.items.length; j++) {
+          var subItem = item.items[j];
+          var li = $('<li></li>');
+          li.append(navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target));
+          menu.append(li);
+        }
+      } else {
+        var li = $('<li></li>');
+        li.append(navbarLink(item.icon, item.title, item.href, item.target));
+        container.append(li);
+      }
+    }
+  }
+
+  // create or get a reference to an existing dropdown menu
+  function navbarMenu(id, icon, title, container) {
+    var existingMenu = [];
+    if (id)
+      existingMenu = container.children('#' + id);
+    if (existingMenu.length > 0) {
+      return existingMenu.children('ul');
+    } else {
+      var li = $('<li></li>');
+      if (id)
+        li.attr('id', id);
+      li.addClass('dropdown');
+      // auto add "Share" title on mobile if necessary
+      if (!title && icon && (icon === "fa-share-alt") && isMobilePhone())
+        title = "Share";
+      if (title) {
+        title = title + ' <span class="caret"></span>';
+      }
+      var a = navbarLink(icon, title, "#");
+      a.addClass('dropdown-toggle');
+      a.attr('data-toggle', 'dropdown');
+      a.attr('role', 'button');
+      a.attr('aria-expanded', 'false');
+      li.append(a);
+      var ul = $('<ul class="dropdown-menu"></ul>');
+      ul.attr('role', 'menu');
+      li.append(ul);
+      container.append(li);
+      return ul;
+    }
+  }
+
+  function addToNavbar(page, active) {
+
+    // capture the id and data-icon attribute (if any)
+    var id = page.attr('id');
+    var icon = page.attr('data-icon');
+    var navmenu = page.attr('data-navmenu');
+
+    // get hidden state (transfer this to navbar)
+    var hidden = page.hasClass('hidden');
+    page.removeClass('hidden');
+
+    // sanitize the id for use with bootstrap tabs
+    id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+    page.attr('id', id);
+
+    // get the wrapper
+    var wrapper = page.closest('.dashboard-page-wrapper');
+
+    // move the id to the wrapper
+    page.removeAttr('id');
+    wrapper.attr('id', id);
+
+    // add the tab-pane class to the wrapper
+    wrapper.addClass('tab-pane');
+    if (active)
+      wrapper.addClass('active');
+
+    // get a reference to the h1, discover its inner contens, then detach it
+    var h1 = wrapper.find('h1').first();
+    var title = h1.contents();
+    h1.detach();
+
+    // create a navbar item
+    var li = $('<li></li>');
+    var a = navbarLink(icon, title, '#' + id);
+    a.attr('data-toggle', 'tab');
+    li.append(a);
+
+    // add it to the navbar (or navbar menu if specified)
+    var container = $('ul.navbar-left');
+    if (navmenu) {
+      var menuId = navmenu.replace(/\s+/g, '');
+      var menu = navbarMenu(menuId, null, navmenu, container);
+      menu.append(li);
+    } else {
+      container.append(li);
+    }
+
+    // hide it if requested
+    if (hidden)
+      li.addClass('hidden');
+  }
+
+  function navbarLink(icon, title, href, target) {
+
+    var a = $('<a></a>');
+    if (icon) {
+
+      // get the name of the icon set and icon
+      var dashPos = icon.indexOf("-");
+      var iconSet = null;
+      var iconSplit = icon.split(" ");
+      if (iconSplit.length > 1) {
+        iconSet = iconSplit[0];
+        icon = iconSplit.slice(1).join(" ");
+      } else {
+        iconSet = icon.substring(0, dashPos);
+      }
+      var iconName = icon.substring(dashPos + 1);
+
+      // create the icon
+      var iconElement = $('<span class="' + iconSet + ' ' + icon + '"></span>');
+      if (title)
+        iconElement.css('margin-right', '7px');
+      a.append(iconElement);
+      // if href is null see if we can auto-generate based on icon (e.g. social)
+      if (!href)
+        maybeGenerateLinkFromIcon(iconName, a);
+    }
+    if (title)
+      a.append(title);
+
+    // add the href.
+    if (href) {
+      if (href === "source_embed") {
+        a.attr('href', '#');
+        a.attr('data-featherlight', "#flexdashboard-source-code");
+        a.featherlight({
+            beforeOpen: function(event){
+              $('body').addClass('unselectable');
+            },
+            afterClose: function(event){
+              $('body').removeClass('unselectable');
+            }
+        });
+      } else {
+        a.attr('href', href);
+      }
+    }
+
+    // add the arget
+    if (target)
+      a.attr('target', target);
+
+    return a;
+  }
+
+  // auto generate a link from an icon name (e.g. twitter) when possible
+  function maybeGenerateLinkFromIcon(iconName, a) {
+
+     var serviceLinks = {
+      "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
+      "facebook": "https://www.facebook.com/sharer/sharer.php?s=100&p[url]="+encodeURIComponent(location.href),
+      "google-plus": "https://plus.google.com/share?url="+encodeURIComponent(location.href),
+      "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
+      "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
+    };
+
+    var makeSocialLink = function(a, href) {
+      a.attr('href', '#');
+      a.on('click', function(e) {
+        e.preventDefault();
+        window.open(href);
+      });
+    };
+
+    $.each(serviceLinks, function(key, value) {
+      if (iconName.indexOf(key) !== -1)
+        makeSocialLink(a, value);
+    });
+  }
+
+  // layout a dashboard page
+  function layoutDashboardPage(page) {
+
+    // use a page wrapper so that free form content above the
+    // dashboard appears at the top rather than the side (as it
+    // would without the wrapper in a column orientation)
+    var wrapper = $('<div class="dashboard-page-wrapper"></div>');
+    page.wrap(wrapper);
+
+    // if there are no level2 or level3 headers synthesize a level3
+    // header to contain the (e.g. frame it, scroll container, etc.)
+    var headers = page.find('h2,h3');
+    if (headers.length === 0)
+      page.wrapInner('<div class="section level3"></div>');
+
+    // hoist up any content before level 2 or level 3 headers
+    var children = page.children();
+    children.each(function(index) {
+      if ($(this).hasClass('level2') || $(this).hasClass('level3'))
+        return false;
+      $(this).insertBefore(page);
+    });
+
+    // determine orientation and fillPage behavior for distinct media
+    var orientation, fillPage, storyboard;
+
+    // media: mobile phone
+    if (isMobilePhone()) {
+
+      // if there is a sidebar we need to ensure it's content
+      // is properly framed as an h3
+      var sidebar = page.find('.section.sidebar');
+      sidebar.removeClass('sidebar');
+      sidebar.wrapInner('<div class="section level3"></div>');
+      var h2 = sidebar.find('h2');
+      var h3 = $('<h3></h3>');
+      h3.append(h2.contents());
+      h3.insertBefore(h2);
+      h2.detach();
+
+      // wipeout h2 elements then enclose them in a single h2
+      var level2 = page.find('div.section.level2');
+      level2.each(function() {
+        level2.children('h2').remove();
+        level2.children().unwrap();
+      });
+      page.wrapInner('<div class="section level2"></div>');
+
+      // substitute mobile images
+      if (isPortrait()) {
+        var mobileFigures = $('img.mobile-figure');
+        mobileFigures.each(function() {
+          // get the src (might be base64 encoded)
+          var src = $(this).attr('src');
+
+          // find it's peer
+          var id = $(this).attr('data-mobile-figure-id');
+          var img = $('img[data-figure-id=' + id + "]");
+          img.attr('src', src)
+             .attr('width', _options.defaultFigWidthMobile)
+             .attr('height', _options.defaultFigHeightMobile);
+        });
+      }
+
+      // hoist storyboard commentary into it's own section
+      if (page.hasClass('storyboard')) {
+        var commentaryHR = page.find('div.section.level3 hr');
+        commentaryHR.each(function() {
+          var commentary = $(this).nextAll().detach();
+          var commentarySection = $('<div class="section level3"></div>');
+          commentarySection.append(commentary);
+          commentarySection.insertAfter($(this).closest('div.section.level3'));
+          $(this).remove();
+        });
+      }
+
+      // force a non full screen layout by columns
+      orientation = _options.orientation = 'columns';
+      fillPage = _options.fillPage = false;
+      storyboard = _options.storyboard = false;
+
+    // media: desktop
+    } else {
+
+      // determine orientation
+      orientation = page.attr('data-orientation');
+      if (orientation !== 'rows' && orientation != 'columns')
+        orientation = _options.orientation;
+
+      // determine storyboard mode
+      storyboard = page.hasClass('storyboard');
+
+      // fillPage based on options (force for storyboard)
+      fillPage = _options.fillPage || storyboard;
+
+      // handle sidebar
+      var sidebar = page.find('.section.level2.sidebar');
+      if (sidebar.length > 0)
+        layoutSidebar(sidebar, page);
+    }
+
+    // give it and it's parent divs height: 100% if we are in fillPage mode
+    if (fillPage) {
+      page.addClass('vertical-layout-fill');
+      page.css('height', '100%');
+      page.parents('div').css('height', '100%');
+    } else {
+      page.addClass('vertical-layout-scroll');
+    }
+
+    // perform the layout
+    if (storyboard)
+      layoutPageAsStoryboard(page);
+    else if (orientation === 'rows')
+      layoutPageByRows(page, fillPage);
+    else if (orientation === 'columns')
+      layoutPageByColumns(page, fillPage);
+  }
+
+  function layoutSidebar(sidebar, content) {
+
+    // get it out of the header hierarchy
+    sidebar = sidebar.first();
+    if (sidebar.hasClass('level1')) {
+      sidebar.removeClass('level1');
+      sidebar.children('h1').remove();
+    } else if (sidebar.hasClass('level2')) {
+      sidebar.removeClass('level2');
+      sidebar.children('h2').remove();
+    }
+
+    // determine width
+    var sidebarWidth = isTablet() ? 220 : 250;
+    var dataWidth = parseInt(sidebar.attr('data-width'));
+    if (dataWidth)
+      sidebarWidth = dataWidth;
+
+    // set the width and shift the page right to accomodate the sidebar
+    sidebar.css('width', sidebarWidth + 'px');
+    content.css('padding-left', sidebarWidth + 'px');
+
+    // wrap it's contents in a form
+    sidebar.wrapInner($('<form></form>'));
+  }
+
+  function layoutPageAsStoryboard(page) {
+
+    // create storyboard navigation
+    var nav = $('<div class="storyboard-nav"></div>');
+
+    // add navigation buttons
+    var prev = $('<button class="sbprev"><i class="fa fa-angle-left"></i></button>');
+    nav.append(prev);
+    var next= $('<button class="sbnext"><i class="fa fa-angle-right"></i></button>');
+    nav.append(next);
+
+    // add navigation frame
+    var frameList = $('<div class="sbframelist"></div>');
+    nav.append(frameList);
+    var ul = $('<ul></ul>');
+    frameList.append(ul);
+
+     // find all the level3 sections (those are the storyboard frames)
+    var frames = page.find('div.section.level3');
+    frames.each(function() {
+
+      // mark it
+      $(this).addClass('sbframe');
+
+      // divide it into chart content and (optional) commentary
+      $(this).addClass('dashboard-column-orientation');
+
+      // stuff the chart into it's own div w/ flex
+      $(this).wrapInner('<div class="sbframe-component"></div>');
+      setFlex($(this), 1);
+      var frame = $(this).children('.sbframe-component');
+
+      // extract the title from the h3
+      var li = $('<li></li>');
+      var h3 = frame.children('h3');
+      li.append(h3.contents());
+      h3.detach();
+      ul.append(li);
+
+      // extract commentary
+      var hr = frame.children('hr');
+      if (hr.length) {
+        var commentary = hr.nextAll().detach();
+        hr.remove();
+        var commentaryFrame = $('<div class="sbframe-commentary"></div>');
+        commentaryFrame.addClass('flowing-content-shim');
+        commentaryFrame.addClass('flowing-content-container');
+        commentaryFrame.append(commentary);
+        $(this).append(commentaryFrame);
+
+        // look for a data-commentary-width attribute
+        var commentaryWidth = $(this).attr('data-commentary-width');
+        if (commentaryWidth)
+          commentaryFrame.css('width', commentaryWidth + 'px');
+      }
+
+      // layout the chart (force flex)
+      var result = layoutChart(frame, true);
+
+      // ice the notes if there are none
+      if (!result.notes)
+        frame.find('.chart-notes').remove();
+
+      // set flex on chart
+      setFlex(frame, 1);
+    });
+
+    // create a div to hold all the frames
+    var frameContent = $('<div class="sbframe-content"></div>');
+    frameContent.addClass('dashboard-row-orientation');
+    frameContent.append(frames.detach());
+
+    // row orientation to stack nav and frame content
+    page.addClass('dashboard-row-orientation');
+    page.append(nav);
+    page.append(frameContent);
+    setFlex(frameContent, 1);
+
+    // initialize sly
+    var sly = new Sly(frameList, {
+    		horizontal: true,
+    		itemNav: 'basic',
+    		smart: true,
+    		activateOn: 'click',
+    		startAt: 0,
+    		scrollBy: 1,
+    		activatePageOn: 'click',
+    		speed: 200,
+    		moveBy: 600,
+    		dragHandle: true,
+    		dynamicHandle: true,
+    		clickBar: true,
+    		keyboardNavBy: 'items',
+    		next: next,
+    		prev: prev
+    	}).init();
+
+    // make first frame active
+    frames.removeClass('active');
+    frames.first().addClass('active');
+
+    // subscribe to frame changed events
+    sly.on('active', function (eventName, itemIndex) {
+      frames.removeClass('active');
+      frames.eq(itemIndex).addClass('active')
+                          .trigger('shown');
+    });
+  }
+
+  function layoutPageByRows(page, fillPage) {
+
+    // row orientation
+    page.addClass('dashboard-row-orientation');
+
+    // find all the level2 sections (those are the rows)
+    var rows = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (rows.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      rows = page.find('div.section.level2');
+    }
+
+    rows.each(function () {
+
+      // flags
+      var haveNotes = false;
+      var haveFlexHeight = true;
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // give it row layout semantics if it's not a tabset
+      if (!isTabset)
+        $(this).addClass('dashboard-row');
+
+      // find all of the level 3 subheads
+      var columns = $(this).find('div.section.level3');
+
+      // determine figureSizes sizes
+      var figureSizes = chartFigureSizes(columns);
+
+      // fixup the columns
+      columns.each(function(index) {
+
+        // layout the chart (force flex if we are in a tabset)
+        var result = layoutChart($(this), isTabset);
+
+        // update flexHeight state
+        if (!result.flex)
+          haveFlexHeight = false;
+
+        // update state
+        if (result.notes)
+          haveNotes = true;
+
+        // set the column flex based on the figure width
+        // (value boxes will just get the default figure width)
+        var chartWidth = figureSizes[index].width;
+        setFlex($(this), chartWidth + ' ' + chartWidth + ' 0px');
+
+      });
+
+      // remove empty chart note divs
+      if (isTabset)
+        $(this).find('.chart-notes').filter(function() {
+            return $(this).html() === "&nbsp;";
+        }).remove();
+      if (!haveNotes)
+        $(this).find('.chart-notes').remove();
+
+       // make it a flexbox row
+      if (haveFlexHeight)
+        $(this).addClass('dashboard-row-flex');
+
+      // now we can set the height on all the wrappers (based on maximum
+      // figure height + room for title and notes, or data-height on the
+      // container if specified). However, don't do this if there is
+      // no flex on any of the constituent columns
+      var flexHeight = null;
+      var dataHeight = parseInt($(this).attr('data-height'));
+      if (dataHeight)
+        flexHeight = adjustedHeight(dataHeight, columns.first());
+      else if (haveFlexHeight)
+        flexHeight = maxChartHeight(figureSizes, columns);
+      if (flexHeight) {
+        if (fillPage)
+          setFlex($(this), flexHeight + ' ' + flexHeight + ' 0px');
+        else {
+          $(this).css('height', flexHeight + 'px');
+          setFlex($(this), '0 0 ' + flexHeight + 'px');
+        }
+      }
+
+    });
+  }
+
+  function layoutPageByColumns(page, fillPage) {
+
+    // column orientation
+    page.addClass('dashboard-column-orientation');
+
+    // find all the level2 sections (those are the columns)
+    var columns = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (columns.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      columns = page.find('div.section.level2');
+    }
+
+    // layout each column
+    columns.each(function (index) {
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // make it a flexbox column
+      $(this).addClass('dashboard-column');
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // find all the h3 elements
+      var rows = $(this).find('div.section.level3');
+
+      // get the figure sizes for the rows
+      var figureSizes = chartFigureSizes(rows);
+
+      // column flex is the max row width (or data-width if specified)
+      var flexWidth;
+      var dataWidth = parseInt($(this).attr('data-width'));
+      if (dataWidth)
+        flexWidth = dataWidth;
+      else
+        flexWidth = maxChartWidth(figureSizes);
+      setFlex($(this), flexWidth + ' ' + flexWidth + ' 0px');
+
+      // layout each chart
+      rows.each(function(index) {
+
+        // perform the layout
+        var result = layoutChart($(this), false);
+
+        // ice the notes if there are none
+        if (!result.notes)
+          $(this).find('.chart-notes').remove();
+
+        // set flex height based on figHeight, then adjust
+        if (result.flex) {
+          var chartHeight = figureSizes[index].height;
+          chartHeight = adjustedHeight(chartHeight, $(this));
+          if (fillPage)
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' 0px');
+          else {
+            $(this).css('height', chartHeight + 'px');
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' ' + chartHeight + 'px');
+          }
+        }
+      });
+    });
+  }
+
+  function chartFigureSizes(charts) {
+
+    // sizes
+    var figureSizes = new Array(charts.length);
+
+    // check each chart
+    charts.each(function(index) {
+
+      // start with default
+      figureSizes[index] = {
+        width: _options.defaultFigWidth,
+        height: _options.defaultFigHeight
+      };
+
+      // look for data-height or data-width then knit options
+      var dataWidth = parseInt($(this).attr('data-width'));
+      var dataHeight = parseInt($(this).attr('data-height'));
+      var knitrOptions = $(this).find('.knitr-options:first');
+      var knitrWidth, knitrHeight;
+      if (knitrOptions) {
+        knitrWidth = parseInt(knitrOptions.attr('data-fig-width'));
+        knitrHeight =  parseInt(knitrOptions.attr('data-fig-height'));
+      }
+
+      // width
+      if (dataWidth)
+        figureSizes[index].width = dataWidth;
+      else if (knitrWidth)
+        figureSizes[index].width = knitrWidth;
+
+      // height
+      if (dataHeight)
+        figureSizes[index].height = dataHeight;
+      else if (knitrHeight)
+        figureSizes[index].height = knitrHeight;
+    });
+
+    // return sizes
+    return figureSizes;
+  }
+
+  function maxChartHeight(figureSizes, charts) {
+
+    // first compute the maximum height
+    var maxHeight = _options.defaultFigHeight;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].height > maxHeight)
+        maxHeight = figureSizes[i].height;
+
+    // now add offests for chart title and chart notes
+    if (charts.length)
+      maxHeight = adjustedHeight(maxHeight, charts.first());
+
+    return maxHeight;
+  }
+
+  function adjustedHeight(height, chart) {
+    if (chart.length > 0) {
+      var chartTitle = chart.find('.chart-title');
+      if (chartTitle.length)
+        height += chartTitle.first().outerHeight();
+      var chartNotes = chart.find('.chart-notes');
+      if (chartNotes.length)
+        height += chartNotes.first().outerHeight();
+    }
+    return height;
+  }
+
+  function maxChartWidth(figureSizes) {
+    var maxWidth = _options.defaultFigWidth;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].width > maxWidth)
+        maxWidth = figureSizes[i].width;
+    return maxWidth;
+  }
+
+  // layout a chart
+  function layoutChart(chart, forceFlex) {
+
+    // state to return
+    var result = {
+      notes: false,
+      flex: false
+    };
+
+    // extract the title
+    var title = extractTitle(chart);
+
+    // find components that apply to this container
+    var components = componentsFind(chart);
+
+    // if it's a custom component then call it and return
+    var customComponents = componentsCustom(components);
+    if (customComponents.length) {
+      componentsLayout(customComponents, title, chart);
+      result.notes = false;
+      result.flex = forceFlex || componentsFlex(customComponents);
+      return result;
+    }
+
+    // put all the content in a chart wrapper div
+    chart.addClass('chart-wrapper');
+    chart.wrapInner('<div class="chart-stage"></div>');
+    var chartContent = chart.children('.chart-stage');
+
+    // flex the content if appropriate
+    result.flex = forceFlex || componentsFlex(components);
+    if (result.flex) {
+      // add flex classes
+      chart.addClass('chart-wrapper-flex');
+      chartContent.addClass('chart-stage-flex');
+
+      // additional shim to break out of flexbox sizing
+      chartContent.wrapInner('<div class="chart-shim"></div>');
+      chartContent = chartContent.children('.chart-shim');
+    }
+
+    // set custom data-padding attribute
+    var pad = chart.attr('data-padding');
+    if (pad) {
+      if (pad === "0")
+        chart.addClass('no-padding');
+      else {
+        pad = pad + 'px';
+        chartContent.css('left', pad)
+                    .css('top', pad)
+                    .css('right', pad)
+                    .css('bottom', pad)
+      }
+    }
+
+    // call compoents
+    componentsLayout(components, title, chartContent);
+
+    // also activate components on shiny output
+    findShinyOutput(chartContent).on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+
+          // see if we opted out of flex based on our output (for shiny
+          // we can't tell what type of output we have until after the
+          // value is bound)
+          var components = componentsFind(element);
+          var flex = forceFlex || componentsFlex(components);
+          if (!flex) {
+            chart.css('height', "");
+            setFlex(chart, "");
+            chart.removeClass('chart-wrapper-flex');
+            chartContent.removeClass('chart-stage-flex');
+            chartContent.children().unwrap();
+          }
+
+          // perform layout
+          componentsLayout(components, title, element.parent());
+        }, 10);
+      });
+
+    // add the title
+    var chartTitle = $('<div class="chart-title"></div>');
+    chartTitle.append(title);
+    chart.prepend(chartTitle);
+
+    // add the notes section
+    var chartNotes = $('<div class="chart-notes"></div>');
+    chartNotes.html('&nbsp;');
+    chart.append(chartNotes);
+
+    // attempt to extract notes if we have a component
+    if (components.length)
+      result.notes = extractChartNotes(chartContent, chartNotes);
+
+    // return result
+    return result;
+  }
+
+  // build a tabset from a section div with the .tabset class
+  function layoutTabset(tabset) {
+
+    // check for fade option
+    var fade = tabset.hasClass("tabset-fade");
+    var navClass = "nav-tabs";
+
+    // determine the heading level of the tabset and tabs
+    var match = tabset.attr('class').match(/level(\d) /);
+    if (match === null)
+      return;
+    var tabsetLevel = Number(match[1]);
+    var tabLevel = tabsetLevel + 1;
+
+    // find all subheadings immediately below
+    var tabs = tabset.find("div.section.level" + tabLevel);
+    if (!tabs.length)
+      return;
+
+    // create tablist and tab-content elements
+    var tabList = $('<ul class="nav ' + navClass + '" role="tablist"></ul>');
+    $(tabs[0]).before(tabList);
+    var tabContent = $('<div class="tab-content"></div>');
+    $(tabs[0]).before(tabContent);
+
+    // build the tabset
+    tabs.each(function(i) {
+
+      // get the tab div
+      var tab = $(tabs[i]);
+
+      // get the id then sanitize it for use with bootstrap tabs
+      var id = tab.attr('id');
+
+      // sanitize the id for use with bootstrap tabs
+      id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+      tab.attr('id', id);
+
+      // get the heading element within it and grab it's text
+      var heading = tab.find('h' + tabLevel + ':first');
+      var headingDom = heading.contents();
+
+      // build and append the tab list item
+      var a = $('<a role="tab" data-toggle="tab"></a>');
+      a.append(headingDom);
+      a.attr('href', '#' + id);
+      a.attr('aria-controls', id);
+      var li = $('<li role="presentation"></li>');
+      li.append(a);
+      if (i === 0)
+        li.attr('class', 'active');
+      tabList.append(li);
+
+      // set it's attributes
+      tab.attr('role', 'tabpanel');
+      tab.addClass('tab-pane');
+      tab.addClass('tabbed-pane');
+      tab.addClass('no-title');
+      if (fade)
+        tab.addClass('fade');
+      if (i === 0) {
+        tab.addClass('active');
+        if (fade)
+          tab.addClass('in');
+      }
+
+      // move it into the tab content div
+      tab.detach().appendTo(tabContent);
+    });
+
+    // add nav-tabs-custom
+    tabset.addClass('nav-tabs-custom');
+
+    // internal layout is dashboard-column with tab-content flexing
+    tabset.addClass('dashboard-column');
+    setFlex(tabContent, 1);
+  }
+
+  // one time global initialization for components
+  function componentsInit(dashboardContainer) {
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.init)
+        component.init(dashboardContainer);
+    }
+  }
+
+  // find components that apply within a container
+  function componentsFind(container) {
+
+    // look for components
+    var components = [];
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.find(container).length)
+        components.push(component);
+    }
+
+    // if there were none then use a special flowing content component
+    // that just adds a scrollbar in fillPage mode
+    if (components.length == 0) {
+      components.push({
+        find: function(container) {
+          return container;
+        },
+
+        flex: function(fillPage) {
+          return fillPage;
+        },
+
+        layout: function(title, container, element, fillPage) {
+          if (fillPage) {
+            container.addClass('flowing-content-shim');
+            container.addClass('flowing-content-container');
+          }
+        }
+      });
+    }
+
+    return components;
+  }
+
+  // if there is a custom component then pick it out
+  function componentsCustom(components) {
+    var customComponent = [];
+    for (var i=0; i<components.length; i++)
+      if (components[i].type === "custom") {
+        customComponent.push(components[i]);
+        break;
+      }
+    return customComponent;
+  }
+
+  // query all components for flex
+  function componentsFlex(components) {
+
+    // no components at all means no flex
+    if (components.length === 0)
+      return false;
+
+    // otherwise query components (assume true unless we see false)
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++)
+      if (components[i].flex && !components[i].flex(_options.fillPage))
+        return false;
+    return true;
+  }
+
+  // layout all components
+  function componentsLayout(components, title, container) {
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++) {
+      var element = components[i].find(container);
+      if (components[i].layout) {
+        // call layout (don't call other components if it returns false)
+        var result = components[i].layout(title, container, element, _options.fillPage);
+        if (result === false)
+          return;
+      }
+    }
+  }
+
+  // get a reference to the h3, discover it's inner html, and remove it
+  function extractTitle(container) {
+    var h3 = container.children('h3').first();
+    var title = '';
+    if (!container.hasClass('no-title'))
+      title = h3.contents();
+    h3.detach();
+    return title;
+  }
+
+  // extract chart notes
+  function extractChartNotes(chartContent, chartNotes) {
+    // look for a terminating blockquote or image caption
+    var blockquote = chartContent.children('blockquote:last-child');
+    var caption = chartContent.children('div.image-container')
+                              .children('p.caption');
+    if (blockquote.length) {
+      chartNotes.empty().append(blockquote.children('p:first-child').contents());
+      blockquote.remove();
+      return true;
+    } else if (caption.length) {
+      chartNotes.empty().append(caption.contents());
+      caption.remove();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function findShinyOutput(chartContent) {
+    return chartContent.find('.shiny-text-output, .shiny-html-output');
+  }
+
+  // safely detect rendering on a mobile phone
+  function isMobilePhone() {
+    try
+    {
+      return ! window.matchMedia("only screen and (min-width: 768px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  function isFillPage() {
+    return _options.fillPage;
+  }
+
+  // detect portrait mode
+  function isPortrait() {
+    return ($(window).width() < $(window).height());
+  }
+
+  // safely detect rendering on a tablet
+  function isTablet() {
+    try
+    {
+      return window.matchMedia("only screen and (min-width: 769px) and (max-width: 992px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  // test whether this is a shiny doc
+  function isShinyDoc() {
+    return (typeof(window.Shiny) !== "undefined" && !!window.Shiny.outputBindings);
+  }
+
+  // set flex using vendor specific prefixes
+  function setFlex(el, flex) {
+    el.css('-webkit-box-flex', flex)
+      .css('-webkit-flex', flex)
+      .css('-ms-flex', flex)
+      .css('flex', flex);
+  }
+
+  // support bookmarking of pages
+  function handleLocationHash() {
+
+    // restore tab/page from bookmark
+    var hash = window.decodeURIComponent(window.location.hash);
+    if (hash.length > 0)
+      $('ul.nav a[href="' + hash + '"]').tab('show');
+    FlexDashboardUtils.manageActiveNavbarMenu();
+
+    // navigate to a tab when the history changes
+    window.addEventListener("popstate", function(e) {
+      var hash = window.decodeURIComponent(window.location.hash);
+      var activeTab = $('ul.nav a[href="' + hash + '"]');
+      if (activeTab.length) {
+        activeTab.tab('show');
+      } else {
+        $('ul.nav a:first').tab('show');
+      }
+      FlexDashboardUtils.manageActiveNavbarMenu();
+    });
+
+    // add a hash to the URL when the user clicks on a tab/page
+    $('.navbar-nav a[data-toggle="tab"]').on('click', function(e) {
+      var baseUrl = FlexDashboardUtils.urlWithoutHash(window.location.href);
+      var hash = FlexDashboardUtils.urlHash($(this).attr('href'));
+      var href = baseUrl + hash;
+      FlexDashboardUtils.setLocation(href);
+    });
+
+    // handle clicks of other links that should activate pages
+    var navPages = $('ul.navbar-nav li a[data-toggle=tab]');
+    navPages.each(function() {
+      var href =  $(this).attr('href');
+      var links = $('a[href="' + href + '"][data-toggle!=tab]');
+      links.each(function() {
+        $(this).on('click', function(e) {
+          window.FlexDashboardUtils.showPage(href);
+        });
+      });
+    });
+  }
+
+  // tweak Prism highlighting
+  function initPrismHighlighting() {
+
+    if (window.Prism) {
+      Prism.languages.insertBefore('r', 'comment', {
+        'heading': [
+          {
+            // title 1
+        	  // =======
+
+        	  // title 2
+        	  // -------
+        	  pattern: /\w+.*(?:\r?\n|\r)(?:====+|----+)/,
+            alias: 'operator'
+          },
+          {
+            // ### title 3
+            pattern: /(^\s*)###[^#].+/m,
+            lookbehind: true,
+            alias: 'operator'
+          }
+        ]
+      });
+
+      // prism highlight
+      Prism.highlightAll();
+    }
+  }
+
+
+  // get theme color
+  var themeColors = {
+    bootstrap: {
+      primary: "rgba(51, 122, 183, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cerulean: {
+      primary: "rgb(47, 164, 231)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    journal: {
+      primary: "rgba(235, 104, 100, 0.70)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    flatly: {
+      primary: "rgba(44, 62, 80, 0.70)",
+      info: "rgba(52, 152, 219, 0.70)",
+      success: "rgba(24, 188, 156, 0.70)",
+      warning: "rgba(243, 156, 18, 0.70)",
+      danger: "rgba(231, 76, 60, 0.70)"
+    },
+    readable: {
+      primary: "rgba(69, 130, 236, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    spacelab: {
+      primary: "rgba(68, 110, 155, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    united: {
+      primary: "rgba(221, 72, 20, 0.30)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cosmo: {
+      primary: "rgba(39, 128, 227, 0.7)",
+      info: "rgba(153, 84, 187, 0.7)",
+      success: "rgba(63, 182, 24, 0.7)",
+      warning: "rgba(255, 117, 24, 0.7)",
+      danger: "rgba(255, 0, 57, 0.7)"
+    },
+    lumen: {
+      primary: "rgba(21, 140, 186, 0.70)",
+      info: "rgba(117, 202, 235, 0.90)",
+      success: "rgba(40, 182, 44, 0.70)",
+      warning: "rgba(255, 133, 27, 0.70)",
+      danger: "rgba(255, 65, 54, 0.70)"
+    },
+    paper: {
+      primary: "rgba(33, 150, 243, 0.35)",
+      info: "rgb(225, 190, 231)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(255, 224, 178)",
+      danger: "rgb(249, 189, 187)"
+    },
+    sandstone: {
+      primary: "rgba(50, 93, 136, 0.3)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    simplex: {
+      primary: "rgba(217, 35, 15, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    yeti: {
+      primary: "rgba(0, 140, 186, 0.298039)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    }
+  }
+  function themeColor(color) {
+    return themeColors[_options.theme][color];
+  }
+
+  FlexDashboard.prototype = {
+    constructor: FlexDashboard,
+    init: init,
+    isMobilePhone: isMobilePhone,
+    isFillPage: isFillPage,
+    themeColor: themeColor
+  };
+
+  return FlexDashboard;
+
+})();
+
+// utils
+window.FlexDashboardUtils = {
+  resizableImage: function(img) {
+    var src = img.attr('src');
+    var url = 'url("' + src + '")';
+    img.parent().css('background', url)
+                .css('background-size', 'contain')
+                .css('background-repeat', 'no-repeat')
+                .css('background-position', 'center')
+                .addClass('image-container');
+  },
+  setLocation: function(href) {
+    if (history && history.pushState) {
+      history.pushState(null, null, href);
+    } else {
+      window.location.replace(href);
+    }
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 10);
+    this.manageActiveNavbarMenu();
+  },
+  showPage: function(href) {
+    $('ul.navbar-nav li a[href="' + href + '"]').tab('show');
+    var baseUrl = this.urlWithoutHash(window.location.href);
+    var loc = baseUrl + href;
+    this.setLocation(loc);
+  },
+  showLinkedValue: function(href) {
+    // check for a page link
+    if ($('ul.navbar-nav li a[data-toggle=tab][href="' + href + '"]').length > 0)
+      this.showPage(href);
+    else
+      window.open(href);
+  },
+  urlWithoutHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(0, hashLoc);
+    else
+      return url;
+  },
+  urlHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(hashLoc);
+    else
+      return "";
+  },
+  manageActiveNavbarMenu: function () {
+    // remove active from anyone currently active
+    $('.navbar ul.nav').find('li').removeClass('active');
+    // find the active tab
+    var activeTab = $('.dashboard-page-wrapper.tab-pane.active');
+    if (activeTab.length > 0) {
+      var tabId = activeTab.attr('id');
+      if (tabId)
+        $(".navbar ul.nav a[href='#" + tabId + "']").parents('li').addClass('active');
+    }
+  }
+};
+
+window.FlexDashboard = new FlexDashboard();
+
+// empty content
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    if (container.find('p').length == 0)
+      return container;
+    else
+      return $();
+  }
+})
+
+// plot image
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('p')
+                    .children('img:only-child');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// plot image (figure style)
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.figure').children('img');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// htmlwidget
+window.FlexDashboardComponents.push({
+
+  init: function(dashboardContainer) {
+    // trigger "shown" after initial layout to force static htmlwidgets
+    // in runtime: shiny to be resized after the dom has been transformed
+    dashboardContainer.on('flexdashboard:layoutcomplete', function(event) {
+      setTimeout(function() {
+        dashboardContainer.trigger('shown');
+      }, 200);
+    });
+  },
+
+  find: function(container) {
+    return container.children('div[id^="htmlwidget-"],div.html-widget');
+  }
+});
+
+// gauge
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.html-widget.gauge');
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+
+  }
+
+});
+
+// shiny output
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.children('div[class^="shiny-"]');
+  }
+});
+
+// datatables
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.find('.datatables');
+  },
+  flex: function(fillPage) {
+    return fillPage;
+  }
+});
+
+// bootstrap table
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    var bsTable = container.find('table.table');
+    if (bsTable.length !== 0)
+      return bsTable;
+    else
+      return container.find('tr.header').parent('thead').parent('table');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var bsTable = element;
+
+    // fixup xtable generated tables with a proper thead
+    var headerRow = bsTable.find('tbody > tr:first-child > th').parent();
+    if (headerRow.length > 0) {
+      var thead = $('<thead></thead>');
+      bsTable.prepend(thead);
+      headerRow.detach().appendTo(thead);
+    }
+
+    // improve appearance
+    container.addClass('bootstrap-table');
+
+    // for fill page provide scrolling w/ sticky headers
+    if (fillPage) {
+      // force scrollbar on overflow
+      container.addClass('flowing-content-shim');
+
+      // stable table headers when scrolling
+      bsTable.stickyTableHeaders({
+        scrollableArea: container
+      });
+    }
+  }
+});
+
+// embedded shiny app
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('iframe.shiny-frame');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage) {
+      element.attr('height', '100%');
+    } else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (!height)
+        height = element.attr('height');
+      if (!height)
+        element.attr('height', 500);
+    }
+  }
+});
+
+// shiny fillRow or fillCol
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('.flexfill-container');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage)
+      element.css('height', '100%');
+    else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (height === "100%" || height === "auto" || height === "initial" ||
+          height === "inherit" || !height) {
+        element.css('height', 500);
+      }
+    }
+  }
+});
+
+// valueBox
+window.FlexDashboardComponents.push({
+
+  type: "custom",
+
+  find: function(container) {
+    if (container.find('span.value-output, .shiny-valuebox-output').length)
+      return container;
+    else
+      return $();
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var chartTitle = title;
+    var valueBox = element;
+
+    // add value-box class to container
+    container.addClass('value-box');
+
+    // value paragraph
+    var value = $('<p class="value"></p>');
+
+    // if we have shiny-text-output then just move it in
+    var valueOutputSpan = [];
+    var shinyOutput = valueBox.find('.shiny-valuebox-output').detach();
+    if (shinyOutput.length) {
+      valueBox.children().remove();
+      shinyOutput.html("&mdash;");
+      value.append(shinyOutput);
+    } else {
+      // extract the value (remove leading vector index)
+      var chartValue = valueBox.text().trim();
+      chartValue = chartValue.replace("[1] ", "");
+      valueOutputSpan = valueBox.find('span.value-output').detach();
+      valueBox.children().remove();
+      value.text(chartValue);
+    }
+
+    // caption
+    var caption = $('<p class="caption"></p>');
+    caption.append(chartTitle);
+
+    // build inner div for value box and add it
+    var inner = $('<div class="inner"></div>');
+    inner.append(value);
+    inner.append(caption);
+    valueBox.append(inner);
+
+    // add icon if specified
+    var icon = $('<div class="icon"><i></i></div>');
+    valueBox.append(icon);
+    function setIcon(chartIcon) {
+      var iconLib = "";
+      var iconSplit = chartIcon.split(" ");
+      if (iconSplit.length > 1) {
+        iconLib = iconSplit[0];
+        chartIcon = iconSplit.slice(1).join(" ");
+      } else {
+        var components = chartIcon.split("-");
+        if (components.length > 1)
+          iconLib = components[0];
+      }
+      icon.children('i').attr('class', iconLib + ' ' + chartIcon);
+    }
+    var chartIcon = valueBox.attr('data-icon');
+    if (chartIcon)
+      setIcon(chartIcon);
+
+    // set color based on data-background if necessary
+    var dataBackground = valueBox.attr('data-background');
+    if (dataBackground)
+      valueBox.css('background-color', bgColor);
+    else {
+      // default to bg-primary if no other background is specified
+      if (!valueBox.hasClass('bg-primary') &&
+          !valueBox.hasClass('bg-info') &&
+          !valueBox.hasClass('bg-warning') &&
+          !valueBox.hasClass('bg-success') &&
+          !valueBox.hasClass('bg-danger')) {
+        valueBox.addClass('bg-primary');
+      }
+    }
+
+    // handle data attributes in valueOutputSpan
+    function handleValueOutput(valueOutput) {
+
+      // caption
+      var dataCaption = valueOutput.attr('data-caption');
+      if (dataCaption)
+        caption.html(dataCaption);
+
+      // icon
+      var dataIcon = valueOutput.attr('data-icon');
+      if (dataIcon)
+        setIcon(dataIcon);
+
+      // color
+      var dataColor = valueOutput.attr('data-color');
+      if (dataColor) {
+        if (dataColor.indexOf('bg-') === 0) {
+          valueBox.css('background-color', '');
+          if (!valueBox.hasClass(dataColor)) {
+             valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+             valueBox.addClass(dataColor);
+          }
+        } else {
+          valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+          valueBox.css('background-color', dataColor);
+        }
+      }
+
+      // url
+      var dataHref = valueOutput.attr('data-href');
+      if (dataHref) {
+        valueBox.addClass('linked-value');
+        valueBox.off('click.value-box');
+        valueBox.on('click.value-box', function(e) {
+          window.FlexDashboardUtils.showLinkedValue(dataHref);
+        });
+      }
+    }
+
+    // check for a valueOutputSpan
+    if (valueOutputSpan.length > 0) {
+      handleValueOutput(valueOutputSpan);
+    }
+
+    // if we have a shinyOutput then bind a listener to handle
+    // new valueOutputSpan values
+    shinyOutput.on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+          var valueOutputSpan = element.find('span.value-output');
+          if (valueOutputSpan.length > 0)
+            handleValueOutput(valueOutputSpan);
+        }, 10);
+      }
+    );
+  }
+});
+</script>
+
+<div id="dashboard-container">
+
+<style>
+.storyboard-nav .sbframelist {
+  margin: 0 auto;
+  width: 94%;
+  height: 50px;
+  overflow: hidden;
+  text-shadow: none;
+  margin-bottom: 8px;
+}
+.storyboard-nav .sbnext, .storyboard-nav .sbprev {
+  float: left;
+  width: 2%;
+  height: 50px;
+  font-size: 50px;
+}
+
+</style>
+<div id="project-overview" class="section level1">
+<h1>Project Overview</h1>
+<div id="row" class="section level2">
+<h2>Row</h2>
+<div id="adoption-poster" class="section level3">
+<h3>Adoption Poster</h3>
+<div class="figure">
+<img src="/Users/Mary/Desktop/ANLY%20503/anly503-fall2020-project-mengyu14/img/adopt.jpg" alt="" />
+<p class="caption">poster (<a href="https://gocountry105.com/adoptPet/" class="uri">https://gocountry105.com/adoptPet/</a>)</p>
+</div>
+</div>
+<div id="introduction" class="section level3">
+<h3>Introduction</h3>
+<p>As pets become more and more popular in households, more stray animals seem to appear on the streets. Organizations and non-profits such as Austin Animal Center dedicates their work towards rescuing animals from the streets and finding them a new home. Animal shelters also accept animals for other reasons such as owner surrender, public assist, and etc.. There has been a lot of calls on adopting over breeding, because adopting pets from shelters does not only save the life of your animal friend, but also gives a chance for the shelter to rescue another animal. However, it’s not ideal for everyone to adopt pets from animal shelters. Adoptions are often limited by the pet owner’s financial abilities, as well as the pet’s condition, breed, age, and etc. It’s believed that it can be hard for an animal to be adopted depending on its breed (for example, pit bulls), and the outcomes for cats and dogs can be different. I adopted my cat Bobbie from PetSmart in 2017, therefore I understand how hard it can be for pets to be adopted. I decided to work on this topic with hopes to visualize and provide some insights for the pets that came in/left the Austin Animal Center.</p>
+</div>
+<div id="bobbie" class="section level3">
+<h3>Bobbie</h3>
+<div class="figure">
+<img src="/Users/Mary/Desktop/ANLY%20503/anly503-fall2020-project-mengyu14/img/bobbie.jpeg" alt="" />
+<p class="caption">Image of Bobbie in 2017, 1 month after adoption</p>
+</div>
+</div>
+</div>
+<div id="row-1" class="section level2">
+<h2>Row</h2>
+<div id="austin-animal-center" class="section level3">
+<h3>Austin Animal Center</h3>
+<div class="figure">
+<img src="/Users/Mary/Desktop/ANLY%20503/anly503-fall2020-project-mengyu14/img/aac.jpg" alt="" />
+<p class="caption">Image of Austin Animal Center, Austin Monitor (<a href="https://www.austinmonitor.com" class="uri">https://www.austinmonitor.com</a>)</p>
+</div>
+</div>
+<div id="data-and-methods" class="section level3">
+<h3>Data and Methods</h3>
+<p>This project utilizes the pet intake and outcome data sets that were made available by the Austin Animal Center in Texas. The ‘Intakes’ dataset consists of information of animals that were accepted into the center, for example, time of intake, type of intake (stray, owner surrender, etc.), the location it was found, its approximate age, breed, color, and etc. The ‘Outcomes’ datasets consists of information of animals that left the center. It consists of the time of outcome, type of outcome (adoption, returned to owner, etc), as well as the breed, age, and color information similar to the ‘Intakes’ data. The visualizations and the responding data pre-processing were all performed in R-studio. Please see packages in ‘Package’ tab.</p>
+</div>
+<div id="image-of-data" class="section level3">
+<h3>Image of Data</h3>
+<div class="figure">
+<img src="/Users/Mary/Desktop/ANLY%20503/anly503-fall2020-project-mengyu14/img/data.png" alt="" />
+<p class="caption">Screenshot of data from data.world (<a href="https://data.world/siyeh/austin-animal-center-live-data" class="uri">https://data.world/siyeh/austin-animal-center-live-data</a>)</p>
+</div>
+</div>
+</div>
+</div>
+<div id="data-overview" class="section level1 storyboard">
+<h1>Data Overview</h1>
+<div id="intakes-by-type" class="section level3">
+<h3>Intakes by Type</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><img src="final_project_files/figure-html/waffle%20chart-1.png" width="576" data-figure-id=fig1 /></p>
+<hr />
+<p>The waffle chart on the left represents the total number of animals taken in by the Austin Animal Center over the years 2013-2020. Each square represents about 1210 animals, and the colors represent the type of animals that was taken in. Since the main interest for this project is on cats and dogs, all other animals such as birds, live stock and etc are grouped as ‘Other’. The graph is constructed to be 10 by 10, therefore it’s easy to see the approximate proportion of each type of animal. Dogs are the majority of the intakes (about 57%), followed by cats (~38%). Other animals such as birds, live stock and etc takes up about 5%.</p>
+</div>
+<div id="intake-condition" class="section level3">
+<h3>Intake Condition</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><img src="final_project_files/figure-html/bar%20chart-1.png" width="576" data-figure-id=fig2 /></p>
+<hr />
+<p>Looking at the graph, it can be observed that the group with the highest count are normal/healthy dogs, followed by normal/healthy cats. There are more nursing/sick/feral cats than dogs, and more injured/aged dogs than cats. I’m actually not very surprised because of the different physical properties and general character of cats and dogs. For example, dogs are more lively, and their bodies are less flexible, while cats are extremely flexible and also lazy most of the time.</p>
+</div>
+<div id="intake-and-outcome-sex-condition" class="section level3">
+<h3>Intake and Outcome Sex Condition</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><img src="final_project_files/figure-html/vbar%20chart-1.png" width="576" data-figure-id=fig3 /></p>
+<hr />
+<p>This shows the sex of the pets when they were taken in versus when they left the facility. It can be observed that most pets came in intact, not matter male nor female. But most of them left the animal center neutered/spayed. This is good because it prevents strays from giving birth to more kittens/puppies, and also pets suffer less from being in heat.</p>
+</div>
+</div>
+<div id="intake-and-outcome-time" class="section level1 storyboard">
+<h1>Intake and Outcome Time</h1>
+<div id="intake-by-time" class="section level3">
+<h3>Intake by Time</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-b2a4d91c7e1e0e567ffe" style="width:576px;height:460.8px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b2a4d91c7e1e0e567ffe">{"x":{"data":[{"x":[2013.75,2013.83333333333,2013.91666666667,2014,2014.08333333333,2014.16666666667,2014.25,2014.33333333333,2014.41666666667,2014.5,2014.58333333333,2014.66666666667,2014.75,2014.83333333333,2014.91666666667,2015,2015.08333333333,2015.16666666667,2015.25,2015.33333333333,2015.41666666667,2015.5,2015.58333333333,2015.66666666667,2015.75,2015.83333333333,2015.91666666667,2016,2016.08333333333,2016.16666666667,2016.25,2016.33333333333,2016.41666666667,2016.5,2016.58333333333,2016.66666666667,2016.75,2016.83333333333,2016.91666666667,2017,2017.08333333333,2017.16666666667,2017.25,2017.33333333333,2017.41666666667,2017.5,2017.58333333333,2017.66666666667,2017.75,2017.83333333333,2017.91666666667,2018,2018.08333333333,2018.16666666667,2018.25,2018.33333333333,2018.41666666667,2018.5,2018.58333333333,2018.66666666667,2018.75,2018.83333333333,2018.91666666667,2019,2019.08333333333,2019.16666666667,2019.25,2019.33333333333,2019.41666666667,2019.5,2019.58333333333,2019.66666666667,2019.75,2019.83333333333,2019.91666666667,2020,2020.08333333333,2020.16666666667,2020.25,2020.33333333333,2020.41666666667,2020.5,2020.58333333333,2020.66666666667,2020.75,2020.83333333333,2020.91666666667],"y":[542,436,331,335,269,353,566,901,821,881,679,704,605,482,341,295,266,340,537,1009,1103,778,812,754,784,488,320,304,280,333,664,921,703,573,766,646,563,463,419,340,258,353,565,914,895,669,563,653,512,424,343,262,259,310,451,843,841,732,515,603,544,386,274,322,297,409,629,1104,998,876,838,849,718,513,328,301,278,211,85,214,406,390,381,423,394,209,42],"text":["Animal Type: Cat <br>Date: Oct 2013 <br>Number:  542","Animal Type: Cat <br>Date: Nov 2013 <br>Number:  436","Animal Type: Cat <br>Date: Dec 2013 <br>Number:  331","Animal Type: Cat <br>Date: Jan 2014 <br>Number:  335","Animal Type: Cat <br>Date: Feb 2014 <br>Number:  269","Animal Type: Cat <br>Date: Mar 2014 <br>Number:  353","Animal Type: Cat <br>Date: Apr 2014 <br>Number:  566","Animal Type: Cat <br>Date: May 2014 <br>Number:  901","Animal Type: Cat <br>Date: Jun 2014 <br>Number:  821","Animal Type: Cat <br>Date: Jul 2014 <br>Number:  881","Animal Type: Cat <br>Date: Aug 2014 <br>Number:  679","Animal Type: Cat <br>Date: Sep 2014 <br>Number:  704","Animal Type: Cat <br>Date: Oct 2014 <br>Number:  605","Animal Type: Cat <br>Date: Nov 2014 <br>Number:  482","Animal Type: Cat <br>Date: Dec 2014 <br>Number:  341","Animal Type: Cat <br>Date: Jan 2015 <br>Number:  295","Animal Type: Cat <br>Date: Feb 2015 <br>Number:  266","Animal Type: Cat <br>Date: Mar 2015 <br>Number:  340","Animal Type: Cat <br>Date: Apr 2015 <br>Number:  537","Animal Type: Cat <br>Date: May 2015 <br>Number:  1009","Animal Type: Cat <br>Date: Jun 2015 <br>Number:  1103","Animal Type: Cat <br>Date: Jul 2015 <br>Number:  778","Animal Type: Cat <br>Date: Aug 2015 <br>Number:  812","Animal Type: Cat <br>Date: Sep 2015 <br>Number:  754","Animal Type: Cat <br>Date: Oct 2015 <br>Number:  784","Animal Type: Cat <br>Date: Nov 2015 <br>Number:  488","Animal Type: Cat <br>Date: Dec 2015 <br>Number:  320","Animal Type: Cat <br>Date: Jan 2016 <br>Number:  304","Animal Type: Cat <br>Date: Feb 2016 <br>Number:  280","Animal Type: Cat <br>Date: Mar 2016 <br>Number:  333","Animal Type: Cat <br>Date: Apr 2016 <br>Number:  664","Animal Type: Cat <br>Date: May 2016 <br>Number:  921","Animal Type: Cat <br>Date: Jun 2016 <br>Number:  703","Animal Type: Cat <br>Date: Jul 2016 <br>Number:  573","Animal Type: Cat <br>Date: Aug 2016 <br>Number:  766","Animal Type: Cat <br>Date: Sep 2016 <br>Number:  646","Animal Type: Cat <br>Date: Oct 2016 <br>Number:  563","Animal Type: Cat <br>Date: Nov 2016 <br>Number:  463","Animal Type: Cat <br>Date: Dec 2016 <br>Number:  419","Animal Type: Cat <br>Date: Jan 2017 <br>Number:  340","Animal Type: Cat <br>Date: Feb 2017 <br>Number:  258","Animal Type: Cat <br>Date: Mar 2017 <br>Number:  353","Animal Type: Cat <br>Date: Apr 2017 <br>Number:  565","Animal Type: Cat <br>Date: May 2017 <br>Number:  914","Animal Type: Cat <br>Date: Jun 2017 <br>Number:  895","Animal Type: Cat <br>Date: Jul 2017 <br>Number:  669","Animal Type: Cat <br>Date: Aug 2017 <br>Number:  563","Animal Type: Cat <br>Date: Sep 2017 <br>Number:  653","Animal Type: Cat <br>Date: Oct 2017 <br>Number:  512","Animal Type: Cat <br>Date: Nov 2017 <br>Number:  424","Animal Type: Cat <br>Date: Dec 2017 <br>Number:  343","Animal Type: Cat <br>Date: Jan 2018 <br>Number:  262","Animal Type: Cat <br>Date: Feb 2018 <br>Number:  259","Animal Type: Cat <br>Date: Mar 2018 <br>Number:  310","Animal Type: Cat <br>Date: Apr 2018 <br>Number:  451","Animal Type: Cat <br>Date: May 2018 <br>Number:  843","Animal Type: Cat <br>Date: Jun 2018 <br>Number:  841","Animal Type: Cat <br>Date: Jul 2018 <br>Number:  732","Animal Type: Cat <br>Date: Aug 2018 <br>Number:  515","Animal Type: Cat <br>Date: Sep 2018 <br>Number:  603","Animal Type: Cat <br>Date: Oct 2018 <br>Number:  544","Animal Type: Cat <br>Date: Nov 2018 <br>Number:  386","Animal Type: Cat <br>Date: Dec 2018 <br>Number:  274","Animal Type: Cat <br>Date: Jan 2019 <br>Number:  322","Animal Type: Cat <br>Date: Feb 2019 <br>Number:  297","Animal Type: Cat <br>Date: Mar 2019 <br>Number:  409","Animal Type: Cat <br>Date: Apr 2019 <br>Number:  629","Animal Type: Cat <br>Date: May 2019 <br>Number:  1104","Animal Type: Cat <br>Date: Jun 2019 <br>Number:  998","Animal Type: Cat <br>Date: Jul 2019 <br>Number:  876","Animal Type: Cat <br>Date: Aug 2019 <br>Number:  838","Animal Type: Cat <br>Date: Sep 2019 <br>Number:  849","Animal Type: Cat <br>Date: Oct 2019 <br>Number:  718","Animal Type: Cat <br>Date: Nov 2019 <br>Number:  513","Animal Type: Cat <br>Date: Dec 2019 <br>Number:  328","Animal Type: Cat <br>Date: Jan 2020 <br>Number:  301","Animal Type: Cat <br>Date: Feb 2020 <br>Number:  278","Animal Type: Cat <br>Date: Mar 2020 <br>Number:  211","Animal Type: Cat <br>Date: Apr 2020 <br>Number:  85","Animal Type: Cat <br>Date: May 2020 <br>Number:  214","Animal Type: Cat <br>Date: Jun 2020 <br>Number:  406","Animal Type: Cat <br>Date: Jul 2020 <br>Number:  390","Animal Type: Cat <br>Date: Aug 2020 <br>Number:  381","Animal Type: Cat <br>Date: Sep 2020 <br>Number:  423","Animal Type: Cat <br>Date: Oct 2020 <br>Number:  394","Animal Type: Cat <br>Date: Nov 2020 <br>Number:  209","Animal Type: Cat <br>Date: Dec 2020 <br>Number:  42"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(138,198,209,1)","dash":"solid"},"hoveron":"points","name":"Cat","legendgroup":"Cat","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2013.75,2013.83333333333,2013.91666666667,2014,2014.08333333333,2014.16666666667,2014.25,2014.33333333333,2014.41666666667,2014.5,2014.58333333333,2014.66666666667,2014.75,2014.83333333333,2014.91666666667,2015,2015.08333333333,2015.16666666667,2015.25,2015.33333333333,2015.41666666667,2015.5,2015.58333333333,2015.66666666667,2015.75,2015.83333333333,2015.91666666667,2016,2016.08333333333,2016.16666666667,2016.25,2016.33333333333,2016.41666666667,2016.5,2016.58333333333,2016.66666666667,2016.75,2016.83333333333,2016.91666666667,2017,2017.08333333333,2017.16666666667,2017.25,2017.33333333333,2017.41666666667,2017.5,2017.58333333333,2017.66666666667,2017.75,2017.83333333333,2017.91666666667,2018,2018.08333333333,2018.16666666667,2018.25,2018.33333333333,2018.41666666667,2018.5,2018.58333333333,2018.66666666667,2018.75,2018.83333333333,2018.91666666667,2019,2019.08333333333,2019.16666666667,2019.25,2019.33333333333,2019.41666666667,2019.5,2019.58333333333,2019.66666666667,2019.75,2019.83333333333,2019.91666666667,2020,2020.08333333333,2020.16666666667,2020.25,2020.33333333333,2020.41666666667,2020.5,2020.58333333333,2020.66666666667,2020.75,2020.83333333333,2020.91666666667],"y":[965,817,852,877,818,895,858,966,878,926,841,917,853,847,892,867,813,857,899,988,1014,795,816,784,853,865,776,848,810,863,811,1020,854,765,802,792,740,815,813,825,853,830,790,899,821,840,824,943,821,717,777,798,737,868,813,805,805,862,824,923,957,795,817,884,775,983,898,960,970,1006,934,923,930,853,814,861,781,559,180,238,383,342,409,421,444,436,70],"text":["Animal Type: Dog <br>Date: Oct 2013 <br>Number:  965","Animal Type: Dog <br>Date: Nov 2013 <br>Number:  817","Animal Type: Dog <br>Date: Dec 2013 <br>Number:  852","Animal Type: Dog <br>Date: Jan 2014 <br>Number:  877","Animal Type: Dog <br>Date: Feb 2014 <br>Number:  818","Animal Type: Dog <br>Date: Mar 2014 <br>Number:  895","Animal Type: Dog <br>Date: Apr 2014 <br>Number:  858","Animal Type: Dog <br>Date: May 2014 <br>Number:  966","Animal Type: Dog <br>Date: Jun 2014 <br>Number:  878","Animal Type: Dog <br>Date: Jul 2014 <br>Number:  926","Animal Type: Dog <br>Date: Aug 2014 <br>Number:  841","Animal Type: Dog <br>Date: Sep 2014 <br>Number:  917","Animal Type: Dog <br>Date: Oct 2014 <br>Number:  853","Animal Type: Dog <br>Date: Nov 2014 <br>Number:  847","Animal Type: Dog <br>Date: Dec 2014 <br>Number:  892","Animal Type: Dog <br>Date: Jan 2015 <br>Number:  867","Animal Type: Dog <br>Date: Feb 2015 <br>Number:  813","Animal Type: Dog <br>Date: Mar 2015 <br>Number:  857","Animal Type: Dog <br>Date: Apr 2015 <br>Number:  899","Animal Type: Dog <br>Date: May 2015 <br>Number:  988","Animal Type: Dog <br>Date: Jun 2015 <br>Number:  1014","Animal Type: Dog <br>Date: Jul 2015 <br>Number:  795","Animal Type: Dog <br>Date: Aug 2015 <br>Number:  816","Animal Type: Dog <br>Date: Sep 2015 <br>Number:  784","Animal Type: Dog <br>Date: Oct 2015 <br>Number:  853","Animal Type: Dog <br>Date: Nov 2015 <br>Number:  865","Animal Type: Dog <br>Date: Dec 2015 <br>Number:  776","Animal Type: Dog <br>Date: Jan 2016 <br>Number:  848","Animal Type: Dog <br>Date: Feb 2016 <br>Number:  810","Animal Type: Dog <br>Date: Mar 2016 <br>Number:  863","Animal Type: Dog <br>Date: Apr 2016 <br>Number:  811","Animal Type: Dog <br>Date: May 2016 <br>Number:  1020","Animal Type: Dog <br>Date: Jun 2016 <br>Number:  854","Animal Type: Dog <br>Date: Jul 2016 <br>Number:  765","Animal Type: Dog <br>Date: Aug 2016 <br>Number:  802","Animal Type: Dog <br>Date: Sep 2016 <br>Number:  792","Animal Type: Dog <br>Date: Oct 2016 <br>Number:  740","Animal Type: Dog <br>Date: Nov 2016 <br>Number:  815","Animal Type: Dog <br>Date: Dec 2016 <br>Number:  813","Animal Type: Dog <br>Date: Jan 2017 <br>Number:  825","Animal Type: Dog <br>Date: Feb 2017 <br>Number:  853","Animal Type: Dog <br>Date: Mar 2017 <br>Number:  830","Animal Type: Dog <br>Date: Apr 2017 <br>Number:  790","Animal Type: Dog <br>Date: May 2017 <br>Number:  899","Animal Type: Dog <br>Date: Jun 2017 <br>Number:  821","Animal Type: Dog <br>Date: Jul 2017 <br>Number:  840","Animal Type: Dog <br>Date: Aug 2017 <br>Number:  824","Animal Type: Dog <br>Date: Sep 2017 <br>Number:  943","Animal Type: Dog <br>Date: Oct 2017 <br>Number:  821","Animal Type: Dog <br>Date: Nov 2017 <br>Number:  717","Animal Type: Dog <br>Date: Dec 2017 <br>Number:  777","Animal Type: Dog <br>Date: Jan 2018 <br>Number:  798","Animal Type: Dog <br>Date: Feb 2018 <br>Number:  737","Animal Type: Dog <br>Date: Mar 2018 <br>Number:  868","Animal Type: Dog <br>Date: Apr 2018 <br>Number:  813","Animal Type: Dog <br>Date: May 2018 <br>Number:  805","Animal Type: Dog <br>Date: Jun 2018 <br>Number:  805","Animal Type: Dog <br>Date: Jul 2018 <br>Number:  862","Animal Type: Dog <br>Date: Aug 2018 <br>Number:  824","Animal Type: Dog <br>Date: Sep 2018 <br>Number:  923","Animal Type: Dog <br>Date: Oct 2018 <br>Number:  957","Animal Type: Dog <br>Date: Nov 2018 <br>Number:  795","Animal Type: Dog <br>Date: Dec 2018 <br>Number:  817","Animal Type: Dog <br>Date: Jan 2019 <br>Number:  884","Animal Type: Dog <br>Date: Feb 2019 <br>Number:  775","Animal Type: Dog <br>Date: Mar 2019 <br>Number:  983","Animal Type: Dog <br>Date: Apr 2019 <br>Number:  898","Animal Type: Dog <br>Date: May 2019 <br>Number:  960","Animal Type: Dog <br>Date: Jun 2019 <br>Number:  970","Animal Type: Dog <br>Date: Jul 2019 <br>Number:  1006","Animal Type: Dog <br>Date: Aug 2019 <br>Number:  934","Animal Type: Dog <br>Date: Sep 2019 <br>Number:  923","Animal Type: Dog <br>Date: Oct 2019 <br>Number:  930","Animal Type: Dog <br>Date: Nov 2019 <br>Number:  853","Animal Type: Dog <br>Date: Dec 2019 <br>Number:  814","Animal Type: Dog <br>Date: Jan 2020 <br>Number:  861","Animal Type: Dog <br>Date: Feb 2020 <br>Number:  781","Animal Type: Dog <br>Date: Mar 2020 <br>Number:  559","Animal Type: Dog <br>Date: Apr 2020 <br>Number:  180","Animal Type: Dog <br>Date: May 2020 <br>Number:  238","Animal Type: Dog <br>Date: Jun 2020 <br>Number:  383","Animal Type: Dog <br>Date: Jul 2020 <br>Number:  342","Animal Type: Dog <br>Date: Aug 2020 <br>Number:  409","Animal Type: Dog <br>Date: Sep 2020 <br>Number:  421","Animal Type: Dog <br>Date: Oct 2020 <br>Number:  444","Animal Type: Dog <br>Date: Nov 2020 <br>Number:  436","Animal Type: Dog <br>Date: Dec 2020 <br>Number:  70"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(235,143,138,1)","dash":"solid"},"hoveron":"points","name":"Dog","legendgroup":"Dog","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":42.6666666666667,"r":7.30593607305936,"b":39.0867579908676,"l":43.1050228310502},"font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187},"title":{"text":"Animal Intake Number by Month","font":{"color":"rgba(0,0,0,1)","family":"Times","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[2013.39166666667,2021.275],"tickmode":"array","ticktext":["Jan 2014","Jan 2016","Jan 2018","Jan 2020"],"tickvals":[2014,2016,2018,2020],"categoryorder":"array","categoryarray":["Jan 2014","Jan 2016","Jan 2018","Jan 2020"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Times","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(169,169,169,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Intake Date (Month Year)","font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-11.1,1157.1],"tickmode":"array","ticktext":["0","300","600","900"],"tickvals":[0,300,600,900],"categoryorder":"array","categoryarray":["0","300","600","900"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Times","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(169,169,169,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Total Count","font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"Times","size":11.689497716895},"y":0.909776902887139},"annotations":[{"text":"Animal Type","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"da422e1871c2":{"colour":{},"text":{},"x":{},"y":{},"type":"scatter"}},"cur_data":"da422e1871c2","visdat":{"da422e1871c2":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<hr />
+<p>This graph is interactive. Hover onto the lines for more details.</p>
+<p>The Intake time series graph shows a strong seasonality for the intake number for cats, and a weaker seasonality for the intake number for dogs. It seems that the highest number of intakes often happens in May and June each year for cats, and then the number decreases throughout August through January, and reaches a minimum at each February. The pattern is similar for dogs, however the number for the dog intake number does not fluctuate as much. One reason for this trend might be that when the weather becomes warmer, cats, especially strays, tend to start mating and having kittens.Although Texas does not get cold as some of the other states during winter, the weather can still be harsh to animals who don’t have a home. We can also see that the number of intakes decreased sharply in 2020, reflecting that Covid-19 has caused most people to stay at home, thus making it harder to discover/rescue animals that are strays or need help.</p>
+</div>
+<div id="outcome-by-time" class="section level3">
+<h3>Outcome by Time</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-513eaec416fe2031e6b3" style="width:576px;height:460.8px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-513eaec416fe2031e6b3">{"x":{"data":[{"x":[2013.75,2013.83333333333,2013.91666666667,2014,2014.08333333333,2014.16666666667,2014.25,2014.33333333333,2014.41666666667,2014.5,2014.58333333333,2014.66666666667,2014.75,2014.83333333333,2014.91666666667,2015,2015.08333333333,2015.16666666667,2015.25,2015.33333333333,2015.41666666667,2015.5,2015.58333333333,2015.66666666667,2015.75,2015.83333333333,2015.91666666667,2016,2016.08333333333,2016.16666666667,2016.25,2016.33333333333,2016.41666666667,2016.5,2016.58333333333,2016.66666666667,2016.75,2016.83333333333,2016.91666666667,2017,2017.08333333333,2017.16666666667,2017.25,2017.33333333333,2017.41666666667,2017.5,2017.58333333333,2017.66666666667,2017.75,2017.83333333333,2017.91666666667,2018,2018.08333333333,2018.16666666667,2018.25,2018.33333333333,2018.41666666667,2018.5,2018.58333333333,2018.66666666667,2018.75,2018.83333333333,2018.91666666667,2019,2019.08333333333,2019.16666666667,2019.25,2019.33333333333,2019.41666666667,2019.5,2019.58333333333,2019.66666666667,2019.75,2019.83333333333,2019.91666666667,2020,2020.08333333333,2020.16666666667,2020.25,2020.33333333333,2020.41666666667,2020.5,2020.58333333333,2020.66666666667,2020.75,2020.83333333333,2020.91666666667],"y":[607,443,555,367,266,336,448,622,804,1046,808,687,598,519,434,339,262,308,427,698,979,976,815,731,690,620,494,398,288,306,487,617,714,767,693,752,557,537,512,442,322,334,410,637,764,814,774,581,590,457,450,331,287,290,342,541,788,747,699,557,534,501,425,328,291,370,463,690,1077,893,933,781,763,673,505,388,335,232,104,146,257,346,363,357,357,294,58],"text":["Animal Type: Cat <br>Date: Oct 2013 <br>Number:  607","Animal Type: Cat <br>Date: Nov 2013 <br>Number:  443","Animal Type: Cat <br>Date: Dec 2013 <br>Number:  555","Animal Type: Cat <br>Date: Jan 2014 <br>Number:  367","Animal Type: Cat <br>Date: Feb 2014 <br>Number:  266","Animal Type: Cat <br>Date: Mar 2014 <br>Number:  336","Animal Type: Cat <br>Date: Apr 2014 <br>Number:  448","Animal Type: Cat <br>Date: May 2014 <br>Number:  622","Animal Type: Cat <br>Date: Jun 2014 <br>Number:  804","Animal Type: Cat <br>Date: Jul 2014 <br>Number:  1046","Animal Type: Cat <br>Date: Aug 2014 <br>Number:  808","Animal Type: Cat <br>Date: Sep 2014 <br>Number:  687","Animal Type: Cat <br>Date: Oct 2014 <br>Number:  598","Animal Type: Cat <br>Date: Nov 2014 <br>Number:  519","Animal Type: Cat <br>Date: Dec 2014 <br>Number:  434","Animal Type: Cat <br>Date: Jan 2015 <br>Number:  339","Animal Type: Cat <br>Date: Feb 2015 <br>Number:  262","Animal Type: Cat <br>Date: Mar 2015 <br>Number:  308","Animal Type: Cat <br>Date: Apr 2015 <br>Number:  427","Animal Type: Cat <br>Date: May 2015 <br>Number:  698","Animal Type: Cat <br>Date: Jun 2015 <br>Number:  979","Animal Type: Cat <br>Date: Jul 2015 <br>Number:  976","Animal Type: Cat <br>Date: Aug 2015 <br>Number:  815","Animal Type: Cat <br>Date: Sep 2015 <br>Number:  731","Animal Type: Cat <br>Date: Oct 2015 <br>Number:  690","Animal Type: Cat <br>Date: Nov 2015 <br>Number:  620","Animal Type: Cat <br>Date: Dec 2015 <br>Number:  494","Animal Type: Cat <br>Date: Jan 2016 <br>Number:  398","Animal Type: Cat <br>Date: Feb 2016 <br>Number:  288","Animal Type: Cat <br>Date: Mar 2016 <br>Number:  306","Animal Type: Cat <br>Date: Apr 2016 <br>Number:  487","Animal Type: Cat <br>Date: May 2016 <br>Number:  617","Animal Type: Cat <br>Date: Jun 2016 <br>Number:  714","Animal Type: Cat <br>Date: Jul 2016 <br>Number:  767","Animal Type: Cat <br>Date: Aug 2016 <br>Number:  693","Animal Type: Cat <br>Date: Sep 2016 <br>Number:  752","Animal Type: Cat <br>Date: Oct 2016 <br>Number:  557","Animal Type: Cat <br>Date: Nov 2016 <br>Number:  537","Animal Type: Cat <br>Date: Dec 2016 <br>Number:  512","Animal Type: Cat <br>Date: Jan 2017 <br>Number:  442","Animal Type: Cat <br>Date: Feb 2017 <br>Number:  322","Animal Type: Cat <br>Date: Mar 2017 <br>Number:  334","Animal Type: Cat <br>Date: Apr 2017 <br>Number:  410","Animal Type: Cat <br>Date: May 2017 <br>Number:  637","Animal Type: Cat <br>Date: Jun 2017 <br>Number:  764","Animal Type: Cat <br>Date: Jul 2017 <br>Number:  814","Animal Type: Cat <br>Date: Aug 2017 <br>Number:  774","Animal Type: Cat <br>Date: Sep 2017 <br>Number:  581","Animal Type: Cat <br>Date: Oct 2017 <br>Number:  590","Animal Type: Cat <br>Date: Nov 2017 <br>Number:  457","Animal Type: Cat <br>Date: Dec 2017 <br>Number:  450","Animal Type: Cat <br>Date: Jan 2018 <br>Number:  331","Animal Type: Cat <br>Date: Feb 2018 <br>Number:  287","Animal Type: Cat <br>Date: Mar 2018 <br>Number:  290","Animal Type: Cat <br>Date: Apr 2018 <br>Number:  342","Animal Type: Cat <br>Date: May 2018 <br>Number:  541","Animal Type: Cat <br>Date: Jun 2018 <br>Number:  788","Animal Type: Cat <br>Date: Jul 2018 <br>Number:  747","Animal Type: Cat <br>Date: Aug 2018 <br>Number:  699","Animal Type: Cat <br>Date: Sep 2018 <br>Number:  557","Animal Type: Cat <br>Date: Oct 2018 <br>Number:  534","Animal Type: Cat <br>Date: Nov 2018 <br>Number:  501","Animal Type: Cat <br>Date: Dec 2018 <br>Number:  425","Animal Type: Cat <br>Date: Jan 2019 <br>Number:  328","Animal Type: Cat <br>Date: Feb 2019 <br>Number:  291","Animal Type: Cat <br>Date: Mar 2019 <br>Number:  370","Animal Type: Cat <br>Date: Apr 2019 <br>Number:  463","Animal Type: Cat <br>Date: May 2019 <br>Number:  690","Animal Type: Cat <br>Date: Jun 2019 <br>Number:  1077","Animal Type: Cat <br>Date: Jul 2019 <br>Number:  893","Animal Type: Cat <br>Date: Aug 2019 <br>Number:  933","Animal Type: Cat <br>Date: Sep 2019 <br>Number:  781","Animal Type: Cat <br>Date: Oct 2019 <br>Number:  763","Animal Type: Cat <br>Date: Nov 2019 <br>Number:  673","Animal Type: Cat <br>Date: Dec 2019 <br>Number:  505","Animal Type: Cat <br>Date: Jan 2020 <br>Number:  388","Animal Type: Cat <br>Date: Feb 2020 <br>Number:  335","Animal Type: Cat <br>Date: Mar 2020 <br>Number:  232","Animal Type: Cat <br>Date: Apr 2020 <br>Number:  104","Animal Type: Cat <br>Date: May 2020 <br>Number:  146","Animal Type: Cat <br>Date: Jun 2020 <br>Number:  257","Animal Type: Cat <br>Date: Jul 2020 <br>Number:  346","Animal Type: Cat <br>Date: Aug 2020 <br>Number:  363","Animal Type: Cat <br>Date: Sep 2020 <br>Number:  357","Animal Type: Cat <br>Date: Oct 2020 <br>Number:  357","Animal Type: Cat <br>Date: Nov 2020 <br>Number:  294","Animal Type: Cat <br>Date: Dec 2020 <br>Number:  58"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(138,198,209,1)","dash":"solid"},"hoveron":"points","name":"Cat","legendgroup":"Cat","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2013.75,2013.83333333333,2013.91666666667,2014,2014.08333333333,2014.16666666667,2014.25,2014.33333333333,2014.41666666667,2014.5,2014.58333333333,2014.66666666667,2014.75,2014.83333333333,2014.91666666667,2015,2015.08333333333,2015.16666666667,2015.25,2015.33333333333,2015.41666666667,2015.5,2015.58333333333,2015.66666666667,2015.75,2015.83333333333,2015.91666666667,2016,2016.08333333333,2016.16666666667,2016.25,2016.33333333333,2016.41666666667,2016.5,2016.58333333333,2016.66666666667,2016.75,2016.83333333333,2016.91666666667,2017,2017.08333333333,2017.16666666667,2017.25,2017.33333333333,2017.41666666667,2017.5,2017.58333333333,2017.66666666667,2017.75,2017.83333333333,2017.91666666667,2018,2018.08333333333,2018.16666666667,2018.25,2018.33333333333,2018.41666666667,2018.5,2018.58333333333,2018.66666666667,2018.75,2018.83333333333,2018.91666666667,2019,2019.08333333333,2019.16666666667,2019.25,2019.33333333333,2019.41666666667,2019.5,2019.58333333333,2019.66666666667,2019.75,2019.83333333333,2019.91666666667,2020,2020.08333333333,2020.16666666667,2020.25,2020.33333333333,2020.41666666667,2020.5,2020.58333333333,2020.66666666667,2020.75,2020.83333333333,2020.91666666667],"y":[944,825,891,860,774,917,847,919,854,959,924,887,855,860,965,828,820,800,842,1084,921,860,831,816,786,881,798,851,799,857,775,973,839,845,756,815,766,849,821,858,887,811,786,918,761,847,826,833,954,701,761,769,715,850,805,853,769,857,874,867,860,603,927,966,781,978,915,930,1061,955,976,909,908,836,878,856,788,614,242,266,349,345,403,414,401,432,112],"text":["Animal Type: Dog <br>Date: Oct 2013 <br>Number:  944","Animal Type: Dog <br>Date: Nov 2013 <br>Number:  825","Animal Type: Dog <br>Date: Dec 2013 <br>Number:  891","Animal Type: Dog <br>Date: Jan 2014 <br>Number:  860","Animal Type: Dog <br>Date: Feb 2014 <br>Number:  774","Animal Type: Dog <br>Date: Mar 2014 <br>Number:  917","Animal Type: Dog <br>Date: Apr 2014 <br>Number:  847","Animal Type: Dog <br>Date: May 2014 <br>Number:  919","Animal Type: Dog <br>Date: Jun 2014 <br>Number:  854","Animal Type: Dog <br>Date: Jul 2014 <br>Number:  959","Animal Type: Dog <br>Date: Aug 2014 <br>Number:  924","Animal Type: Dog <br>Date: Sep 2014 <br>Number:  887","Animal Type: Dog <br>Date: Oct 2014 <br>Number:  855","Animal Type: Dog <br>Date: Nov 2014 <br>Number:  860","Animal Type: Dog <br>Date: Dec 2014 <br>Number:  965","Animal Type: Dog <br>Date: Jan 2015 <br>Number:  828","Animal Type: Dog <br>Date: Feb 2015 <br>Number:  820","Animal Type: Dog <br>Date: Mar 2015 <br>Number:  800","Animal Type: Dog <br>Date: Apr 2015 <br>Number:  842","Animal Type: Dog <br>Date: May 2015 <br>Number:  1084","Animal Type: Dog <br>Date: Jun 2015 <br>Number:  921","Animal Type: Dog <br>Date: Jul 2015 <br>Number:  860","Animal Type: Dog <br>Date: Aug 2015 <br>Number:  831","Animal Type: Dog <br>Date: Sep 2015 <br>Number:  816","Animal Type: Dog <br>Date: Oct 2015 <br>Number:  786","Animal Type: Dog <br>Date: Nov 2015 <br>Number:  881","Animal Type: Dog <br>Date: Dec 2015 <br>Number:  798","Animal Type: Dog <br>Date: Jan 2016 <br>Number:  851","Animal Type: Dog <br>Date: Feb 2016 <br>Number:  799","Animal Type: Dog <br>Date: Mar 2016 <br>Number:  857","Animal Type: Dog <br>Date: Apr 2016 <br>Number:  775","Animal Type: Dog <br>Date: May 2016 <br>Number:  973","Animal Type: Dog <br>Date: Jun 2016 <br>Number:  839","Animal Type: Dog <br>Date: Jul 2016 <br>Number:  845","Animal Type: Dog <br>Date: Aug 2016 <br>Number:  756","Animal Type: Dog <br>Date: Sep 2016 <br>Number:  815","Animal Type: Dog <br>Date: Oct 2016 <br>Number:  766","Animal Type: Dog <br>Date: Nov 2016 <br>Number:  849","Animal Type: Dog <br>Date: Dec 2016 <br>Number:  821","Animal Type: Dog <br>Date: Jan 2017 <br>Number:  858","Animal Type: Dog <br>Date: Feb 2017 <br>Number:  887","Animal Type: Dog <br>Date: Mar 2017 <br>Number:  811","Animal Type: Dog <br>Date: Apr 2017 <br>Number:  786","Animal Type: Dog <br>Date: May 2017 <br>Number:  918","Animal Type: Dog <br>Date: Jun 2017 <br>Number:  761","Animal Type: Dog <br>Date: Jul 2017 <br>Number:  847","Animal Type: Dog <br>Date: Aug 2017 <br>Number:  826","Animal Type: Dog <br>Date: Sep 2017 <br>Number:  833","Animal Type: Dog <br>Date: Oct 2017 <br>Number:  954","Animal Type: Dog <br>Date: Nov 2017 <br>Number:  701","Animal Type: Dog <br>Date: Dec 2017 <br>Number:  761","Animal Type: Dog <br>Date: Jan 2018 <br>Number:  769","Animal Type: Dog <br>Date: Feb 2018 <br>Number:  715","Animal Type: Dog <br>Date: Mar 2018 <br>Number:  850","Animal Type: Dog <br>Date: Apr 2018 <br>Number:  805","Animal Type: Dog <br>Date: May 2018 <br>Number:  853","Animal Type: Dog <br>Date: Jun 2018 <br>Number:  769","Animal Type: Dog <br>Date: Jul 2018 <br>Number:  857","Animal Type: Dog <br>Date: Aug 2018 <br>Number:  874","Animal Type: Dog <br>Date: Sep 2018 <br>Number:  867","Animal Type: Dog <br>Date: Oct 2018 <br>Number:  860","Animal Type: Dog <br>Date: Nov 2018 <br>Number:  603","Animal Type: Dog <br>Date: Dec 2018 <br>Number:  927","Animal Type: Dog <br>Date: Jan 2019 <br>Number:  966","Animal Type: Dog <br>Date: Feb 2019 <br>Number:  781","Animal Type: Dog <br>Date: Mar 2019 <br>Number:  978","Animal Type: Dog <br>Date: Apr 2019 <br>Number:  915","Animal Type: Dog <br>Date: May 2019 <br>Number:  930","Animal Type: Dog <br>Date: Jun 2019 <br>Number:  1061","Animal Type: Dog <br>Date: Jul 2019 <br>Number:  955","Animal Type: Dog <br>Date: Aug 2019 <br>Number:  976","Animal Type: Dog <br>Date: Sep 2019 <br>Number:  909","Animal Type: Dog <br>Date: Oct 2019 <br>Number:  908","Animal Type: Dog <br>Date: Nov 2019 <br>Number:  836","Animal Type: Dog <br>Date: Dec 2019 <br>Number:  878","Animal Type: Dog <br>Date: Jan 2020 <br>Number:  856","Animal Type: Dog <br>Date: Feb 2020 <br>Number:  788","Animal Type: Dog <br>Date: Mar 2020 <br>Number:  614","Animal Type: Dog <br>Date: Apr 2020 <br>Number:  242","Animal Type: Dog <br>Date: May 2020 <br>Number:  266","Animal Type: Dog <br>Date: Jun 2020 <br>Number:  349","Animal Type: Dog <br>Date: Jul 2020 <br>Number:  345","Animal Type: Dog <br>Date: Aug 2020 <br>Number:  403","Animal Type: Dog <br>Date: Sep 2020 <br>Number:  414","Animal Type: Dog <br>Date: Oct 2020 <br>Number:  401","Animal Type: Dog <br>Date: Nov 2020 <br>Number:  432","Animal Type: Dog <br>Date: Dec 2020 <br>Number:  112"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(235,143,138,1)","dash":"solid"},"hoveron":"points","name":"Dog","legendgroup":"Dog","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":42.6666666666667,"r":7.30593607305936,"b":39.0867579908676,"l":43.1050228310502},"font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187},"title":{"text":"Animal Outcome Number by Month","font":{"color":"rgba(0,0,0,1)","family":"Times","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[2013.39166666667,2021.275],"tickmode":"array","ticktext":["Jan 2014","Jan 2016","Jan 2018","Jan 2020"],"tickvals":[2014,2016,2018,2020],"categoryorder":"array","categoryarray":["Jan 2014","Jan 2016","Jan 2018","Jan 2020"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Times","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(169,169,169,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Intake Date (Month Year)","font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[6.7,1135.3],"tickmode":"array","ticktext":["300","600","900"],"tickvals":[300,600,900],"categoryorder":"array","categoryarray":["300","600","900"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Times","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(169,169,169,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Total Count","font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"Times","size":11.689497716895},"y":0.909776902887139},"annotations":[{"text":"Animal Type","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"da422ca60852":{"colour":{},"text":{},"x":{},"y":{},"type":"scatter"}},"cur_data":"da422ca60852","visdat":{"da422ca60852":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<hr />
+<p>This graph is interactive. Hover onto the lines for more details.</p>
+<p>It is interesting to see that similar patterns to the intake numbers also apply to the outcome numbers. It seems that more pets left the animal center during warm weathers, and less left on colder weathers. This could happen because of the number of animals available at the animal center. If there are less intake, then there are less pets available for adoption and etc.</p>
+</div>
+</div>
+<div id="intake-and-outcome-type" class="section level1 storyboard">
+<h1>Intake and Outcome Type</h1>
+<div id="intake-outcome-flow" class="section level3 storyboard-nav">
+<h3>Intake-Outcome Flow</h3>
+Intakes and Outcome Migrations
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><img src="final_project_files/figure-html/network-1.png" width="576" data-figure-id=fig4 /></p>
+<hr />
+<p>This chord diagram shows the outcomes for several different types of intake reasons. Each strand, thick or thin, starts from an intake reason, and points to the different outcomes, with the thickness proportional to the number of cases. For example, it’s easy to see that the top 2 intake reasons are ‘Stray’ and ‘Owner Surrender’, meaning that the animal is either rescued from the streets, or their previous owners no longer decided to keep them. Starting from the ‘Stray’ section, it can be observed the about 45% of the pets were able to be adopted by a new home. Some are lost pets who were returned to their owners, and some were transferred to other facilities. Sadly, A small number that came in with disease or sickness ended up dying or receiving euthanasia. Looking at the ‘Owner Surrender’ section, it’s great to see that most of these pets ended up being adopted.</p>
+</div>
+<div id="intake-type" class="section level3">
+<h3>Intake Type</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-f9b5807ad93beb3cd782" style="width:576px;height:460.8px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f9b5807ad93beb3cd782">{"x":{"data":[{"orientation":"h","width":[0.6,0.6,0.6,0.6,0.6],"base":[-0.21,-0.13,-19.59,-2.2,-77.86],"x":[0.21,0.13,19.59,2.2,77.86],"y":[4,5,2,3,1],"text":["Animal Type: Cat <br>Intake Perc: 0.21 % <br>Number:  99","Animal Type: Cat <br>Intake Perc: 0.13 % <br>Number:  58","Animal Type: Cat <br>Intake Perc: 19.59 % <br>Number:  9031","Animal Type: Cat <br>Intake Perc: 2.2 % <br>Number:  1016","Animal Type: Cat <br>Intake Perc: 77.86 % <br>Number:  35887"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(138,198,209,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Cat","legendgroup":"Cat","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.6,0.6,0.6,0.6,0.6],"base":[0,0,0,0,0],"x":[0.19,0.26,20.94,8.7,69.91],"y":[4,5,2,3,1],"text":["Animal Type: Dog <br>Intake Perc: 0.19 % <br>Number:  133","Animal Type: Dog <br>Intake Perc: 0.26 % <br>Number:  182","Animal Type: Dog <br>Intake Perc: 20.94 % <br>Number:  14543","Animal Type: Dog <br>Intake Perc: 8.7 % <br>Number:  6044","Animal Type: Dog <br>Intake Perc: 69.91 % <br>Number:  48558"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(235,143,138,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Dog","legendgroup":"Dog","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":42.6666666666667,"r":7.30593607305936,"b":39.0867579908676,"l":130.776255707763},"font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187},"title":{"text":"Intake Percent by Animal Type","font":{"color":"rgba(0,0,0,1)","family":"Times","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-85.2485,77.2985],"tickmode":"array","ticktext":["80","60","40","20","0","20","40","60"],"tickvals":[-80,-60,-40,-20,0,20,40,60],"categoryorder":"array","categoryarray":["80","60","40","20","0","20","40","60"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Times","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(169,169,169,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Percent of Total Animal Type (%)","font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,5.6],"tickmode":"array","ticktext":["Stray","Owner Surrender","Public Assist","Abandoned","Euthanasia Request"],"tickvals":[1,2,3,4,5],"categoryorder":"array","categoryarray":["Stray","Owner Surrender","Public Assist","Abandoned","Euthanasia Request"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Times","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(169,169,169,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Intake Type","font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"Times","size":11.689497716895},"y":0.909776902887139},"annotations":[{"text":"Animal Type","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"da4253be63a1":{"text":{},"x":{},"y":{},"fill":{},"type":"bar"}},"cur_data":"da4253be63a1","visdat":{"da4253be63a1":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<hr />
+<p>This graph is interactive. Hover onto the lines for more details.</p>
+<p>This is a graph that compares the intake type for cats and dogs. The percentages are calculated by dividing the number of cases by the total number of cats/dogs. Most of the pets were taken in because of owner surrender or taken in from the streets. More percentage of dogs received public assist than cats, and more cats came in as strays. However it’s hard to determine the percentage of strays that are actual lost pets.</p>
+</div>
+<div id="outcome-type" class="section level3">
+<h3>Outcome Type</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-b3d9fbb9d24014ef7967" style="width:576px;height:460.8px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b3d9fbb9d24014ef7967">{"x":{"data":[{"orientation":"h","width":[0.6,0.6,0.6,0.6,0.6,0.6],"base":[-45.17,-1.65,-4.21,-0.08,-5.04,-43.86],"x":[45.17,1.65,4.21,0.08,5.04,43.86],"y":[1,5,4,6,3,2],"text":["Animal Type: Cat <br>Outcome Perc: 45.17 % <br>Number:  20615","Animal Type: Cat <br>Outcome Perc: 1.65 % <br>Number:  752","Animal Type: Cat <br>Outcome Perc: 4.21 % <br>Number:  1920","Animal Type: Cat <br>Outcome Perc: 0.08 % <br>Number:  35","Animal Type: Cat <br>Outcome Perc: 5.04 % <br>Number:  2300","Animal Type: Cat <br>Outcome Perc: 43.86 % <br>Number:  20020"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(138,198,209,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Cat","legendgroup":"Cat","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.6,0.6,0.6,0.6,0.6,0.6],"base":[0,0,0,0,0,0],"x":[46.92,0.42,2.54,0.04,28.28,21.81],"y":[1,5,4,6,3,2],"text":["Animal Type: Dog <br>Outcome Perc: 46.92 % <br>Number:  32367","Animal Type: Dog <br>Outcome Perc: 0.42 % <br>Number:  287","Animal Type: Dog <br>Outcome Perc: 2.54 % <br>Number:  1749","Animal Type: Dog <br>Outcome Perc: 0.04 % <br>Number:  29","Animal Type: Dog <br>Outcome Perc: 28.28 % <br>Number:  19505","Animal Type: Dog <br>Outcome Perc: 21.81 % <br>Number:  15044"],"type":"bar","marker":{"autocolorscale":false,"color":"rgba(235,143,138,1)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Dog","legendgroup":"Dog","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":42.6666666666667,"r":7.30593607305936,"b":39.0867579908676,"l":113.24200913242},"font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187},"title":{"text":"Outcome Percent by Animal Type","font":{"color":"rgba(0,0,0,1)","family":"Times","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-49.7745,51.5245],"tickmode":"array","ticktext":["40","30","20","10","0","10","20","30","40","50"],"tickvals":[-40,-30,-20,-10,0,10,20,30,40,50],"categoryorder":"array","categoryarray":["40","30","20","10","0","10","20","30","40","50"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Times","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(169,169,169,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Percent of Total Animal Type (%)","font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,6.6],"tickmode":"array","ticktext":["Adoption","Transfer","Return to Owner","Euthanasia","Disposal","Missing"],"tickvals":[1,2,3,4,5,6],"categoryorder":"array","categoryarray":["Adoption","Transfer","Return to Owner","Euthanasia","Disposal","Missing"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Times","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(169,169,169,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Outcome Type","font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"Times","size":11.689497716895},"y":0.909776902887139},"annotations":[{"text":"Animal Type","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"da423b259cbd":{"text":{},"x":{},"y":{},"fill":{},"type":"bar"}},"cur_data":"da423b259cbd","visdat":{"da423b259cbd":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<hr />
+<p>This graph is interactive. Hover onto the lines for more details.</p>
+<p>This is a graph that compares the outcomes for cats and dogs. The percentages are calculated by dividing the number of cases by the total number of cats/dogs. Very few pets were missing or disposed (died)/received euthanasia. However cats had a higher percentage of receiving euthanasia or dying. A lot more dogs (~28%) were returned to their owners, while only 5% of the cats were able to find their way back home. This can happen when there are more actual stray cats than dogs. Looking at pets who were transferred to other facilities, it can be seen that more cats were transferred than dogs. The percentage of cats/dogs adopted out of the total number is similar, about 46% of cats/dogs were able to find a new family.</p>
+</div>
+</div>
+<div id="adoption-time" class="section level1 storyboard">
+<h1>Adoption Time</h1>
+<div id="average-adoption-time-breed" class="section level3" data-commentary-width="500">
+<h3>Average Adoption Time (Breed)</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-bc05fac35dd381a57aed" style="width:576px;height:460.8px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bc05fac35dd381a57aed">{"x":{"data":[{"x":[0.0393514895811677,-0.0389075575396419,-0.368051850609481,0.270392147824168,0.392949693650007,0.313380373828113,-0.296193091385067,0.0829040884971619,0.338575300946832,0.273575587384403,0.10190045516938,-0.288108059950173,-0.397916495427489,0.343859931267798,-0.182426789775491],"y":[47.0880538055673,36.9615323645994,31.2930974429473,36.0953945649788,38.2039836701006,35.8705017864704,44.0829255593941,40.0155008671805,29.8531997740269,30.0077814854682,27.0282965892926,38.6558668345213,22.2985719460994,35.6596044469625,43.2104239143431],"text":["Breed:  American Shorthair <br>Animal:  Cat <br>Total Number:  51 <br>Average Adoption<br>Time (days):  47","Breed:  American Shorthair Mix <br>Animal:  Cat <br>Total Number:  223 <br>Average Adoption<br>Time (days):  37","Breed:  Domestic Longhair <br>Animal:  Cat <br>Total Number:  247 <br>Average Adoption<br>Time (days):  31","Breed:  Domestic Longhair Mix <br>Animal:  Cat <br>Total Number:  1538 <br>Average Adoption<br>Time (days):  36","Breed:  Domestic Medium Hair <br>Animal:  Cat <br>Total Number:  776 <br>Average Adoption<br>Time (days):  38","Breed:  Domestic Medium Hair Mix <br>Animal:  Cat <br>Total Number:  3118 <br>Average Adoption<br>Time (days):  36","Breed:  Domestic Shorthair <br>Animal:  Cat <br>Total Number:  6793 <br>Average Adoption<br>Time (days):  44","Breed:  Domestic Shorthair Mix <br>Animal:  Cat <br>Total Number:  30903 <br>Average Adoption<br>Time (days):  40","Breed:  Maine Coon Mix <br>Animal:  Cat <br>Total Number:  119 <br>Average Adoption<br>Time (days):  30","Breed:  Manx Mix <br>Animal:  Cat <br>Total Number:  115 <br>Average Adoption<br>Time (days):  30","Breed:  Ragdoll Mix <br>Animal:  Cat <br>Total Number:  51 <br>Average Adoption<br>Time (days):  27","Breed:  Russian Blue Mix <br>Animal:  Cat <br>Total Number:  78 <br>Average Adoption<br>Time (days):  39","Breed:  Siamese <br>Animal:  Cat <br>Total Number:  219 <br>Average Adoption<br>Time (days):  22","Breed:  Siamese Mix <br>Animal:  Cat <br>Total Number:  1301 <br>Average Adoption<br>Time (days):  36","Breed:  Snowshoe Mix <br>Animal:  Cat <br>Total Number:  191 <br>Average Adoption<br>Time (days):  43"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(138,198,209,1)","opacity":0.8,"size":[3.77952755905512,5.19053753046728,5.28576658261294,7.92831651819329,6.6764366236252,9.73783278994973,12.6135852989142,22.6771653543307,4.66672507213456,4.64023557251673,3.77952755905512,4.33857381272906,5.17403392212673,7.58335551493205,5.05253187845314],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(138,198,209,1)"}},"hoveron":"points","name":"Cat","legendgroup":"Cat","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.285096240229905,0.337484657019377,0.310187235102057,0.303812460973859,-0.327119790390134,-0.339828919619322,0.128079867549241,0.148309193365276,-0.311293516494334,-0.234777976758778,-0.278006742149591,-0.190994831360877,0.0864400008693337,0.190849915146828,-0.2711381200701,0.219160109944642,0.381826816126704,0.0751784546300769,-0.307342528179288,0.183809946849942,-0.243468278087676,0.209367271512747,0.348538046143949,-0.340156957693398,-0.0505395429208875,0.152957290410995,-0.0852981733158231,-0.166491411440074,-0.0641761081293225,0.174846145324409,0.0217111902311444,-0.2741654580459,-0.242920715175569,0.355963911674917,-0.0981884485110641,0.0697513192892075,0.190664543583989,-0.0159700118005276,-0.0965982791036367,0.104776521958411,-0.290827298164368,-0.321731067076325,0.312366312928498,0.261413317918778,0.0294199693948031,-0.217369168065488,0.0187483148649335,0.346174594946206,0.393316550180316,0.27574625313282,0.206306364014745,0.160445163398981,-0.322763870283961,-0.0557747421786189,-0.335177499614656,-0.399006661958992,-0.12049974296242,0.328050731495023,-0.193017611280084,0.318669349886477,-0.00980896819382904,-0.271942789107561,-0.169602300412953,-0.191757303103805,-0.144288173876703,-0.353954590111971,0.269148154556751,-0.22744909171015,-0.157138386368752,-0.290139684267342,0.230340809933841,0.0694351503625512,0.198481496609747,0.0200714780017733,-0.137988551706076,0.00983302369713784,-0.249588556028903,0.0996835201978684,-0.0946940423920751,-0.148042558319867,0.315791207365692,-0.373724802583456,-0.106228518486023,-0.0961084004491568,-0.153377662599087,-0.233964995294809,0.360938574746251,0.24699739869684,0.117665606550872,0.172585484758019,-0.0260826047509909,0.280934494920075,0.12867546454072,-0.348514218442142,-0.0104135336354375,-0.0326122026890516,0.201217519119382,-0.00178010743111373,-0.242556099407375,0.187066296488047,0.0134860718622803,0.397073994204402,-0.0769030103459954,0.348484415747225,0.314931661076844,-0.0245668658986687,-0.168007642403245,-0.0840307017788291,-0.347628813423216,0.383932241052389,0.237124269083142,-0.0935040140524507,-0.320840963721275,-0.182953479513526,0.354640740156174,-0.0841236775740981,-0.288842317461967,-0.156551539711654,-0.300209135003388,-0.296403644420207,-0.169754202105105,0.253724504075944,-0.239116242341697,0.130632578767836,-0.0593983776867389,-0.124269575625658,-0.145803497359157,0.326029249466956,0.390676422789693,-0.241856628842652,0.131180679984391,0.106709086708724,-0.397112515382469,-0.21867031250149],"y":[30.2463717432693,18.6387808753178,13.3139242159203,43.2776320600882,54.7887823371217,66.3844926081598,56.2192252438515,45.0130273396149,56.0854146236554,14.3556700749323,13.6474426403642,21.78948270455,31.1024851750582,30.6977308690548,11.6821343127638,19.9038280313835,14.8903951635584,17.2405835388228,24.2310176894069,33.2226292641833,15.8628488566726,13.070714302361,29.6439448412508,25.2525495067239,38.9924225173891,29.3592141088098,16.7383642531931,18.8146327093244,13.2603971699253,7.28276325836778,14.3455417148769,26.9533190116286,37.8752144074067,6.69372893292457,31.6401740482077,79.807416285947,11.7190233316273,12.7706542503089,13.20854395926,22.772427746281,21.6346057264134,32.2276509953663,8.24439065530896,15.9652209941298,17.9487268390134,17.8381982723251,40.9672568395734,24.8990786569193,14.2348956093192,7.61650115512311,19.2469407364726,30.0065209284425,16.7476913431659,14.831577177532,12.8413896344602,11.8812728513032,22.3624123891816,14.8436400795355,23.3436967745423,28.3483631443232,7.69316036570817,12.2285376917571,38.6798520768061,16.6753493182361,24.0279189880937,11.7837889587507,8.22640923522413,16.9799361003563,7.82100302428007,35.7538318056613,13.1940236153081,17.9307175191119,24.8954758819193,26.7988673135638,12.7837664023042,16.3677798051387,23.6335969178006,28.8884091734886,6.25741298161447,23.252995660156,12.787868258357,12.8528134727851,33.9728926042095,20.3232345553115,15.9510752877221,18.6152596894652,12.1012087536976,19.1933548284695,12.9622849520296,14.9813667511567,6.74082542266697,6.64124147929251,18.2649156490341,15.274889539741,12.3753461334854,13.1429238358513,17.3515560561791,49.9255705727264,58.0008885249496,30.0621543599293,10.1911763429642,33.1938980050385,8.62060543838888,10.0457686334848,5.13303658366203,9.93439279515296,20.7981148621067,27.1360787034035,14.0375781007111,20.2607970515266,30.8047582520172,47.3615929104388,31.9985186681151,9.79702242668718,29.3523384148255,18.0684659009799,13.8621045583859,10.2590690707788,17.3599818458781,24.7580128731206,9.3061631757766,41.1906073667109,55.7102163186297,5.65729297026992,9.84892893899232,17.0787147298455,30.0668590785936,20.0133003089577,12.3107411161065,13.275554119423,6.99130404368043,10.6073421591893,15.1570425244048,13.246904511936],"text":["Breed:  Akita Mix <br>Animal:  Dog <br>Total Number:  85 <br>Average Adoption<br>Time (days):  30","Breed:  Alaskan Husky <br>Animal:  Dog <br>Total Number:  67 <br>Average Adoption<br>Time (days):  19","Breed:  Alaskan Husky Mix <br>Animal:  Dog <br>Total Number:  178 <br>Average Adoption<br>Time (days):  13","Breed:  American Bulldog <br>Animal:  Dog <br>Total Number:  74 <br>Average Adoption<br>Time (days):  43","Breed:  American Bulldog Mix <br>Animal:  Dog <br>Total Number:  505 <br>Average Adoption<br>Time (days):  55","Breed:  American Pit Bull Terrier <br>Animal:  Dog <br>Total Number:  117 <br>Average Adoption<br>Time (days):  66","Breed:  American Pit Bull Terrier Mix <br>Animal:  Dog <br>Total Number:  322 <br>Average Adoption<br>Time (days):  56","Breed:  American Staffordshire Terrier <br>Animal:  Dog <br>Total Number:  69 <br>Average Adoption<br>Time (days):  45","Breed:  American Staffordshire Terrier Mix <br>Animal:  Dog <br>Total Number:  306 <br>Average Adoption<br>Time (days):  56","Breed:  Anatol Shepherd <br>Animal:  Dog <br>Total Number:  77 <br>Average Adoption<br>Time (days):  14","Breed:  Anatol Shepherd Mix <br>Animal:  Dog <br>Total Number:  524 <br>Average Adoption<br>Time (days):  14","Breed:  Australian Cattle Dog <br>Animal:  Dog <br>Total Number:  302 <br>Average Adoption<br>Time (days):  22","Breed:  Australian Cattle Dog Mix <br>Animal:  Dog <br>Total Number:  1912 <br>Average Adoption<br>Time (days):  31","Breed:  Australian Kelpie Mix <br>Animal:  Dog <br>Total Number:  440 <br>Average Adoption<br>Time (days):  31","Breed:  Australian Shepherd <br>Animal:  Dog <br>Total Number:  96 <br>Average Adoption<br>Time (days):  12","Breed:  Australian Shepherd Mix <br>Animal:  Dog <br>Total Number:  858 <br>Average Adoption<br>Time (days):  20","Breed:  Basenji Mix <br>Animal:  Dog <br>Total Number:  96 <br>Average Adoption<br>Time (days):  15","Breed:  Basset Hound <br>Animal:  Dog <br>Total Number:  56 <br>Average Adoption<br>Time (days):  17","Breed:  Basset Hound Mix <br>Animal:  Dog <br>Total Number:  243 <br>Average Adoption<br>Time (days):  24","Breed:  Beagle <br>Animal:  Dog <br>Total Number:  131 <br>Average Adoption<br>Time (days):  33","Breed:  Beagle Mix <br>Animal:  Dog <br>Total Number:  886 <br>Average Adoption<br>Time (days):  16","Breed:  Belgian Malinois Mix <br>Animal:  Dog <br>Total Number:  103 <br>Average Adoption<br>Time (days):  13","Breed:  Bichon Frise Mix <br>Animal:  Dog <br>Total Number:  80 <br>Average Adoption<br>Time (days):  30","Breed:  Black Mix <br>Animal:  Dog <br>Total Number:  169 <br>Average Adoption<br>Time (days):  25","Breed:  Black Mouth Cur Mix <br>Animal:  Dog <br>Total Number:  447 <br>Average Adoption<br>Time (days):  39","Breed:  Blue Lacy Mix <br>Animal:  Dog <br>Total Number:  208 <br>Average Adoption<br>Time (days):  29","Breed:  Border Collie <br>Animal:  Dog <br>Total Number:  123 <br>Average Adoption<br>Time (days):  17","Breed:  Border Collie Mix <br>Animal:  Dog <br>Total Number:  1281 <br>Average Adoption<br>Time (days):  19","Breed:  Border Terrier Mix <br>Animal:  Dog <br>Total Number:  254 <br>Average Adoption<br>Time (days):  13","Breed:  Boston Terrier <br>Animal:  Dog <br>Total Number:  64 <br>Average Adoption<br>Time (days):  7","Breed:  Boston Terrier Mix <br>Animal:  Dog <br>Total Number:  169 <br>Average Adoption<br>Time (days):  14","Breed:  Boxer <br>Animal:  Dog <br>Total Number:  201 <br>Average Adoption<br>Time (days):  27","Breed:  Boxer Mix <br>Animal:  Dog <br>Total Number:  1274 <br>Average Adoption<br>Time (days):  38","Breed:  Bruss Griffon Mix <br>Animal:  Dog <br>Total Number:  66 <br>Average Adoption<br>Time (days):  7","Breed:  Bull Terrier Mix <br>Animal:  Dog <br>Total Number:  109 <br>Average Adoption<br>Time (days):  32","Breed:  Bulldog Mix <br>Animal:  Dog <br>Total Number:  69 <br>Average Adoption<br>Time (days):  80","Breed:  Cairn Terrier <br>Animal:  Dog <br>Total Number:  120 <br>Average Adoption<br>Time (days):  12","Breed:  Cairn Terrier Mix <br>Animal:  Dog <br>Total Number:  597 <br>Average Adoption<br>Time (days):  13","Breed:  Cardigan Welsh Corgi Mix <br>Animal:  Dog <br>Total Number:  233 <br>Average Adoption<br>Time (days):  13","Breed:  Carolina Dog Mix <br>Animal:  Dog <br>Total Number:  108 <br>Average Adoption<br>Time (days):  23","Breed:  Catahoula <br>Animal:  Dog <br>Total Number:  79 <br>Average Adoption<br>Time (days):  22","Breed:  Catahoula Mix <br>Animal:  Dog <br>Total Number:  887 <br>Average Adoption<br>Time (days):  32","Breed:  Chihuahua Longhair <br>Animal:  Dog <br>Total Number:  81 <br>Average Adoption<br>Time (days):  8","Breed:  Chihuahua Longhair Mix <br>Animal:  Dog <br>Total Number:  586 <br>Average Adoption<br>Time (days):  16","Breed:  Chihuahua Shorthair <br>Animal:  Dog <br>Total Number:  973 <br>Average Adoption<br>Time (days):  18","Breed:  Chihuahua Shorthair Mix <br>Animal:  Dog <br>Total Number:  7135 <br>Average Adoption<br>Time (days):  18","Breed:  Chinese Sharpei Mix <br>Animal:  Dog <br>Total Number:  198 <br>Average Adoption<br>Time (days):  41","Breed:  Chow Chow Mix <br>Animal:  Dog <br>Total Number:  254 <br>Average Adoption<br>Time (days):  25","Breed:  Cocker Spaniel <br>Animal:  Dog <br>Total Number:  75 <br>Average Adoption<br>Time (days):  14","Breed:  Cocker Spaniel Mix <br>Animal:  Dog <br>Total Number:  210 <br>Average Adoption<br>Time (days):  8","Breed:  Collie Rough Mix <br>Animal:  Dog <br>Total Number:  89 <br>Average Adoption<br>Time (days):  19","Breed:  Collie Smooth Mix <br>Animal:  Dog <br>Total Number:  141 <br>Average Adoption<br>Time (days):  30","Breed:  Dachshund <br>Animal:  Dog <br>Total Number:  211 <br>Average Adoption<br>Time (days):  17","Breed:  Dachshund Longhair Mix <br>Animal:  Dog <br>Total Number:  175 <br>Average Adoption<br>Time (days):  15","Breed:  Dachshund Mix <br>Animal:  Dog <br>Total Number:  1527 <br>Average Adoption<br>Time (days):  13","Breed:  Dachshund Wirehair Mix <br>Animal:  Dog <br>Total Number:  164 <br>Average Adoption<br>Time (days):  12","Breed:  Dalmatian Mix <br>Animal:  Dog <br>Total Number:  85 <br>Average Adoption<br>Time (days):  22","Breed:  Doberman Pinsch <br>Animal:  Dog <br>Total Number:  106 <br>Average Adoption<br>Time (days):  15","Breed:  Doberman Pinsch Mix <br>Animal:  Dog <br>Total Number:  204 <br>Average Adoption<br>Time (days):  23","Breed:  Dutch Shepherd Mix <br>Animal:  Dog <br>Total Number:  63 <br>Average Adoption<br>Time (days):  28","Breed:  English Bulldog <br>Animal:  Dog <br>Total Number:  60 <br>Average Adoption<br>Time (days):  8","Breed:  English Bulldog Mix <br>Animal:  Dog <br>Total Number:  104 <br>Average Adoption<br>Time (days):  12","Breed:  Flat Coat Retriever Mix <br>Animal:  Dog <br>Total Number:  126 <br>Average Adoption<br>Time (days):  39","Breed:  German Shepherd <br>Animal:  Dog <br>Total Number:  853 <br>Average Adoption<br>Time (days):  17","Breed:  German Shepherd Mix <br>Animal:  Dog <br>Total Number:  3716 <br>Average Adoption<br>Time (days):  24","Breed:  German Shorthair Pointer Mix <br>Animal:  Dog <br>Total Number:  75 <br>Average Adoption<br>Time (days):  12","Breed:  Golden Retriever <br>Animal:  Dog <br>Total Number:  58 <br>Average Adoption<br>Time (days):  8","Breed:  Golden Retriever Mix <br>Animal:  Dog <br>Total Number:  331 <br>Average Adoption<br>Time (days):  17","Breed:  Great Dane <br>Animal:  Dog <br>Total Number:  59 <br>Average Adoption<br>Time (days):  8","Breed:  Great Dane Mix <br>Animal:  Dog <br>Total Number:  167 <br>Average Adoption<br>Time (days):  36","Breed:  Great Pyrenees <br>Animal:  Dog <br>Total Number:  196 <br>Average Adoption<br>Time (days):  13","Breed:  Great Pyrenees Mix <br>Animal:  Dog <br>Total Number:  766 <br>Average Adoption<br>Time (days):  18","Breed:  Greyhound Mix <br>Animal:  Dog <br>Total Number:  52 <br>Average Adoption<br>Time (days):  25","Breed:  Harrier Mix <br>Animal:  Dog <br>Total Number:  95 <br>Average Adoption<br>Time (days):  27","Breed:  Jack Russell Terrier <br>Animal:  Dog <br>Total Number:  83 <br>Average Adoption<br>Time (days):  13","Breed:  Jack Russell Terrier Mix <br>Animal:  Dog <br>Total Number:  755 <br>Average Adoption<br>Time (days):  16","Breed:  Labrador Retriever <br>Animal:  Dog <br>Total Number:  1013 <br>Average Adoption<br>Time (days):  24","Breed:  Labrador Retriever Mix <br>Animal:  Dog <br>Total Number:  8743 <br>Average Adoption<br>Time (days):  29","Breed:  Lhasa Apso Mix <br>Animal:  Dog <br>Total Number:  193 <br>Average Adoption<br>Time (days):  6","Breed:  Maltese <br>Animal:  Dog <br>Total Number:  84 <br>Average Adoption<br>Time (days):  23","Breed:  Maltese Mix <br>Animal:  Dog <br>Total Number:  356 <br>Average Adoption<br>Time (days):  13","Breed:  Manchester Terrier Mix <br>Animal:  Dog <br>Total Number:  161 <br>Average Adoption<br>Time (days):  13","Breed:  Mastiff Mix <br>Animal:  Dog <br>Total Number:  186 <br>Average Adoption<br>Time (days):  34","Breed:  Miniature Pinscher <br>Animal:  Dog <br>Total Number:  75 <br>Average Adoption<br>Time (days):  20","Breed:  Miniature Pinscher Mix <br>Animal:  Dog <br>Total Number:  256 <br>Average Adoption<br>Time (days):  16","Breed:  Miniature Poodle <br>Animal:  Dog <br>Total Number:  144 <br>Average Adoption<br>Time (days):  19","Breed:  Miniature Poodle Mix <br>Animal:  Dog <br>Total Number:  1034 <br>Average Adoption<br>Time (days):  12","Breed:  Miniature Schnauzer <br>Animal:  Dog <br>Total Number:  111 <br>Average Adoption<br>Time (days):  19","Breed:  Miniature Schnauzer Mix <br>Animal:  Dog <br>Total Number:  751 <br>Average Adoption<br>Time (days):  13","Breed:  Norfolk Terrier Mix <br>Animal:  Dog <br>Total Number:  143 <br>Average Adoption<br>Time (days):  15","Breed:  Norwich Terrier Mix <br>Animal:  Dog <br>Total Number:  73 <br>Average Adoption<br>Time (days):  7","Breed:  Papillon Mix <br>Animal:  Dog <br>Total Number:  71 <br>Average Adoption<br>Time (days):  7","Breed:  Parson Russell Terrier Mix <br>Animal:  Dog <br>Total Number:  58 <br>Average Adoption<br>Time (days):  18","Breed:  Pbgv Mix <br>Animal:  Dog <br>Total Number:  57 <br>Average Adoption<br>Time (days):  15","Breed:  Pekingese Mix <br>Animal:  Dog <br>Total Number:  115 <br>Average Adoption<br>Time (days):  12","Breed:  Pembroke Welsh Corgi Mix <br>Animal:  Dog <br>Total Number:  102 <br>Average Adoption<br>Time (days):  13","Breed:  Pharaoh Hound Mix <br>Animal:  Dog <br>Total Number:  51 <br>Average Adoption<br>Time (days):  17","Breed:  Pit Bull <br>Animal:  Dog <br>Total Number:  1233 <br>Average Adoption<br>Time (days):  50","Breed:  Pit Bull Mix <br>Animal:  Dog <br>Total Number:  8992 <br>Average Adoption<br>Time (days):  58","Breed:  Plott Hound Mix <br>Animal:  Dog <br>Total Number:  471 <br>Average Adoption<br>Time (days):  30","Breed:  Pointer <br>Animal:  Dog <br>Total Number:  79 <br>Average Adoption<br>Time (days):  10","Breed:  Pointer Mix <br>Animal:  Dog <br>Total Number:  733 <br>Average Adoption<br>Time (days):  33","Breed:  Pomeranian <br>Animal:  Dog <br>Total Number:  52 <br>Average Adoption<br>Time (days):  9","Breed:  Pomeranian Mix <br>Animal:  Dog <br>Total Number:  180 <br>Average Adoption<br>Time (days):  10","Breed:  Pug <br>Animal:  Dog <br>Total Number:  98 <br>Average Adoption<br>Time (days):  5","Breed:  Pug Mix <br>Animal:  Dog <br>Total Number:  280 <br>Average Adoption<br>Time (days):  10","Breed:  Queensland Heeler Mix <br>Animal:  Dog <br>Total Number:  206 <br>Average Adoption<br>Time (days):  21","Breed:  Rat Terrier <br>Animal:  Dog <br>Total Number:  95 <br>Average Adoption<br>Time (days):  27","Breed:  Rat Terrier Mix <br>Animal:  Dog <br>Total Number:  775 <br>Average Adoption<br>Time (days):  14","Breed:  Redbone Hound Mix <br>Animal:  Dog <br>Total Number:  105 <br>Average Adoption<br>Time (days):  20","Breed:  Rhod Ridgeback Mix <br>Animal:  Dog <br>Total Number:  140 <br>Average Adoption<br>Time (days):  31","Breed:  Rottweiler <br>Animal:  Dog <br>Total Number:  186 <br>Average Adoption<br>Time (days):  47","Breed:  Rottweiler Mix <br>Animal:  Dog <br>Total Number:  534 <br>Average Adoption<br>Time (days):  32","Breed:  Shetland Sheepdog Mix <br>Animal:  Dog <br>Total Number:  68 <br>Average Adoption<br>Time (days):  10","Breed:  Shiba Inu Mix <br>Animal:  Dog <br>Total Number:  57 <br>Average Adoption<br>Time (days):  29","Breed:  Shih Tzu <br>Animal:  Dog <br>Total Number:  200 <br>Average Adoption<br>Time (days):  18","Breed:  Shih Tzu Mix <br>Animal:  Dog <br>Total Number:  486 <br>Average Adoption<br>Time (days):  14","Breed:  Siberian Husky <br>Animal:  Dog <br>Total Number:  419 <br>Average Adoption<br>Time (days):  10","Breed:  Siberian Husky Mix <br>Animal:  Dog <br>Total Number:  832 <br>Average Adoption<br>Time (days):  17","Breed:  Smooth Fox Terrier Mix <br>Animal:  Dog <br>Total Number:  61 <br>Average Adoption<br>Time (days):  25","Breed:  Soft Coated Wheaten Terrier Mix <br>Animal:  Dog <br>Total Number:  85 <br>Average Adoption<br>Time (days):  9","Breed:  Staffordshire <br>Animal:  Dog <br>Total Number:  59 <br>Average Adoption<br>Time (days):  41","Breed:  Staffordshire Mix <br>Animal:  Dog <br>Total Number:  739 <br>Average Adoption<br>Time (days):  56","Breed:  Standard Poodle Mix <br>Animal:  Dog <br>Total Number:  54 <br>Average Adoption<br>Time (days):  6","Breed:  Standard Schnauzer Mix <br>Animal:  Dog <br>Total Number:  79 <br>Average Adoption<br>Time (days):  10","Breed:  Toy Poodle Mix <br>Animal:  Dog <br>Total Number:  138 <br>Average Adoption<br>Time (days):  17","Breed:  Vizsla Mix <br>Animal:  Dog <br>Total Number:  71 <br>Average Adoption<br>Time (days):  30","Breed:  Weimaraner Mix <br>Animal:  Dog <br>Total Number:  88 <br>Average Adoption<br>Time (days):  20","Breed:  West Highland Mix <br>Animal:  Dog <br>Total Number:  78 <br>Average Adoption<br>Time (days):  12","Breed:  Whippet Mix <br>Animal:  Dog <br>Total Number:  113 <br>Average Adoption<br>Time (days):  13","Breed:  Wire Hair Fox Terrier <br>Animal:  Dog <br>Total Number:  52 <br>Average Adoption<br>Time (days):  7","Breed:  Wire Hair Fox Terrier Mix <br>Animal:  Dog <br>Total Number:  77 <br>Average Adoption<br>Time (days):  11","Breed:  Yorkshire Terrier <br>Animal:  Dog <br>Total Number:  109 <br>Average Adoption<br>Time (days):  15","Breed:  Yorkshire Terrier Mix <br>Animal:  Dog <br>Total Number:  805 <br>Average Adoption<br>Time (days):  13"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(235,143,138,1)","opacity":0.8,"size":[4.40687093680543,4.20988156578592,4.99198839684731,4.295503886971,6.07194543222424,4.65358067862263,5.55065782619051,4.23598691376035,5.49757815553178,4.32812342857342,6.11942288436723,5.48404998756009,8.42082120168814,5.90150449933837,4.50125316913473,6.83587432526527,4.50125316913473,4.02010276241499,5.27031756885231,4.7418283724946,6.88844434063105,4.55535927798977,4.35890937196913,4.94823783621143,5.92051171008337,5.12760762122116,4.69244626846558,7.5528021851623,5.31242775017936,4.16744341852244,4.94823783621143,5.09721221562106,7.54204990505706,4.19621603431563,4.59889717667043,4.23598691376035,4.67322477450825,6.29350965706287,5.23097580007779,4.59180293389836,4.34883239782008,6.89030541040657,4.3688140520531,6.2680568127441,7.04639355112933,12.8348753634536,5.08396881762766,5.31242775017936,4.3066014216815,5.13616694570076,4.44274762538642,4.8002017051417,5.1404264205039,4.97758241009357,7.91294281581667,4.92320901971588,4.40687093680543,4.57742524246326,5.11032382867428,4.15222506150442,4.10229306410322,4.56278367412823,4.71127131517836,6.82639137728717,10.2928540570678,4.3066014216815,4.0641799784376,5.57982753250733,4.08383379552527,4.93829118488315,5.07506467765792,6.6563885691571,3.88711606073782,4.4931889427312,4.38814003199543,6.63417309375945,7.11650595843744,13.8100999881394,5.06159252175969,4.39757644701856,5.65847996312773,4.90792528431698,5.02959298483665,4.3066014216815,5.31996047461405,4.81707349518159,7.15273164975658,4.61290450957614,6.62605175287995,4.81148021488689,4.28416236292345,4.26067796577486,4.0641799784376,4.04306449036831,4.64023557251673,4.54786314355629,3.77952755905512,7.47844465608453,13.9527585793845,5.98443571850713,4.34883239782008,6.58921523627694,3.88711606073782,5.0014980392912,4.51711716556639,5.40763702220594,5.11899360290279,4.4931889427312,6.67443806590917,4.57013835299468,4.79451545395597,5.02959298483665,6.14402813853501,4.22312631559484,4.04306449036831,5.09281258845847,6.02346367156656,5.84343287071865,6.7862364121486,4.11975227441731,4.40687093680543,4.08383379552527,6.60154750187943,3.96587631027977,4.34883239782008,4.78304629600356,4.26067796577486,4.43396286578158,4.33857381272906,4.62668026845784,3.88711606073782,4.32812342857342,4.59889717667043,6.73380672892445],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(235,143,138,1)"}},"hoveron":"points","name":"Dog","legendgroup":"Dog","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":42.6666666666667,"r":7.30593607305936,"b":12.7853881278539,"l":37.2602739726027},"font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187},"title":{"text":"Average Adoption Time by Pet Type and Breed","font":{"color":"rgba(0,0,0,1)","family":"Times","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.438810694767162,0.436878027012572],"tickmode":"array","ticktext":["-0.4","-0.2","0.0","0.2","0.4"],"tickvals":[-0.4,-0.2,0,0.2,0.4],"categoryorder":"array","categoryarray":["-0.4","-0.2","0.0","0.2","0.4"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":true,"linecolor":"rgba(169,169,169,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":null,"family":null,"size":0}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1.39931759854779,83.5411352710612],"tickmode":"array","ticktext":["20","40","60","80"],"tickvals":[20,40,60,80],"categoryorder":"array","categoryarray":["20","40","60","80"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Times","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(169,169,169,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Average Adoption Time (Days)","font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"Times","size":11.689497716895},"y":-0.05,"orientation":"h","x":0.3},"annotations":[{"text":"<br />Pet Type","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"da42364646d6":{"text":{},"x":{},"y":{},"size":{},"colour":{},"fill":{},"type":"scatter"}},"cur_data":"da42364646d6","visdat":{"da42364646d6":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<hr />
+<p>This graph is interactive. Hover onto the bubbles for more details. Click on the legend to mask one animal from the graph.</p>
+<p>The breeds for the cats and dogs were entered as texts in the data. Most of the pets are mixed-breed, and presents several features. When shelters identifies the breed of the animals taken in, they often determine it on the most significant feature displayed by the animal. It is easier to identify features for dogs than cats, but cats have categories such as ‘domestic shorthair’ for breeds that are hard to recognize. In order to better group the breeds, some textual processing was performed on the data. Since the most significant breed of the pet is presented at first, pets were identified as a mixture of such breed. For example, dogs who are “Miniature Schnauzer/Yorkshire Terrier” are identified as “Miniature Schnauzer Mix”.</p>
+<p>This plot shows the average adoption time by pet type and breed. In order to have a better estimation of the average time, only pets breeds with a total number greater or equal to 50 were included. The y-axis shows the average adoption time in days. The size of the bubble shows the total number of pets with that breed. The biggest blue bubble represents the ‘Domestic Shorthair Mix’ cats, and has an average adoption time of 40 days. If dogs are masked from the graph, the cat breeds that takes a shorter time to be adopted are Siamese and Ragdoll Mix. These two breeds are famous for their pretty physical features, as well as their dog-like, loving characters. As for dogs, it seems the breeds that were adopted faster were pugs and poodle mixes. Some breeds that takes longer to adopt were Bulldog mix, American Pit Bull Terrier, and Pitbull Mix, which matches a lot of reports that these breeds are harder to be adopted. A lot of apartments also don’t allow keeping these dog breeds, which is pretty sad.</p>
+</div>
+<div id="average-adoption-time-age" class="section level3" data-commentary-width="500">
+<h3>Average Adoption Time (Age)</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-8c142ce0d0427d801ef5" style="width:576px;height:460.8px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8c142ce0d0427d801ef5">{"x":{"data":[{"x":[0.065769842453301,-0.155712288804352,-0.257745689898729,0.0631203738972544,-0.332396662421525,-0.155867756530643,-0.13344598133117,0.330854319222271,0.374333973787725,-0.201253416575491,-0.2856255562976,0.352742952108383,-0.221078975312412,0.34443767350167,-0.348189207352698,0.012021848000586,-0.352264855802059,0.346991096250713,0.317132486961782,-0.0801353281363845,-0.102887718938291,-0.139750916697085,0.0707876877859235,0.377232772298157,0.0769901512190699,0.385440067201853,0.096218341588974,0.320527579449117,0.312858470901847,-0.293603443913162,-0.126899498701096,-0.160516978055239],"y":[10.2516277801245,19.8202083833516,42.6199088105932,50.9887123035267,72.077543515712,65.9195487491786,76.3959976762533,89.0223100326955,85.9368058141321,72.1325363505632,36.3118719657883,39.6121403139085,72.6797377664596,227.089522213489,10.2165622550994,29.0742307076231,7.8641352141276,41.368717960082,43.6369282782078,49.239356761612,49.3941475143656,43.3094417534769,51.3687713239342,45.654085793905,46.8167203038931,57.80766973719,60.6604563947767,57.3493191502988,59.0847248753533,54.2683741418645,54.7754088371992,59.7445405596867],"text":["Age:  0 years <br>Animal:  Cat <br>Total Number:  2 <br>Average Adoption<br>Time (days):  10","Age:  1 month <br>Animal:  Cat <br>Total Number:  1054 <br>Average Adoption<br>Time (days):  20","Age:  1 year <br>Animal:  Cat <br>Total Number:  1572 <br>Average Adoption<br>Time (days):  43","Age:  10 months <br>Animal:  Cat <br>Total Number:  186 <br>Average Adoption<br>Time (days):  51","Age:  10 years <br>Animal:  Cat <br>Total Number:  192 <br>Average Adoption<br>Time (days):  72","Age:  11 months <br>Animal:  Cat <br>Total Number:  93 <br>Average Adoption<br>Time (days):  66","Age:  11 years <br>Animal:  Cat <br>Total Number:  85 <br>Average Adoption<br>Time (days):  76","Age:  12 years <br>Animal:  Cat <br>Total Number:  80 <br>Average Adoption<br>Time (days):  89","Age:  13 years <br>Animal:  Cat <br>Total Number:  82 <br>Average Adoption<br>Time (days):  86","Age:  14 years <br>Animal:  Cat <br>Total Number:  41 <br>Average Adoption<br>Time (days):  72","Age:  15 years <br>Animal:  Cat <br>Total Number:  29 <br>Average Adoption<br>Time (days):  36","Age:  16 years <br>Animal:  Cat <br>Total Number:  13 <br>Average Adoption<br>Time (days):  40","Age:  17 years <br>Animal:  Cat <br>Total Number:  8 <br>Average Adoption<br>Time (days):  73","Age:  18 years <br>Animal:  Cat <br>Total Number:  4 <br>Average Adoption<br>Time (days):  227","Age:  19 years <br>Animal:  Cat <br>Total Number:  1 <br>Average Adoption<br>Time (days):  10","Age:  2 months <br>Animal:  Cat <br>Total Number:  7718 <br>Average Adoption<br>Time (days):  29","Age:  2 weeks <br>Animal:  Cat <br>Total Number:  1 <br>Average Adoption<br>Time (days):  8","Age:  2 years <br>Animal:  Cat <br>Total Number:  1156 <br>Average Adoption<br>Time (days):  41","Age:  3 months <br>Animal:  Cat <br>Total Number:  3044 <br>Average Adoption<br>Time (days):  44","Age:  3 years <br>Animal:  Cat <br>Total Number:  557 <br>Average Adoption<br>Time (days):  49","Age:  4 months <br>Animal:  Cat <br>Total Number:  1396 <br>Average Adoption<br>Time (days):  49","Age:  4 years <br>Animal:  Cat <br>Total Number:  320 <br>Average Adoption<br>Time (days):  43","Age:  5 months <br>Animal:  Cat <br>Total Number:  725 <br>Average Adoption<br>Time (days):  51","Age:  5 years <br>Animal:  Cat <br>Total Number:  299 <br>Average Adoption<br>Time (days):  46","Age:  6 months <br>Animal:  Cat <br>Total Number:  480 <br>Average Adoption<br>Time (days):  47","Age:  6 years <br>Animal:  Cat <br>Total Number:  219 <br>Average Adoption<br>Time (days):  58","Age:  7 months <br>Animal:  Cat <br>Total Number:  264 <br>Average Adoption<br>Time (days):  61","Age:  7 years <br>Animal:  Cat <br>Total Number:  227 <br>Average Adoption<br>Time (days):  57","Age:  8 months <br>Animal:  Cat <br>Total Number:  222 <br>Average Adoption<br>Time (days):  59","Age:  8 years <br>Animal:  Cat <br>Total Number:  275 <br>Average Adoption<br>Time (days):  54","Age:  9 months <br>Animal:  Cat <br>Total Number:  136 <br>Average Adoption<br>Time (days):  55","Age:  9 years <br>Animal:  Cat <br>Total Number:  133 <br>Average Adoption<br>Time (days):  60"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(138,198,209,1)","opacity":0.8,"size":[3.99464878818336,10.7602031576194,12.3060386861928,6.70549261284578,6.752562095574,5.84289790302909,5.7511461911993,5.6915668668388,5.71561862120927,5.1400736732555,4.91784210706285,4.52472935632867,4.34868483305898,4.15212845769189,3.77952755905512,22.6771653543307,3.77952755905512,11.0904851174738,15.6463446059074,8.85201133243815,11.8142406711826,7.62171556691008,9.56784784152657,7.49309574612938,8.48768554314694,6.95575444363349,7.26820763428306,7.0135087538198,6.97753454028317,7.34041750999863,6.27901037254313,6.25108231370998],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(138,198,209,1)"}},"hoveron":"points","name":"Cat","legendgroup":"Cat","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[-0.240442531555891,-0.357586588151753,-0.209934091567993,0.0316040875390172,-0.083938979357481,-0.0898953445255756,-0.330762274190784,0.193500657007098,0.127044848911464,-0.296467256732285,-0.167040290683508,-0.138185624592006,-0.234656673297286,-0.263606949523091,0.306061160936952,-0.355432924069464,-0.151703367754817,0.125994480960071,-0.390714059583843,-0.347390669211745,-0.39630471188575,0.0983780795708299,-0.385515966266394,-0.377242957986891,0.24487495161593,-0.0533362170681357,0.155583965592086,-0.331647525914013,-0.0914671439677477,-0.0955668402835727,0.241889283061028,-0.249400525912643],"y":[3.37680279519409,23.395975971967,23.6167477764189,11.6723434414715,71.1359858643264,25.2040615331382,89.0012047382072,67.9217288104817,98.3973773017526,51.8724427549168,94.6874779041857,86.6376419890672,120.252182816714,36.2088411157951,14.1922539930791,30.7313339661807,13.6039452157915,43.3706755109131,11.3142867954448,7.31685062441975,43.1722295060754,11.1971614792943,4.09480842854828,44.134142807126,12.3494915813208,51.3063108284026,14.8464411642402,52.3645269144326,13.0904053574428,59.6315860494971,19.0753722239286,67.71120635923],"text":["Age:  0 years <br>Animal:  Dog <br>Total Number:  4 <br>Average Adoption<br>Time (days):  3","Age:  1 month <br>Animal:  Dog <br>Total Number:  1120 <br>Average Adoption<br>Time (days):  23","Age:  1 year <br>Animal:  Dog <br>Total Number:  7038 <br>Average Adoption<br>Time (days):  24","Age:  10 months <br>Animal:  Dog <br>Total Number:  831 <br>Average Adoption<br>Time (days):  12","Age:  10 years <br>Animal:  Dog <br>Total Number:  336 <br>Average Adoption<br>Time (days):  71","Age:  11 months <br>Animal:  Dog <br>Total Number:  341 <br>Average Adoption<br>Time (days):  25","Age:  11 years <br>Animal:  Dog <br>Total Number:  130 <br>Average Adoption<br>Time (days):  89","Age:  12 years <br>Animal:  Dog <br>Total Number:  144 <br>Average Adoption<br>Time (days):  68","Age:  13 years <br>Animal:  Dog <br>Total Number:  68 <br>Average Adoption<br>Time (days):  98","Age:  14 years <br>Animal:  Dog <br>Total Number:  24 <br>Average Adoption<br>Time (days):  52","Age:  15 years <br>Animal:  Dog <br>Total Number:  26 <br>Average Adoption<br>Time (days):  95","Age:  16 years <br>Animal:  Dog <br>Total Number:  7 <br>Average Adoption<br>Time (days):  87","Age:  17 years <br>Animal:  Dog <br>Total Number:  4 <br>Average Adoption<br>Time (days):  120","Age:  18 years <br>Animal:  Dog <br>Total Number:  2 <br>Average Adoption<br>Time (days):  36","Age:  2 months <br>Animal:  Dog <br>Total Number:  4297 <br>Average Adoption<br>Time (days):  14","Age:  2 years <br>Animal:  Dog <br>Total Number:  5678 <br>Average Adoption<br>Time (days):  31","Age:  3 months <br>Animal:  Dog <br>Total Number:  1055 <br>Average Adoption<br>Time (days):  14","Age:  3 years <br>Animal:  Dog <br>Total Number:  2120 <br>Average Adoption<br>Time (days):  43","Age:  4 months <br>Animal:  Dog <br>Total Number:  1026 <br>Average Adoption<br>Time (days):  11","Age:  4 weeks <br>Animal:  Dog <br>Total Number:  1 <br>Average Adoption<br>Time (days):  7","Age:  4 years <br>Animal:  Dog <br>Total Number:  1214 <br>Average Adoption<br>Time (days):  43","Age:  5 months <br>Animal:  Dog <br>Total Number:  972 <br>Average Adoption<br>Time (days):  11","Age:  5 weeks <br>Animal:  Dog <br>Total Number:  1 <br>Average Adoption<br>Time (days):  4","Age:  5 years <br>Animal:  Dog <br>Total Number:  1081 <br>Average Adoption<br>Time (days):  44","Age:  6 months <br>Animal:  Dog <br>Total Number:  871 <br>Average Adoption<br>Time (days):  12","Age:  6 years <br>Animal:  Dog <br>Total Number:  671 <br>Average Adoption<br>Time (days):  51","Age:  7 months <br>Animal:  Dog <br>Total Number:  573 <br>Average Adoption<br>Time (days):  15","Age:  7 years <br>Animal:  Dog <br>Total Number:  548 <br>Average Adoption<br>Time (days):  52","Age:  8 months <br>Animal:  Dog <br>Total Number:  840 <br>Average Adoption<br>Time (days):  13","Age:  8 years <br>Animal:  Dog <br>Total Number:  570 <br>Average Adoption<br>Time (days):  60","Age:  9 months <br>Animal:  Dog <br>Total Number:  469 <br>Average Adoption<br>Time (days):  19","Age:  9 years <br>Animal:  Dog <br>Total Number:  305 <br>Average Adoption<br>Time (days):  68"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(235,143,138,1)","opacity":0.8,"size":[4.15212845769189,10.9756461840515,21.825365219045,9.97711006144786,7.71689253823229,7.74616703036569,6.22283504596545,6.35200330834706,5.54037070818856,4.8112127310421,4.85513370469631,4.30646480325965,4.15212845769189,3.99464878818336,17.8794072493285,19.9880235432381,10.7635170318144,13.6821164370538,10.666767340142,3.77952755905512,11.2718018951866,10.4828928383918,3.77952755905512,10.8491325465615,10.1246922222321,9.34780251262033,8.924479057639,8.81078956199627,10.0106208148939,8.91096931485003,8.43331129143133,7.53029435257612],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(235,143,138,1)"}},"hoveron":"points","name":"Dog","legendgroup":"Dog","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":42.6666666666667,"r":7.30593607305936,"b":12.7853881278539,"l":43.1050228310502},"font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187},"title":{"text":"Average Adoption Time by Pet Type and Age","font":{"color":"rgba(0,0,0,1)","family":"Times","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.43539195084013,0.424527306156233],"tickmode":"array","ticktext":["-0.4","-0.2","0.0","0.2","0.4"],"tickvals":[-0.4,-0.2,-5.55111512312578e-17,0.2,0.4],"categoryorder":"array","categoryarray":["-0.4","-0.2","0.0","0.2","0.4"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":true,"linecolor":"rgba(169,169,169,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":null,"family":null,"size":0}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-7.80883317572065,238.275158184404],"tickmode":"array","ticktext":["0","50","100","150","200"],"tickvals":[-8.88178419700125e-16,50,100,150,200],"categoryorder":"array","categoryarray":["0","50","100","150","200"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Times","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(169,169,169,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Average Adoption Time (Days)","font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"Times","size":11.689497716895},"y":-0.05,"orientation":"h","x":0.3},"annotations":[{"text":"<br />Pet Type","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"Times","size":14.6118721461187},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"da425d0c43bd":{"text":{},"x":{},"y":{},"size":{},"colour":{},"fill":{},"type":"scatter"}},"cur_data":"da425d0c43bd","visdat":{"da425d0c43bd":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<hr />
+<p>This graph is interactive. Hover onto the bubbles for more details. Click on the legend to mask one animal from the graph.</p>
+<p>This plot describes the average adoption time by pet type (cats/dogs) and their age. The y-axis shows the average adoption time in days. The size of the bubble shows the total number of pets with the same age. It’s easy to recognize that the point that has the highest average adoption time belongs to 18-years-old cats. Moving down the plot, it can be seen that there are less older animals, and it usually takes longer for them to be adopted. The biggest age group for dogs are 1-year old and 2-years old. The biggest age group for cats are 2-month and 3-months, and they all have an average adoption time that is less than 50 days. It’s reasonable that people will want younger pets, because they’re easier to train, stays with the family longer, and gets used to humans faster.</p>
+</div>
+</div>
+<div id="intakes-location" class="section level1 storyboard">
+<h1>Intakes Location</h1>
+<div id="intake-location-for-each-month-in-2020" class="section level3">
+<h3>Intake Location for Each Month in 2020</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<pre><code>
+Frame 1 (1%)
+Frame 2 (2%)
+Frame 3 (3%)
+Frame 4 (4%)
+Frame 5 (5%)
+Frame 6 (6%)
+Frame 7 (7%)
+Frame 8 (8%)
+Frame 9 (9%)
+Frame 10 (10%)
+Frame 11 (11%)
+Frame 12 (12%)
+Frame 13 (13%)
+Frame 14 (14%)
+Frame 15 (15%)
+Frame 16 (16%)
+Frame 17 (17%)
+Frame 18 (18%)
+Frame 19 (19%)
+Frame 20 (20%)
+Frame 21 (21%)
+Frame 22 (22%)
+Frame 23 (23%)
+Frame 24 (24%)
+Frame 25 (25%)
+Frame 26 (26%)
+Frame 27 (27%)
+Frame 28 (28%)
+Frame 29 (29%)
+Frame 30 (30%)
+Frame 31 (31%)
+Frame 32 (32%)
+Frame 33 (33%)
+Frame 34 (34%)
+Frame 35 (35%)
+Frame 36 (36%)
+Frame 37 (37%)
+Frame 38 (38%)
+Frame 39 (39%)
+Frame 40 (40%)
+Frame 41 (41%)
+Frame 42 (42%)
+Frame 43 (43%)
+Frame 44 (44%)
+Frame 45 (45%)
+Frame 46 (46%)
+Frame 47 (47%)
+Frame 48 (48%)
+Frame 49 (49%)
+Frame 50 (50%)
+Frame 51 (51%)
+Frame 52 (52%)
+Frame 53 (53%)
+Frame 54 (54%)
+Frame 55 (55%)
+Frame 56 (56%)
+Frame 57 (57%)
+Frame 58 (58%)
+Frame 59 (59%)
+Frame 60 (60%)
+Frame 61 (61%)
+Frame 62 (62%)
+Frame 63 (63%)
+Frame 64 (64%)
+Frame 65 (65%)
+Frame 66 (66%)
+Frame 67 (67%)
+Frame 68 (68%)
+Frame 69 (69%)
+Frame 70 (70%)
+Frame 71 (71%)
+Frame 72 (72%)
+Frame 73 (73%)
+Frame 74 (74%)
+Frame 75 (75%)
+Frame 76 (76%)
+Frame 77 (77%)
+Frame 78 (78%)
+Frame 79 (79%)
+Frame 80 (80%)
+Frame 81 (81%)
+Frame 82 (82%)
+Frame 83 (83%)
+Frame 84 (84%)
+Frame 85 (85%)
+Frame 86 (86%)
+Frame 87 (87%)
+Frame 88 (88%)
+Frame 89 (89%)
+Frame 90 (90%)
+Frame 91 (91%)
+Frame 92 (92%)
+Frame 93 (93%)
+Frame 94 (94%)
+Frame 95 (95%)
+Frame 96 (96%)
+Frame 97 (97%)
+Frame 98 (98%)
+Frame 99 (99%)
+Frame 100 (100%)
+Finalizing encoding... done!</code></pre>
+<p><img src="final_project_files/figure-html/map-1.gif" width="576" data-figure-id=fig5 /></p>
+<hr />
+<p>Here is a animated map for the locations for the intake pets for each month of 2020. The red point represents Austin Animal Center. It can be observed that there are more dogs than cats, and there are significantly less pets found during some months. the location were scattered across Austin and its subsidiary areas, and there wasn’t any special patterns to the regions where the pets were found.</p>
+</div>
+</div>
+<div id="packages" class="section level1">
+<h1>Packages</h1>
+<p>Achim Zeileis and Gabor Grothendieck (2005). zoo: S3 Infrastructure for Regular and Irregular Time Series. Journal of Statistical Software, 14(6), 1-27. <a href="doi:10.18637/jss.v014.i06" class="uri">doi:10.18637/jss.v014.i06</a>. R package version 1.8-8.</p>
+<p>Bob Rudis, Ben Bolker and Jan Schulz (2017). ggalt: Extra Coordinate Systems, ‘Geoms’, Statistical Transformations, Scales and Fonts for ‘ggplot2’. R package version 0.4.0. <a href="https://CRAN.R-project.org/package=ggalt" class="uri">https://CRAN.R-project.org/package=ggalt</a></p>
+<p>Bob Rudis and Dave Gandy (2017). waffle: Create Waffle Chart Visualizations in R. R package version 0.7.0. <a href="https://CRAN.R-project.org/package=waffle" class="uri">https://CRAN.R-project.org/package=waffle</a></p>
+<p>C. Sievert. Interactive Web-Based Data Visualization with R, plotly, and shiny. Chapman and Hall/CRC Florida, 2020. R package version 4.9.2.</p>
+<p>D. Kahle and H. Wickham. ggmap: Spatial Visualization with ggplot2. The R Journal, 5(1), 144-161. URL <a href="http://journal.r-project.org/archive/2013-1/kahle-wickham.pdf" class="uri">http://journal.r-project.org/archive/2013-1/kahle-wickham.pdf</a>. R package version 3.0.0.</p>
+<p>Gu, Z. (2014) circlize implements and enhances circular visualization in R. Bioinformatics. R package version 0.4.11.</p>
+<p>Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2020). dplyr: A Grammar of Data Manipulation. R package version 1.0.2. <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a></p>
+<p>H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016. R package version 3.3.2.</p>
+<p>Hadley Wickham and Jim Hester (2020). readr: Read Rectangular Text Data. R package version 1.4.0. <a href="https://CRAN.R-project.org/package=readr" class="uri">https://CRAN.R-project.org/package=readr</a></p>
+<p>Hadley Wickham (2019). stringr: Simple, Consistent Wrappers for Common String Operations. R package version 1.4.0. <a href="https://CRAN.R-project.org/package=stringr" class="uri">https://CRAN.R-project.org/package=stringr</a></p>
+<p>Hadley Wickham (2020). tidyr: Tidy Messy Data. R package version 1.1.2. <a href="https://CRAN.R-project.org/package=tidyr" class="uri">https://CRAN.R-project.org/package=tidyr</a></p>
+<p>Richard Iannone, JJ Allaire and Barbara Borges (2020). flexdashboard: R Markdown Format for Flexible Dashboards. R package version 0.5.2. <a href="https://CRAN.R-project.org/package=flexdashboard" class="uri">https://CRAN.R-project.org/package=flexdashboard</a></p>
+<p>Thomas Lin Pedersen and David Robinson (2020). gganimate: A Grammar of Animated Graphics. R package version 1.0.7. <a href="https://CRAN.R-project.org/package=gganimate" class="uri">https://CRAN.R-project.org/package=gganimate</a></p>
+</div>
+
+</div>
+
+<script>
+
+$(document).ready(function () {
+
+  // add bootstrap table styles to pandoc tables
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+
+  // initialize mathjax
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+  document.getElementsByTagName("head")[0].appendChild(script);
+
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  FlexDashboard.init({
+    theme: "cosmo",
+    fillPage: true,
+    orientation: "columns",
+    storyboard: false,
+    defaultFigWidth: 576,
+    defaultFigHeight: 460,
+    defaultFigWidthMobile: 360,
+    defaultFigHeightMobile: 460,
+    resize_reload: true
+  });
+});
+</script>
+
+</body>
+</html>
