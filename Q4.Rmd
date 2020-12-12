@@ -1,7 +1,5 @@
 ---
 title: "Q4"
-author: "Mary Yu"
-output: html_document 
 ---
 
 ## For the account with the highest number of transactions, make a time series line plot for the behavior of the account over time, including all debits and credits, the different methods, and the with the different categories.

@@ -1,7 +1,5 @@
 ---
 title: "Q3"
-author: "Mary Yu"
-output: html_document
 ---
 
 ## Is there a relationship between a good or bad loan and the time between an account is opened an the loan is created? Is there a specific set of accounts that seem to be at higher or lower risk of defaulting?

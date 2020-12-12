@@ -1,7 +1,5 @@
 ---
 title: "Q2"
-author: "Mary Yu"
-output: html_document
 ---
 
 ## What is the distribution of all loans and what are their characteristics?

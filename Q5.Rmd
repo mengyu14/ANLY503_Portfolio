@@ -1,7 +1,5 @@
 ---
 title: "Q5"
-author: "Mary Yu"
-output: html_document
 ---
 
 ## Explore the validity of the data for the case whether or not an account has a credit card and whether or not they have associated credit card transactions. Is there anything worth noting?
