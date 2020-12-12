@@ -23,8 +23,6 @@ navbar:
         href: Q4.html
       - text: "Visual 5"
         href: Q5.html
-    - text: "Geospatial"
-      href: Geospatial.html
     - text: "Network"
       href: networks.html
     - text: Final Project
