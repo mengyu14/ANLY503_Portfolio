@@ -3,5 +3,20 @@ title: "ANLY 503 Portfolio"
 ---
 
 
-![Arlington, VA](/Users/Mary/Desktop/ANLY 503/ANLY503_Portfolio/img/sky.jpeg)
+![Arlington, VA](/img/sky.jpg)
+
+
 Welcome to my ANLY 503 Portfolio! This portfolio consists of some of my assignments, as well as my final data visualization project. 
+
+Feel free to explore the tabs to see examples of different types of plots. I am a `ggplot` lover, therefore the majority of the plots are made in R. 
+
+Data visualization is a very interesting topic. For me it is one of the best ways to combine my profession with my hobbies. I love painting, drawing, and creating data vizs allow me to keep pursuing for a higher level of aesthetics while still being able to tell stories about the data. It's clear that there are more limitations to data visualizations than pure arts, but I will keep looking for ways to create high-quality visualizations that also brings visual enjoyments.
+
+
+```{css, echo = FALSE}
+p {
+  font-size: 32px;
+  
+}
+
+```
