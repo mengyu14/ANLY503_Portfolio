@@ -51,20 +51,20 @@ Row
 ---------------------------------------------------------------------------------------------
 ### Adoption Poster
 
-![poster (https://gocountry105.com/adoptPet/)](/Users/Mary/Desktop/ANLY 503/anly503-fall2020-project-mengyu14/img/adopt.jpg)
+![poster (https://gocountry105.com/adoptPet/)](/Users/Mary/Desktop/ANLY 503/ANLY503_Portfolio/img/adopt.jpg)
 
 ### Introduction
 
 As pets become more and more popular in households, more stray animals seem to appear on the streets. Organizations and non-profits such as Austin Animal Center dedicates their work towards rescuing animals from the streets and finding them a new home. Animal shelters also accept animals for other reasons such as owner surrender, public assist, and etc.. There has been a lot of calls on adopting over breeding, because adopting pets from shelters does not only save the life of your animal friend, but also gives a chance for the shelter to rescue another animal. However, it's not ideal for everyone to adopt pets from animal shelters. Adoptions are often limited by the pet owner's financial abilities, as well as the pet's condition, breed, age, and etc. It's believed that it can be hard for an animal to be adopted depending on its breed (for example, pit bulls), and the outcomes for cats and dogs can be different. I adopted my cat Bobbie from PetSmart in 2017, therefore I understand how hard it can be for pets to be adopted. I decided to work on this topic with hopes to visualize and provide some insights for the pets that came in/left the Austin Animal Center.
 
 ### Bobbie
-![Image of Bobbie in 2017, 1 month after adoption](/Users/Mary/Desktop/ANLY 503/anly503-fall2020-project-mengyu14/img/bobbie.jpeg)
+![Image of Bobbie in 2017, 1 month after adoption](/Users/Mary/Desktop/ANLY 503/ANLY503_Portfolio/img/bobbie.jpeg)
 
 Row
 ---------------------------------------------------------------------------------------------
 
 ### Austin Animal Center
-![Image of Austin Animal Center, Austin Monitor (https://www.austinmonitor.com)](/Users/Mary/Desktop/ANLY 503/anly503-fall2020-project-mengyu14/img/aac.jpg)
+![Image of Austin Animal Center, Austin Monitor (https://www.austinmonitor.com)](/Users/Mary/Desktop/ANLY 503/ANLY503_Portfolio/img/aac.jpg)
 
 ### Data and Methods
 This project utilizes the pet intake and outcome data sets that were made available by the Austin Animal Center in Texas. The 'Intakes' dataset consists of information of animals that were accepted into the center, for example, time of intake, type of intake (stray, owner surrender, etc.), the location it was found, its approximate age, breed, color, and etc. The 'Outcomes' datasets consists of information of animals that left the center. It consists of the time of outcome, type of outcome (adoption, returned to owner, etc), as well as the breed, age, and color information similar to the 'Intakes' data. 
@@ -72,7 +72,7 @@ The visualizations and the responding data pre-processing were all performed in 
 
 ### Image of Data
 
-![Screenshot of data from data.world (https://data.world/siyeh/austin-animal-center-live-data)](/Users/Mary/Desktop/ANLY 503/anly503-fall2020-project-mengyu14/img/data.png)
+![Screenshot of data from data.world (https://data.world/siyeh/austin-animal-center-live-data)](/Users/Mary/Desktop/ANLY 503/ANLY503_Portfolio/img/data.png)
 
 
 
@@ -565,6 +565,7 @@ geo2020 <- geo_merge_2020 %>%
 
 # API key not included for security purposes
 key <- '<google api key>'
+key <- "AIzaSyDJcsUjO4p4LcllsQUjtjg6-PqcLTz6B4Y"
 ggmap_hide_api_key()
 register_google(key, write = FALSE)
 austin <- geocode("Austin")
