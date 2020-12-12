@@ -37,7 +37,7 @@ Hope you had some fun with these hand-drawn graphs. I hope that you will enjoy t
 
 ```{css, echo = FALSE}
 p {
-  font-size: 25px;
+  font-size: 20px;
   
 }
 

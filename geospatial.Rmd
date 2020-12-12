@@ -1,0 +1,458 @@
+---
+title: "Geospatial Visualizations"
+---
+Visualize the vote outcome and unemployment rate for years 2008, 2012 and 2016. The states included are California, Texas, and Pennsylvania.
+
+## Task 1: Data Extraction (Python)
+
+Use the `reticulate` package to run Python code.
+
+```{r}
+library(reticulate)
+use_virtualenv("/Users/Mary/Library/r-miniconda/envs/r-reticulate/bin/python")
+#py_install("xlrd")
+#py_install("pandas")
+```
+
+Import pandas and use Python to extract useful data from the csv files.
+
+```{python}
+import pandas as pd
+```
+
+```{python}
+# import data
+vote = pd.read_csv("data/countypres_2000-2016.csv")
+unemployment = pd.read_excel("data/Unemployment.xls", skiprows = 7 )
+
+#### extract vote data
+# select years 2008, 2012 and 2016 from vote information
+vote1 = vote[(vote['year']==2008)|(vote['year']==2012)|(vote['year']==2016)]
+
+# calculate vote percentage
+vote1['vote_perc'] = round(vote['candidatevotes']/vote['totalvotes']*100, 2)
+
+# select democrat information only
+vote1 = vote1[(vote1['party']=='democrat')]
+
+# select needed columns
+vote1 = vote1[['year', 'state_po', 'FIPS', 'vote_perc']]
+
+# look and drop NAs
+# vote1[vote1['FIPS'].isnull()]
+vote1 = vote1.dropna()
+
+# change FIPS to type string
+vote1['FIPS'] = vote1['FIPS'].astype(int).astype(str)
+
+# pad leading 0s for FIPS
+vote1['FIPS'] = vote1['FIPS'].apply(lambda x: x.rjust(5, '0'))
+
+# export vote dataframe
+vote1.to_csv('data/vote_info.csv', index = False)
+
+### extract unemployment data
+unemp = unemployment[['FIPStxt', 'Stabr', 'Unemployment_rate_2008', 
+               'Unemployment_rate_2012', 'Unemployment_rate_2016']]
+
+# change FIPStxt to type string
+unemp['FIPStxt'] = unemp['FIPStxt'].astype(int).astype(str)
+
+# pad leading 0s for FIPS
+unemp['FIPStxt'] = unemp['FIPStxt'].apply(lambda x: x.rjust(5, '0'))
+
+# save as csv
+unemp.to_csv('data/unemp_info.csv', index = False)
+
+```
+
+
+## Task 2: Create Choropleths (R)
+
+Import R packages. 
+
+```{r, warning=FALSE, output=FALSE}
+library(dplyr)
+library(tidyr)
+library(readxl)
+library(stringr)
+library(ggplot2)
+library(rgdal)
+library(ggpubr)
+```
+
+Read in data extracted from task 1, read in the shape file.
+
+```{r}
+# read in extracted data
+vote <-  read.csv("data/vote_info.csv", header = TRUE)
+unemp <-  read.csv("data/unemp_info.csv", header = TRUE)
+
+# read in shape file
+# shape file too large, excluded from data folder
+# find data here https://github.com/anly503/anly503-fall2020-a6-mengyu14
+shape <- readOGR("data/tl_2019_us_county-1/tl_2019_us_county.shp")
+```
+
+Draw the choropleths for California's election results for 2008, 2012 and 2016.
+
+```{r}
+# select CA by state id
+shape_ca <- shape[shape@data$STATEFP == "06", ]
+
+# pad the FIPS code 
+vote$FIPS = str_pad(vote$FIPS, 5, pad = "0")
+unemp$FIPStxt = str_pad(unemp$FIPStxt, 5, pad = "0")
+
+# filter out vote results of CA
+vote_ca = vote %>%
+  filter(state_po == "CA")
+
+# merge shape file information with vote information
+shape_ca@data$id <- rownames(shape_ca@data)
+map_ca <- fortify(shape_ca)
+map_ca <- left_join(map_ca, shape_ca@data, by = "id")
+map_ca1 <- merge(map_ca, vote_ca, by.x = "GEOID", by.y = "FIPS", all = TRUE)
+
+# plot the vote information for all three years
+map_ca_08 <- ggplot(map_ca1%>%filter(year == 2008))+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = vote_perc), color = "#828282", size = 0.5)+
+  coord_sf(xlim = c(-125, -113), ylim = c(32, 43),  # determine x and y limits of graph
+           expand = F) +
+  labs(fill = 'Vote won by \nDemocrat(%)') + # change legend name
+  scale_fill_gradient2(limit = c(20, 86), midpoint = 50, low = "#BF0A30", mid = "white",
+                            high = "#002868", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Election Results by County in California, 2008")
+
+map_ca_12 <- ggplot(map_ca1%>%filter(year == 2012))+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = vote_perc), color = "#828282", size = 0.5)+
+  coord_sf(xlim = c(-125, -113), ylim = c(32, 43),  # determine x and y limits of graph
+           expand = F) +
+  labs(fill = 'Vote won by \nDemocrat(%)') + # change legend name
+  scale_fill_gradient2(limit = c(20, 86), midpoint = 50, low = "#BF0A30", mid = "white",
+                            high = "#002868", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Election Results by County in California, 2012")
+
+map_ca_16 <- ggplot(map_ca1%>%filter(year == 2016))+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = vote_perc), color = "#828282", size = 0.5)+
+  coord_sf(xlim = c(-125, -113), ylim = c(32, 43),  # determine x and y limits of graph
+           expand = F) +
+  labs(fill = 'Vote won by \nDemocrat(%)') + # change legend name
+  scale_fill_gradient2(limit = c(20, 86), midpoint = 50, low = "#BF0A30", mid = "white",
+                            high = "#002868", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Election Results by County in California, 2016")
+```
+
+Draw the choropleths for Texas' election results for 2008, 2012 and 2016.
+
+```{r}
+# select TX by state id
+shape_tx <- shape[shape@data$STATEFP == "48", ]
+
+# filter out vote results of TX
+vote_tx = vote %>%
+  filter(state_po == "TX")
+
+# merge shape file information with vote information
+shape_tx@data$id <- rownames(shape_tx@data)
+map_tx <- fortify(shape_tx)
+map_tx <- left_join(map_tx, shape_tx@data, by = "id")
+map_tx1 <- merge(map_tx, vote_tx, by.x = "GEOID", by.y = "FIPS", all = TRUE)
+
+# plot the vote information for all three years
+map_tx_08 <- ggplot(map_tx1%>%filter(year == 2008))+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = vote_perc), color = "#828282")+
+  labs(fill = 'Vote won by \nDemocrat(%)') + # change legend name
+  coord_sf(xlim = c(-107, -93), ylim = c(25.5, 37), expand = F) +
+  scale_fill_gradient2(limit = c(3, 87), midpoint = 50, low = "#BF0A30", mid = "white",
+                            high = "#002868", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Election Results by County in Texas, 2008")
+
+map_tx_12 <- ggplot(map_tx1%>%filter(year == 2012))+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = vote_perc), color = "#828282")+
+  labs(fill = 'Vote won by \nDemocrat(%)') + # change legend name
+  coord_sf(xlim = c(-107, -93), ylim = c(25.5, 37), expand = F) +
+  scale_fill_gradient2(limit = c(3, 87), midpoint = 50, low = "#BF0A30", mid = "white",
+                            high = "#002868", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Election Results by County in Texas, 2012")
+
+map_tx_16 <- ggplot(map_tx1%>%filter(year == 2016))+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = vote_perc), color = "#828282")+
+  labs(fill = 'Vote won by \nDemocrat(%)') + # change legend name
+  coord_sf(xlim = c(-107, -93), ylim = c(25.5, 37), expand = F) +
+  scale_fill_gradient2(limit = c(3, 87), midpoint = 50, low = "#BF0A30", mid = "white",
+                            high = "#002868", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Election Results by County in Texas, 2016")
+```
+
+Draw the choropleths for Pennsylvania's election results for 2008, 2012 and 2016.
+
+```{r}
+# select PA by state id
+shape_pa <- shape[shape@data$STATEFP == "42", ]
+
+# filter out vote results of PA
+vote_pa = vote %>%
+  filter(state_po == "PA")
+
+# merge shape file information with vote information
+shape_pa@data$id <- rownames(shape_pa@data)
+map_pa <- fortify(shape_pa)
+map_pa <- left_join(map_pa, shape_pa@data, by = "id")
+map_pa1 <- merge(map_pa, vote_pa, by.x = "GEOID", by.y = "FIPS", all = TRUE)
+
+# plot the vote information for all three years
+map_pa_08 <- ggplot(map_pa1%>%filter(year == 2008))+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = vote_perc), color = "#828282")+
+  labs(fill = 'Vote won by \nDemocrat(%)') + # change legend name
+  coord_sf(xlim = c(-81, -74), ylim = c(39, 43), expand = F) +
+  scale_fill_gradient2(limit = c(13, 86), midpoint = 50, low = "#BF0A30", mid = "white",
+                            high = "#002868", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Election Results by County in Pennsylvania, 2008")
+
+map_pa_12 <- ggplot(map_pa1%>%filter(year == 2012))+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = vote_perc), color = "#828282")+
+  labs(fill = 'Vote won by \nDemocrat(%)') + # change legend name
+  coord_sf(xlim = c(-81, -74), ylim = c(39, 43), expand = F) +
+  scale_fill_gradient2(limit = c(13, 86), midpoint = 50, low = "#BF0A30", mid = "white",
+                            high = "#002868", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Election Results by County in Pennsylvania, 2012")
+
+map_pa_16 <- ggplot(map_pa1%>%filter(year == 2016))+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = vote_perc), color = "#828282")+
+  labs(fill = 'Vote won by \nDemocrat(%)') + # change legend name
+  coord_sf(xlim = c(-81, -74), ylim = c(39, 43), expand = F) +
+  scale_fill_gradient2(limit = c(13, 86), midpoint = 50, low = "#BF0A30", mid = "white",
+                            high = "#002868", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Election Results by County in Pennsylvania, 2016")
+
+```
+
+Draw the choropleths for California's unemployment rate for 2008, 2012 and 2016.
+
+```{r}
+# filter out unemployment results of CA
+unemp_ca = unemp %>%
+  filter(Stabr == "CA")
+
+map_ca2 <- merge(map_ca, unemp_ca, by.x = "GEOID", by.y = "FIPStxt", all = TRUE)
+
+unemp_ca_08 <- ggplot(map_ca2)+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = Unemployment_rate_2008), color = "#828282", size = 0.5)+
+  coord_sf(xlim = c(-125, -113), ylim = c(32, 43),  # determine x and y limits of graph
+           expand = F) +
+  labs(fill = 'Unemployment \nRate(%)') + # change legend name
+  scale_fill_gradient2(limits = c(0, 28),low = "white", high = "#6a1a91", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Unemployment Rate by County in California, 2008")
+
+unemp_ca_12 <- ggplot(map_ca2)+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = Unemployment_rate_2012), color = "#828282", size = 0.5)+
+  coord_sf(xlim = c(-125, -113), ylim = c(32, 43),  # determine x and y limits of graph
+           expand = F) +
+  labs(fill = 'Unemployment \nRate(%)') + # change legend name
+  scale_fill_gradient2(limits = c(0, 28),low = "white", high = "#6a1a91", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Unemployment Rate by County in California, 2012")
+
+unemp_ca_16 <- ggplot(map_ca2)+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = Unemployment_rate_2016), color = "#828282", size = 0.5)+
+  coord_sf(xlim = c(-125, -113), ylim = c(32, 43),  # determine x and y limits of graph
+           expand = F) +
+  labs(fill = 'Unemployment \nRate(%)') + # change legend name
+  scale_fill_gradient2(limits = c(0, 28),low = "white", high = "#6a1a91", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Unemployment Rate by County in California, 2016")
+```
+
+Draw the choropleths for Texas' unemployment rate for 2008, 2012 and 2016.
+
+```{r}
+
+# filter out unemployment results of TX
+unemp_tx = unemp %>%
+  filter(Stabr == "TX")
+
+map_tx2 <- merge(map_tx, unemp_tx, by.x = "GEOID", by.y = "FIPStxt", all = TRUE)
+
+# plot the unemployment information for all three years
+unemp_tx_08 <- ggplot(map_tx2)+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = Unemployment_rate_2008), color = "#828282")+
+  labs(fill = 'Unemployment \nRate(%)') + # change legend name
+  coord_sf(xlim = c(-107, -93), ylim = c(25.5, 37), expand = F) +
+  scale_fill_gradient2(limits = c(1.5, 16), low = "white", high = "#6a1a91", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Unemployment Rate by County in Texas, 2008")
+
+unemp_tx_12 <- ggplot(map_tx2)+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = Unemployment_rate_2012), color = "#828282")+
+  labs(fill = 'Unemployment \nRate(%)') + # change legend name
+  coord_sf(xlim = c(-107, -93), ylim = c(25.5, 37), expand = F) +
+  scale_fill_gradient2(limits = c(1.5, 16), low = "white", high = "#6a1a91", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Unemployment Rate by County in Texas, 2012")
+
+unemp_tx_16 <- ggplot(map_tx2)+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = Unemployment_rate_2016), color = "#828282")+
+  labs(fill = 'Unemployment \nRate(%)') + # change legend name
+  coord_sf(xlim = c(-107, -93), ylim = c(25.5, 37), expand = F) +
+  scale_fill_gradient2(limits = c(1.5, 16), low = "white", high = "#6a1a91", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Unemployment Rate by County in Texas, 2016")
+```
+
+Draw the choropleths for Pennsylvania's unemployment rate for 2008, 2012 and 2016.
+
+```{r}
+
+# filter out unemployment results of PA
+unemp_pa = unemp %>%
+  filter(Stabr == "PA")
+
+map_pa2 <- merge(map_pa, unemp_pa, by.x = "GEOID", by.y = "FIPStxt", all = TRUE)
+
+# plot the unemployment information for all three years
+unemp_pa_08 <- ggplot(map_pa2)+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = Unemployment_rate_2008), color = "#828282")+
+  labs(fill = 'Unemployment \nRate(%)') + # change legend name
+  coord_sf(xlim = c(-81, -74), ylim = c(39, 43), expand = F) +
+  scale_fill_gradient2(limits = c(3.5, 11), low = "white", high = "#6a1a91", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Unemployment Rate by County in Pennsylvania, 2008")
+
+unemp_pa_12 <- ggplot(map_pa2)+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = Unemployment_rate_2012), color = "#828282")+
+  labs(fill = 'Unemployment \nRate(%)') + # change legend name
+  coord_sf(xlim = c(-81, -74), ylim = c(39, 43), expand = F) +
+  scale_fill_gradient2(limits = c(3.5, 11), low = "white", high = "#6a1a91", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Unemployment Rate by County in Pennsylvania, 2012")
+
+unemp_pa_16 <- ggplot(map_pa2)+ 
+  geom_polygon(aes(x = long, y = lat, group = group, fill = Unemployment_rate_2016), color = "#828282")+
+  labs(fill = 'Unemployment \nRate(%)') + # change legend name
+  coord_sf(xlim = c(-81, -74), ylim = c(39, 43), expand = F) +
+  scale_fill_gradient2(limits = c(3.5, 11), low = "white", high = "#6a1a91", space = "Lab" )+ # change color scale
+  theme_classic()+ # use classic theme and clean x and y axis
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.title = element_blank(),
+        axis.line = element_blank(),
+        legend.key.size = unit(0.2, "cm"))+
+  ggtitle("Unemployment Rate by County in Pennsylvania, 2016")
+```
+
+Arrange the above choropleths into 3x2 panels, separated by state.
+
+
+California:
+```{r}
+ggarrange(map_ca_08, unemp_ca_08,map_ca_12, unemp_ca_12,map_ca_16,  unemp_ca_16,ncol = 2, nrow = 3, align = 'hv')
+```
+
+Texas:
+```{r}
+ggarrange(map_tx_08, unemp_tx_08,map_tx_12, unemp_tx_12,map_tx_16,  unemp_tx_16,ncol = 2, nrow = 3, align = 'hv')
+```
+
+Pennsylvania:
+```{r}
+ggarrange(map_pa_08, unemp_pa_08,map_pa_12, unemp_pa_12,map_pa_16,  unemp_pa_16,ncol = 2, nrow = 3, align = 'hv')
+```
+
+
+

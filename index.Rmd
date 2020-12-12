@@ -2,8 +2,7 @@
 title: "ANLY 503 Portfolio"
 ---
 
-
-![Arlington, VA](/img/sky.jpg)
+![](/Users/Mary/Desktop/ANLY 503/ANLY503_Portfolio/img/sky2.png)
 
 
 Welcome to my ANLY 503 Portfolio! This portfolio consists of some of my assignments, as well as my final data visualization project. 
@@ -15,7 +14,7 @@ Data visualization is a very interesting topic. For me it is one of the best way
 
 ```{css, echo = FALSE}
 p {
-  font-size: 32px;
+  font-size: 20px;
   
 }
 
