@@ -1,10 +1,14 @@
 name: "ANLY503 Portfolio"
 output_dir: "docs"
 navbar:
-  title: "My Website"
+  title: "ANLY503 Portfolio"
   left:
     - text: "Home"
-      href: index.html
+      menu: 
+      - text: "Home"
+        href: index.html
+      - text: "Portfolio GitHub"
+        href: https://github.com/mengyu14/ANLY503_Portfolio/
     - text: "Hand-drawn"
       href: Hand-drawn.html
     - text: "Static Visuals"
@@ -19,8 +23,16 @@ navbar:
         href: Q4.html
       - text: "Visual 5"
         href: Q5.html
+    - text: "Geospasial"
+      href: geospasial.html
     - text: "Network"
       href: networks.html
+    - text: Final Project
+      menu:
+      - text: "Website"
+        href: final_project.html
+      - text: "Final Project GitHub"
+        href: https://github.com/anly503/anly503-fall2020-project-mengyu14
     - text: "About"
       href: about.html
 output:
