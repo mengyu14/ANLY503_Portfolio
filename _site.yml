@@ -5,6 +5,8 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "Hand-drawn"
+      href: Hand-drawn.html
     - text: "Static Visuals"
       menu: 
       - text: "Visual 1"

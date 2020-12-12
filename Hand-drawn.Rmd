@@ -1,0 +1,48 @@
+---
+title: "Hand-drawn Fun"
+---
+
+Suppose you have a dataset that contain information about breast cancer. You have many variables, some of them are Age, Tumor Type (T1, T2, T3, T4), labels for living/deceased, and etc. How would you visualize it? I find it helpful to draw out sketches before diving into the code that performs the magic.
+
+Let's first identify a horrible graph.
+
+![](/Users/Mary/Desktop/ANLY 503/ANLY503_Portfolio/img/1.png)
+
+Although I drew it myself, I acknowledge that it is pretty terrible. No titles, no labels, no colors, nobody knows what's going on. This is what we all try to avoid while visualizing data. Although simplicity is often encouraged, there still needs to be sufficient information to tell the readers what's going on.
+
+Let's pick to variables, Age and Tumor type, and try to arrange them into a standard graph.
+
+![](/Users/Mary/Desktop/ANLY 503/ANLY503_Portfolio/img/2.png)
+This visualization shows the number of cases for each tumor type within each age group. If a particular age group have a large amount of cases for a certain tumor type, it will be reflected on the graph.
+
+We can also make it into the style of news publications, which are usually black, grey and white.
+
+![](/Users/Mary/Desktop/ANLY 503/ANLY503_Portfolio/img/5.png)
+We can also have more fun with it and make it an abstract art piece (not suggested for school work)
+
+![](/Users/Mary/Desktop/ANLY 503/ANLY503_Portfolio/img/6.png)
+When there are a lot of data and you want to raise awareness, it is a good idea to construct a poster-like report, for example, Nicholas Felton style reports.
+
+![](/Users/Mary/Desktop/ANLY 503/ANLY503_Portfolio/img/3.png)
+
+
+Finally, interactive plots can also be helpful. consider this exploding pie chart
+
+![](/Users/Mary/Desktop/ANLY 503/ANLY503_Portfolio/img/7.png)
+This visualization makes it easy to see the percentage of each variable given a previous variable. For example, the percentage of living/deceased patient for each tumor type.
+
+Hope you had some fun with these hand-drawn graphs. I hope that you will enjoy the other sections of this portfolio!
+
+
+
+```{css, echo = FALSE}
+p {
+  font-size: 25px;
+  
+}
+
+```
+
+
+
+
